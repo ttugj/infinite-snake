@@ -37,15 +37,15 @@
 \subsection{Overview}
 This paper is devoted to a simple mechanical
 system with remarkable mathematical properties.
-It is the \emph{infinite snake}: a sequence of 
+The \emph{infinite snake} is a sequence of 
 identical rigid segments, connected by
 planar rotating joints; each segment is
 equipped with a wheel attached in the middle,
 and the wheels roll 
 on a plane with no slipping
-nor skidding (\textbf{figure}). These latter two conditions
-impose non-holonomic constraints on the system's kinematics.
-Our central result is the observation that
+or skidding (\textbf{figure}). The latter condition 
+imposes non-holonomic constraints on the system's kinematics.
+Our central observation is that
 this kinematics realises, in a formal sense, the positive
 subalgebra of the 
 \emph{twisted loop algebra} of $\fsl_2(\RR)$. 
@@ -69,7 +69,7 @@ $$
 where $\theta$ refers to the Cartan involution $u \mapsto -u^T$ on $\fsl_2(\RR)$.
 The latter leads to a decomposition $\fsl_2(\RR) = \fso_2(\RR) \oplus \RR^2$ into eigenspaces,
 and we may describe $L_\theta\fsl_2(\RR)$ as a $\ZZ$-graded Lie algebra with copies of 
-$\fso_2(\RR)$ in even degrees, and of $\RR^2$ in odd degrees.
+$\fso_2(\RR)\simeq\RR$ in even degrees, and of $\RR^2$ in odd degrees.
 The positive subalgebra $L_\theta^+\fsl_2(\RR)$ is the sum of positively graded subspaces:
 $$
 L_\theta^+\fsl_2(\RR) = L_\theta\fsl_2(\RR) \cap t \fsl_2(\RR)[t].
@@ -85,7 +85,7 @@ and proceed with a rather explicit computation.
 
 \subsection{Motivaiton}
 Truncating the snake's tail after finitely many segments
-produces a finite system inheriting some properties from 
+produces a finite system inheriting some properties of 
 its infinite form. 
 These finite snakes are interesting as actual
 robotic systems effectuated by bending the joints (the wheels are passive). 
@@ -120,7 +120,7 @@ Up to the data of segment lengths and wheel positions, these generalised snakes
 are of combinatorial nature; in particular, as graphs, they admit an inductive
 description, where a system is built by attaching edges (with or without wheels)
 one at a time. Working in Nurowski's project, I considered the possibility of exploiting
-such inductive description to compute the symbol at a general configuration.
+such inductive descriptions to compute the symbol at a general configuration.
 A more modest goal would be to predict the snake's \emph{growth vector}: that is
 the sequence $(\rk\sD^i)_{i>0}$; equivalently, we might consider
 $(\rk \gr_iTM)_{i>0}$, i.e. 
@@ -155,7 +155,7 @@ algebra gives the following results:
 A clear pattern emerges -- how does one explain it?
 Up to some irregularity at the `tail', the growth rate
 vector appears to be a string of 2 1 2 1 2 1 2 \dots,
-suggesting that the results for finite snakes may be a shadow
+suggesting that the results for finite snakes may be the shadow
 of a simpler situation in the limit $n\to\infty$. 
 
 There are some remarkable features of the snake to be pointed out in this context.
@@ -180,9 +180,9 @@ ramifications at a 2015 Bedlewo workshop on Nonlinear Control.}
 but actually proving it requires tackling two infinities: the depth of iterated Lie brackets,
 and the length of the snake.
 The former involves straightforward induction on bracket depth.
-The latter is managed by a less obvious \emph{recursion}.
+The latter will be approached through a less obvious \emph{corecursion}.
 
-The recursion is related
+The corecursion is related
 to a particular `symmetry' of the infinite snake that becomes broken
 in its finite sub-snakes:
 namely, the tail, that is the
@@ -194,9 +194,9 @@ tail. We shall furhter twist it using the obvious Euclidean symmetry of the syst
 (since we have already reduced the configuration space by translations,
 we are left with rotations and reflections). 
 
-We haven't really specified the parameterisation identifying the infinite snake's
+So far, we haven't really specified the parameterisation identifying the infinite snake's
 reduced configuration space with $\TT^\infty$. Let us temporarily denote the
-former more abstractly as $M$. On the other hand, identify the configuration space
+former more abstractly as $M$. Now, identify the configuration space
 of the one-segment snake with $\TT$, parameterised by an angle coordinate $\varphi$
 such that $\varphi=0$ corresponds to the segment being aligned with the first
 Cartesian axis (the one associated with $X$). Let $$ \TT \xleftarrow{\pi_h} M \xrightarrow{\pi_t} M $$
@@ -210,7 +210,7 @@ reflection about the first Cartesian axis, and
 rotation by $\vartheta \in \TT$. Define
 $$ R : \TT \times M \to M,\quad R(\vartheta, m) = R_\vartheta(m) $$ 
 and 
-consider the map
+consider the \emph{invertible} map
 $$
 \Phi : M \xrightarrow{\langle \pi_h,\pi_t\rangle} \TT \times M
 \xrightarrow{\langle \pr_1, S \circ R\rangle} \TT \times M.
@@ -229,13 +229,13 @@ With standard angle coordinates $(\varphi_1,\varphi_2,\dots)$ on $\TT^\infty$,
 the above identification corresponds to parameterising the infinite snake
 as in Figure \textbf{[fig!]}.
 
-It turns out that the vector fields $X$, $Y$ admit a convenient recursive
+It turns out that the vector fields $X$, $Y$ admit a convenient corecursive
 description with respect to $\Phi$. Let $\XX^\p(M)$ denote the space of
 smooth projectable vector fields on $M$ (that is an inverse limit of 
-spaces of smooth vector fields on the configuration spaces of finite sub-snakes),
+spaces of smooth projectable vector fields on the configuration spaces of finite sub-snakes),
 and let
 $$ \XX(\TT) \xrightarrow{\iota} \XX^\p(M) \xleftarrow{\Sigma} \XX^\p(M) $$
-be the maps induced by $\Phi : M \to \TT\times M$. Note that these in turn induce
+be the maps induced by $\Phi^{-1} :  \TT\times M \to M$. Note that these in turn induce
 an isomorphism\footnote{For simplicity, at this stage we use
 smooth functions, whence the need for a completed tensor product.
 In Sec.~\ref{sec:algebra} we will actually 
@@ -247,7 +247,7 @@ $$
 $$
 It will be most convenient to complexify and consider
 $Z = X+iY \in \CC\otimes\XX^\p(M)$.
-Then, we find the following recursive formula (see Section~\ref{sec:basic}):
+Then, we find the following corecursive formula (see Section~\ref{sec:basic}):
 $$
 Z = -e^{i\varphi} \left( 
         \Sigma Z + i(\Sigma-1)\iota\partial_\varphi
