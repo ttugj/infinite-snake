@@ -1,0 +1,7 @@
+.*.swp
+*.pdf
+*.aux
+*.log
+*.fdb_latexmk
+*.gz
+*.fls
