@@ -1,6 +1,6 @@
 \documentclass{article}
 \usepackage{amsmath,amsfonts,amssymb,amscd}
-%\usepackage{mathpazo}
+\usepackage{tikz}\usetikzlibrary{fadings}
 \usepackage[osf]{baskervillef}
 \def\fsl{\mathfrak{sl}}
 \def\fso{\mathfrak{so}}
@@ -224,10 +224,31 @@ whose orientation is reflected.
 Iterating the map $\Phi$ produces a sequence of invertible maps
 $\Phi^{(n)} : M \to \TT^n \times M$ and, in the limit,
 an identification 
-$$\Phi^{(\infty)} : M \to \TT^\infty = \varprojlim_{n\to\infty} \TT^n.$$
+$$\pr_1 \circ \Phi^{(\infty)} : M \longrightarrow \TT^\infty = \varprojlim_{n\to\infty} \TT^n.$$
 With standard angle coordinates $(\varphi_1,\varphi_2,\dots)$ on $\TT^\infty$,
 the above identification corresponds to parameterising the infinite snake
-as in Figure \textbf{[fig!]}.
+as in Figure~\ref{fig:param}.
+
+\begin{figure}\begin{center}
+        \begin{tikzpicture}
+                \draw[dashed] (-0.5,0) -- (1.0,0);
+                \draw[line width=1] (0,0) -- (0.8,0.6);
+                \draw[dashed] (0.8,0.6) -- (1.6,1.2); 
+                \draw[line width=1] (0.8,0.6) -- (1.8,0.6); 
+                \draw[dashed] (1.8,0.6) -- (2.8,0.6);
+                \draw[line width=1] (1.8,0.6) -- (2.6,1.2); 
+                \draw[dashed] (2.6,1.2) -- (3.4,1.8); 
+                \draw[line width=1] (2.6,1.2) -- (3.6,1.2); 
+                \draw[line width=1,path fading=east] (3.6,1.2) -- (4.0,1.5);
+                \draw[->] (0.5,0) arc (0:36:0.5); \node at (0.8,0.2) { $\varphi_1$ };
+                \draw[->] (2.3,0.6) arc (0:36:0.5); \node at (2.6,0.8) { $\varphi_3$ };
+                \draw[->] (1.2,0.9) arc (36:0:0.5); \node at (1.6,0.8) { $\varphi_2$ };
+                \draw[->] (3.0,1.5) arc (36:0:0.5); \node at (3.4,1.4) { $\varphi_4$ };
+                \draw[rotate=37,fill] (0,0) ellipse (0.2 and 0.1);        
+        \end{tikzpicture}\end{center}
+        \caption{Parameterisation defined by $\pr_1\circ\Phi^{\infty} : M \to \TT^\infty$.
+        \label{fig:param}}
+\end{figure}
 
 It turns out that the vector fields $X$, $Y$ admit a convenient corecursive
 description with respect to $\Phi$. Let $\XX^\p(M)$ denote the space of
