@@ -393,16 +393,23 @@ $$
 f'g'\otimes\omega(\alpha,\beta) 
 + f(x\cdot g')\otimes\beta - g(y\cdot f)\otimes\alpha
 \end{matrix}\right].$$
-Now, consider the filtration $F^k\fM = \langle \Sigma\rangle^k \fM$
-and
-the induced filtration 
-$$ F^k \Hom(\Lambda^2\fM,\fM) = \{ \omega : \Lambda^2\fM\to\fM\ |\ 
-        \omega(F^i\fM, F^j\fM) \subset F^{i+j+k}\fM.
-\} $$
-We claim that $\Phi$ is a `contraction mapping' in the sense that
+In particular, $\Phi$ is a `contraction mapping' in the sense
+that
 $$
- \omega_1 - \omega_2 \in F^k \implies \Phi(\omega_1)-\Phi(\omega_2) \in F^{k+1}.
+\omega_1 - \omega_2 \in \Hom(\Lambda^2\fM, \langle\Sigma\rangle^k \fM) \implies 
+\Phi(\omega_1)-\Phi(\omega_2) \in \Hom(\Lambda^2\fM,\langle\Sigma\rangle^{k+1}\fM).
 $$
+It follows that, given $\omega_0 \in \Hom(\Lambda^2\fM,\fM)$, we have
+a well-defined limit
+$$\Phi^\infty(\omega_0) \in \Hom(\Lambda^2\fM, \widehat\fM)$$
+satisfying
+$$\Phi^\infty(\omega_0) \equiv \Phi^k(\omega_0)\quad\textrm{mod $\Hom(\Lambda^2\fM, \langle\Sigma\rangle^k\fM)$}. $$
+It remains to check that $\Phi^\infty(\omega_0)$ is actually
+contained in $\Hom(\Lambda^2\fM,\fM)$
+rather than the completion, for it would then be the unique fixed point of $\Phi$,
+and necessarily contained in $B_\pi$ since we may choose $\omega_0 \in B$.
+
+
 \end{proof}
 
 We shall henceforth use the structure
