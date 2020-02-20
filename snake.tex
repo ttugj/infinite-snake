@@ -20,6 +20,7 @@
 \def\XX{\mathcal{X}}
 \DeclareMathOperator{\Der}{\mathrm{Der}}
 \DeclareMathOperator{\End}{\mathrm{End}}
+\DeclareMathOperator{\Hom}{\mathrm{Hom}}
 \DeclareMathOperator{\wt}{\mathrm{wt}}
 \DeclareMathOperator{\gr}{\mathrm{gr}}
 \DeclareMathOperator{\rk}{\mathrm{rk}}
@@ -340,7 +341,7 @@ $$ [f\otimes x, g\otimes y] = fg[x,y]_{\fsl_2} + f(x\cdot g)y-g(y\cdot f)x $$
 for $x,y\in\fsl_2$ and $f,g\in\CC[z^{\pm1}]$.
 This Lie algebra then acts on $\CC[z^{\pm1}]$ by derivations.
 
-\begin{lem}\label{lem:m}
+\begin{prop}\label{pro:m}
         There is a unique Lie algebra structure on $\fM$ such that
         \eqref{eq:ses-m} becomes a split short exact sequence of Lie algebras, with:
         \begin{enumerate}
@@ -351,9 +352,7 @@ This Lie algebra then acts on $\CC[z^{\pm1}]$ by derivations.
                 \item  (twisting) $\CC[z^{\pm1}]\otimes\fsl_2$ acting on $\CC[z^{\pm1}]\otimes_\CC\fM$
                        via its natural action on the first factor.
         \end{enumerate}
-        With this structure, $\langle\Sigma\rangle^k\fM$ is a Lie ideal for each $k>0$,
-        so that the structure extends naturally to the completion $\widehat\fM$.
-\end{lem}
+\end{prop}
 
 \begin{proof}
         Note that a split short exact sequence such as \eqref{eq:ses-m},
@@ -362,15 +361,57 @@ This Lie algebra then acts on $\CC[z^{\pm1}]$ by derivations.
         would normally define a Lie algebra structure on the middle term.
         Here however, the structure on the kernel $\CC[z^{\pm1}]\otimes_\CC\fM$
         is defined in terms of the very Lie algebra structure on $\fM$ we wish
-        to define, leading to (co)recursion.
+        to define!
 
-        ...
+        Let us denote by $B \subset \Hom(\Lambda^2\fM,\fM)$ the set 
+        of Lie algebra structures on $\fM$, and
+        by $B_\pi\subset B$ the subset of structures for which $\pi$ becomes
+        a Lie algebra homomorphism (onto the Lie-Rinehart algebra).
+        Given $b \in B$, write $\fM_b$ for $\fM$ equipped with the Lie algebra
+        structure $b$. Then, the short exact sequence \eqref{eq:ses-m} lifts
+        to a sequence of Lie algebra homomorphisms
+        $$ 0 \to \CC[z^{\pm1}]\otimes_\CC \fM_b \to \fM_{b'} \rightleftarrows \CC[z^{\pm1}]\otimes\fsl_2\to 0$$
+        for a unique $b' \in B_\pi$ such that
+        the conditions (1), (2), (3) of the Lemma are satisfied.
+
+        This defines a self-map $b\mapsto b'$ of $B$ with image
+        contained in $B_\pi$. To prove the Lemma 
+        we need to show that $b\mapsto b'$ possesses a unique fixed point.
+        Note that the map extends to an \emph{affine} self-map 
+        $$\Phi : \Hom(\Lambda^2\fM,\fM) \to \Hom(\Lambda^2\fM,\fM)$$ such that $b'=\Phi(b)$.
+        Indeed, given $\omega \in \Hom(\Lambda^2\fM,\fM)$ we use
+        the split exact sequence to decompose
+        $$ \fM \simeq \left(\CC[z^{\pm1}]\otimes\fsl_2\right) \oplus \left(\CC[z^{\pm1}]\otimes\fM\right) $$ 
+        and then write $\Phi(\omega)=\omega'$ with
+$$ 
+\omega'\left(
+\left[\begin{matrix}f\otimes x \\ f'\otimes\alpha\end{matrix}\right], \left[\begin{matrix}g\otimes y \\ g'\otimes\beta\end{matrix}\right]\right) 
+= 
+\left[\begin{matrix}
+[f\otimes x,g\otimes y]_{\CC[z^{\pm1}]\otimes\fsl_2} 
+\\
+f'g'\otimes\omega(\alpha,\beta) 
++ f(x\cdot g')\otimes\beta - g(y\cdot f)\otimes\alpha
+\end{matrix}\right].$$
+Now, consider the filtration $F^k\fM = \langle \Sigma\rangle^k \fM$
+and
+the induced filtration 
+$$ F^k \Hom(\Lambda^2\fM,\fM) = \{ \omega : \Lambda^2\fM\to\fM\ |\ 
+        \omega(F^i\fM, F^j\fM) \subset F^{i+j+k}\fM.
+\} $$
+We claim that $\Phi$ is a `contraction mapping' in the sense that
+$$
+ \omega_1 - \omega_2 \in F^k \implies \Phi(\omega_1)-\Phi(\omega_2) \in F^{k+1}.
+$$
 \end{proof}
 
 We shall henceforth use the structure
-described in Lemma~\ref{lem:m} as \empy{the} Lie algebra structure
+described in Proposition~\ref{pro:m} as \emph{the} Lie algebra structure
 on $\fM$.
-
+\begin{lem}\label{lem-mhat}
+        $\langle\Sigma\rangle^k\fM$ is a Lie ideal for each $k>0$,
+        so that the Lie algebra structure of $\fM$ extends naturally to the completion $\widehat\fM$.
+\end{lem}
 \begin{defn}
         The \emph{abstract serpentine Lie algebra} is 
         the smallest $\tau$-stable subalgebra of $\widehat \fM$
