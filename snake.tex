@@ -26,6 +26,11 @@
 \DeclareMathOperator{\rk}{\mathrm{rk}}
 \DeclareMathOperator{\pr}{\mathrm{pr}}
 \DeclareMathOperator{\id}{\mathrm{id}}
+
+\def\e{\mathsf{e}}
+\def\h{\mathsf{h}}
+\def\f{\mathsf{f}}
+
 \def\p{\mathrm{p}}
 \def\sm{\mathrm{sm}}
 \title{Taming the infinite snake}
@@ -307,7 +312,7 @@ Then, passing to real forms we conclude with $\fS\simeq L_\theta^+\fsl_2(\RR)$.
 \subsection{Algebraic setup}
 We work with the following objects:
 \begin{align*}
-        \fsl_2&=\CC\langle e,h,f\rangle & & [h,e]=2e\ [h,f]=-2f,\ [f,e]=h \\
+        \fsl_2&=\CC\langle \e,\h,\f\rangle & & [\h,\e]=2\e\ [\h,\f]=-2\f,\ [\f,\e]=\h \\
         A  &= \CC\{z^{\pm1},\Sigma\} & & \textrm{(non-commutative $\CC$-algebra)} \\
         \fM  &= A \otimes \fsl_2       & & \textrm{(left $A$-module)}
 \end{align*}
@@ -321,9 +326,9 @@ $$
 \fsl_2 \xrightarrow{\tau} \fsl_2,\quad A \xrightarrow{\tau} A,\quad \fM \xrightarrow{\tau} \fM,\quad \dots
 $$
 where
-$e^\tau=-f$, $h^\tau=h$, $f^\tau=-e$, $z^\tau=z^{-1}$ and $\Sigma^\tau=\Sigma$.
+$\e^\tau=-\f$, $\h^\tau=\h$, $\f^\tau=-\e$, $z^\tau=z^{-1}$ and $\Sigma^\tau=\Sigma$.
 The Lie algebra $\fsl_2$ acts on $\CC[z^{\pm1}] \subset A$:
-$$ e\cdot z^p=pz^{p+1},\quad h\cdot z^p=2pz^p,\quad f\cdot z^p=pz^{p-1}, $$ 
+$$ \e\cdot z^p=pz^{p+1},\quad \h\cdot z^p=2pz^p,\quad \f\cdot z^p=pz^{p-1}, $$ 
 and the action is compatible with $\tau$.
 
 Our next goal is to introduce a Lie algebra structure on 
@@ -460,7 +465,7 @@ In fact, these extend to $\widehat\fM$:
         $\CC[z^{\pm1}]\Sigma\langle\Sigma\rangle^{k-1}\fM = \langle\Sigma\rangle^k\fM$.
 \end{proof}
 \begin{lem}\label{lem-mtau}
-        $\tau$ is compatible with the Lie algebra structure on $\fM$ (resp. $\widehat \fM$).
+        The involution $\tau$ is compatible with the Lie algebra structure on $\fM$ (resp. $\widehat \fM$).
 \end{lem}
 \begin{proof}
         Note first that $\tau$ is compatible with the Lie-Rinehart algebra structure on 
@@ -477,7 +482,7 @@ In fact, these extend to $\widehat\fM$:
         The \emph{abstract serpentine Lie algebra} is 
         the smallest $\tau$-stable subalgebra of $\widehat \fM$
         containing an element $\zeta$ satisfying
-        $\zeta + z\Sigma(\zeta - h/2) - e = 0$.
+        $\zeta + z\Sigma(\zeta - \h/2) - \e = 0$.
 \end{defn}
 
 \begin{lem}
