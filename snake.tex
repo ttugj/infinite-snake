@@ -337,7 +337,7 @@ split short exact sequence of $\CC[z^{\pm1}]$-modules:
 \end{equation}
 Observe that the $\fsl_2$-action on $\CC[z^{\pm1}]$ equips
 the factor $\CC[z^{\pm1}]\otimes\fsl_2$ with a Lie-Rinehart algebra structure:
-$$ [f\otimes x, g\otimes y] = fg[x,y]_{\fsl_2} + f(x\cdot g)y-g(y\cdot f)x $$
+$$ [f x, g y] = fg[x,y]_{\fsl_2} + f(x\cdot g)y-g(y\cdot f)x $$
 for $x,y\in\fsl_2$ and $f,g\in\CC[z^{\pm1}]$.
 This Lie algebra then acts on $\CC[z^{\pm1}]$ by derivations.
 
@@ -439,13 +439,25 @@ $b \in B$, and in fact $b = \Phi(b) \in B_\pi$.
 
 We shall henceforth use the structure
 described in Proposition~\ref{pro:m} as \emph{the} Lie algebra structure
-on $\fM$.
-
-
+on $\fM$. It is convenient to list explicit equations allowing for
+recursive calculation:
+\begin{align}
+        [f x, g y] &= fg[x,y]_{\fsl_2} + f(x\cdot g)y-g(y\cdot f)x \label{eq:str00} \\
+        [f x, g \Sigma \alpha] &=f (x\cdot g)\Sigma\alpha \label{eq:str01} \\
+        [f \Sigma\alpha, g\Sigma\beta ] &= fg \Sigma[\alpha,\beta] \label{eq:str11}
+\end{align}
+for $f,g \in \CC[z^{\pm1}]$; $x,y \in \fsl_2$; $\alpha,\beta \in \fM$.
+In fact, these extend to $\widehat\fM$:
 \begin{lem}\label{lem-mhat}
         $\langle\Sigma\rangle^k\fM$ is a Lie ideal for each $k>0$,
         so that the Lie algebra structure of $\fM$ extends naturally to the completion $\widehat\fM$.
 \end{lem}
+\begin{proof}
+        Proceed by induction on $k$, with the base case $k=0$ being trivial.
+        Assume $\langle \Sigma\rangle^{k-1}\fM$ is a Lie ideal in $\fM$.
+        Then, by \eqref{eq:str01} and \eqref{eq:str11}, so is
+        $\CC[z^{\pm1}]\Sigma\langle\Sigma\rangle^{k-1}\fM = \langle\Sigma\rangle^k\fM$.
+\end{proof}
 \begin{defn}
         The \emph{abstract serpentine Lie algebra} is 
         the smallest $\tau$-stable subalgebra of $\widehat \fM$
