@@ -326,7 +326,8 @@ The Lie algebra $\fsl_2$ acts on $\CC[z^{\pm1}] \subset A$:
 $$ e\cdot z^p=pz^{p+1},\quad h\cdot z^p=2pz^p,\quad f\cdot z^p=pz^{p-1}, $$ 
 and the action is compatible with $\tau$.
 
-There is a split short exact sequence
+Our next goal is to introduce a Lie algebra structure on 
+$\fM$ and $\widehat\fM$. There is a split short exact sequence
 $$ 0 \to \CC[z^{\pm1}]\otimes_\CC A \xrightarrow{\iota} A \rightleftarrows \CC[z^{\pm1}] \to 0 $$
 of $\CC[z^{\pm1}]$-modules, with $\iota(f\otimes a) = f\Sigma a$
 and the image of $\iota$ identified with $\langle\Sigma\rangle$. This induces
@@ -458,6 +459,20 @@ In fact, these extend to $\widehat\fM$:
         Then, by \eqref{eq:str01} and \eqref{eq:str11}, so is
         $\CC[z^{\pm1}]\Sigma\langle\Sigma\rangle^{k-1}\fM = \langle\Sigma\rangle^k\fM$.
 \end{proof}
+\begin{lem}\label{lem-mtau}
+        $\tau$ is compatible with the Lie algebra structure on $\fM$ (resp. $\widehat \fM$).
+\end{lem}
+\begin{proof}
+        Note first that $\tau$ is compatible with the Lie-Rinehart algebra structure on 
+        $\CC[z^{\pm1}]\otimes\fsl_2$. Now, let $\alpha,\beta \in \fM$.
+        By construction of the Lie algebra structure on $\fM$
+        and induction on $k$,
+        we have that $[\alpha^\tau,\beta^\tau] - [\alpha,\beta]^\tau \in \langle\Sigma\rangle^k\fM$
+        for all $k\ge0$. Since $\bigcap_k\langle\Sigma\rangle^k\fM=0$, it follows that
+        $[\alpha^\tau,\beta^\tau]=[\alpha,\beta]^\tau$. Finally, the same holds for $\widehat\fM$
+        by continuity of $\tau$ with respect to the $\Sigma$-adic topology.
+\end{proof}
+
 \begin{defn}
         The \emph{abstract serpentine Lie algebra} is 
         the smallest $\tau$-stable subalgebra of $\widehat \fM$
