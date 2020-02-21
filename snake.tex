@@ -348,21 +348,29 @@ on $v \in T_m M_1$ becomes
         \label{eq:seg-cons}
         (p_{0*}v + p_{1*}v) \wedge \varphi(m) = 0\quad \textrm{in}\ \Lambda^2\RR^2.
 \end{equation}
+Let us further identify $T_{\varphi(m)}\TT \simeq \RR$  and $\Lambda^2\RR^2 \simeq \RR$
+using the Euclidean structure on $\RR^2$.
 \begin{lem}\label{lem:seg-trans}
         Suppose $v \in T_m M_1$ satisfies \eqref{eq:seg-cons}. Then
-        $$p_{1*}v = S_{\varphi(m)} (p_{0*}v)$$
+        \begin{align}
+                p_{1*}v & = S_{\varphi(m)} (p_{0*}v),\\
+                \varphi_*v&= -2\varphi(m)\wedge p_{0*}v,
+        \end{align}
         where $S_u \in \End\RR^2$ denotes reflection in the axis $\RR u$ for $u \in \TT$.
 \end{lem}
-In other words, the infinitesimal motions of the two endpoints
-are related by a reflection in the axis spanned by the segment,
-see Figure~\ref{fig:seg}.
 \begin{proof}
         Let $P_u \in \End\RR^2$ be the orthogonal projection onto $\RR u$ for $u \in \TT$.
         By \eqref{eq:seg-cons}, $(1-P_{\varphi(m)}) p_{1*}v = - (1-P_{\varphi(m)}) p_{0*}v$. On the other hand,
         differentiating \eqref{eq:seg-rel} we have $P_{\varphi(m)} p_{1*}v=P_{\varphi(m)} p_{0*}v$. It follows that
-        $p_{1*}v = (2P_{\varphi(m)}-1)p_{0*v} = S_{\varphi(m)}p_{0*v}$.
+        $p_{1*}v = (2P_{\varphi(m)}-1)p_{0*v} = S_{\varphi(m)}p_{0*v}$, proving the first formula.
+        Using \eqref{eq:seg-rel} again 
+        we have $$\varphi_* v = p_{1*}v-p_{0*}v = (S_{\varphi(m)}-1) (p_{0*}v) = -2(1-P_{\varphi(m)}) (p_{0*}v).$$
+        Since $(u\wedge) \circ (1-P_u) = (u\wedge)$ for $u \in \TT$, the second formula follows.
 \end{proof}
-
+In other words, the infinitesimal motions of the two endpoints
+are related by a reflection in the axis spanned by the segment,
+see Figure~\ref{fig:seg}. As a consequence, movement of the first endpoint 
+determines that of the second endpoint, and thus of the entire segment.
 
 
 \subsection{Growing the tail}
