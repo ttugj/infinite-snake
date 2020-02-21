@@ -239,7 +239,7 @@ With standard angle coordinates $(\varphi_1,\varphi_2,\dots)$ on $\TT^\infty$,
 the above identification corresponds to parameterising the infinite snake
 as in Figure~\ref{fig:param}.
 
-\begin{figure}\begin{center}
+\begin{figure}\begin{center} % snake, parameterisation
         \begin{tikzpicture}
                 \draw[dashed] (-0.5,0) -- (1.0,0);
                 \draw[line width=1] (0,0) -- (0.8,0.6);
@@ -302,6 +302,33 @@ Then, passing to real forms we conclude with $\fS\simeq L_\theta^+\fsl_2(\RR)$.
 \section{Basic construction}
 \label{sec:basic}
 \subsection{A single segment}
+Given the inductive construction of the snake system,
+it is clear we need to begin with studying the behaviour of a single
+segment. We are interested with how the single segment's kinematics
+translate the motions of one endpoint into those of the other -- for then,
+viewing the infinite snake as a chain of segments, we will be able
+to propagate the motions of its head toward subsequent joints, along the tail. 
+Remarkably, the Lie algebra $\fsl_2(\RR)$ shows up already at this stage. 
+What
+we state here is not new, and may be pursued far deeper (cf. {\bf[Bor-Levi-Perline-Tabachnikov]})
+
+\begin{figure} % one segment; transfer
+        \begin{center}\begin{tikzpicture}[scale=0.6]
+                \draw[line width=2] (0,0) -- (4,3);
+                \draw[dashed] (-1.2,-0.9) -- (5.2,3.9);
+                \draw (1.95,1.15) -- (2.35,1.45);
+                \draw (1.65,1.55) -- (2.05,1.85);
+                \draw[->, line width=1] (0,0) -- (-2,0);
+                \draw[->] (0,0) -- (-0.56,-1.92);
+                \draw[->,line width=1] (4,3) -- (3.44,1.08);
+                \draw (-1,0) arc (180:216:1);
+                \draw (3.2,2.4) arc (216:252:1);
+                \draw (-0.72,-0.54) arc (216:252:0.9);
+        \end{tikzpicture}\end{center}
+        \caption{End-to-end translation in a single segment (all indicated angles
+        are equal).\label{fig:seg}}
+\end{figure}
+
 
 \subsection{Growing the tail}
 
