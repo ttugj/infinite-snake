@@ -8,6 +8,7 @@
 \def\fL{\mathfrak{L}}
 \def\fA{\mathfrak{A}}
 \def\fM{\mathfrak{M}}
+\def\fm{\mathfrak{m}}
 \def\fS{\mathfrak{S}}
 \def\sA{\mathcal{A}}
 \def\sR{\mathcal{R}}
@@ -18,6 +19,7 @@
 \def\CC{\mathbb{C}}
 \def\TT{\mathbb{T}}
 \def\XX{\mathcal{X}}
+\def\SO{\mathsf{SO}}
 \DeclareMathOperator{\Der}{\mathrm{Der}}
 \DeclareMathOperator{\End}{\mathrm{End}}
 \DeclareMathOperator{\Hom}{\mathrm{Hom}}
@@ -353,7 +355,7 @@ using the Euclidean structure on $\RR^2$.
 \begin{lem}\label{lem:seg-trans}
         Suppose $v \in T_m M_1$ satisfies \eqref{eq:seg-cons}. Then
         \begin{align}
-                p_{1*}v & = S_{\varphi(m)} (p_{0*}v),\\
+                p_{1*}v & = S_{\varphi(m)}\  p_{0*}v,\\
                 \varphi_*v&= -2\varphi(m)\wedge p_{0*}v,
         \end{align}
         where $S_u \in \End\RR^2$ denotes reflection in the axis $\RR u$ for $u \in \TT$.
@@ -364,14 +366,44 @@ using the Euclidean structure on $\RR^2$.
         differentiating \eqref{eq:seg-rel} we have $P_{\varphi(m)} p_{1*}v=P_{\varphi(m)} p_{0*}v$. It follows that
         $p_{1*}v = (2P_{\varphi(m)}-1)p_{0*v} = S_{\varphi(m)}p_{0*v}$, proving the first formula.
         Using \eqref{eq:seg-rel} again 
-        we have $$\varphi_* v = p_{1*}v-p_{0*}v = (S_{\varphi(m)}-1) (p_{0*}v) = -2(1-P_{\varphi(m)}) (p_{0*}v).$$
-        Since $(u\wedge) \circ (1-P_u) = (u\wedge)$ for $u \in \TT$, the second formula follows.
+        we have $$\varphi_* v = p_{1*}v-p_{0*}v = (S_{\varphi(m)}-1) (p_{0*}v) = -2(1-P_{\varphi(m)}) (p_{0*}v)$$
+        in $\RR^2$.
+        Since $(u\wedge) \circ (1-P_u) = (u\wedge)$ for $u \in \TT$, the second formula follows
+        once one identifies $T_{\varphi(m)}\TT\simeq\RR\simeq\Lambda^2\RR^2$.
 \end{proof}
 In other words, the infinitesimal motions of the two endpoints
 are related by a reflection in the axis spanned by the segment,
 see Figure~\ref{fig:seg}. As a consequence, movement of the first endpoint 
-determines that of the second endpoint, and thus of the entire segment.
+determines that of the second endpoint, a property we will use to
+propagate motion along the actual snake. 
 
+It also determines the evolution of the orientation of the segment.
+Let us consider the map
+$$ \xi : \RR^2 \xrightarrow{ p_{0*}^{-1}}  \XX(M_1)^{\RR^2} \xrightarrow{\varphi_*} \XX(\TT) $$
+where $\XX(M_1)^{\RR^2}$ is the space of vector fields on $M_1$
+invariant under the translation action of $\RR^2$ (and thus with well-defined projections onto
+$\TT$). Given a vector $v \in \RR^2$, dragging the first endpoint
+of the segment along $v$ produces $\xi(v)$ as the corresponding
+vector field on the \emph{reduced} configuration space $\TT$ of the segment.
+Remarkably, these vector fields generate the `standard' infinitesimal action of $\fsl_2(\RR)$
+on the circle.
+\begin{lem}
+        Let $\fsl_2(\RR) = \fso_2(\RR) \oplus \fm$ be the decomposition
+        of the Lie algebra $\fsl_2(\RR)$ into eigenspaces of the Cartan
+        involution $x\mapsto-x^T$. Then there exists a Lie algebra monomorphism
+        $$ \eta : \fsl_2(\RR) \to \XX(\TT) $$
+        and an $\SO_2(\RR)$-equivariant isomorphism $\fm\simeq\RR^2$
+        such that:
+        \begin{enumerate}
+                \item $\eta|_{\fso_2(\RR)}$ acts naturally by infinitesimal rotations of $\TT\subset \RR^2$,
+                \item $\eta|_\fm$ coincides with $\xi$ under $\fm\simeq\RR^2$.
+        \end{enumerate}
+        In fact, $\eta$ is uniquely determined by condition (1) alone.
+\end{lem}
+\begin{proof}
+        Let us compute explicitly with a standard Euclidean basis $e_1,e_2 \in \RR^2$
+        and an angle coordinate $\phi$ on $\TT$. ...
+\end{proof}
 
 \subsection{Growing the tail}
 
