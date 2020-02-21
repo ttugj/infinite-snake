@@ -398,11 +398,25 @@ on the circle.
                 \item $\eta|_{\fso_2(\RR)}$ acts naturally by infinitesimal rotations of $\TT\subset \RR^2$,
                 \item $\eta|_\fm$ coincides with $\xi$ under $\fm\simeq\RR^2$.
         \end{enumerate}
-        In fact, $\eta$ is uniquely determined by condition (1) alone.
 \end{lem}
 \begin{proof}
         Let us compute explicitly with a standard Euclidean basis $e_1,e_2 \in \RR^2$
-        and an angle coordinate $\phi$ on $\TT$. ...
+        and an angle coordinate $\phi$ on $\TT$. Let
+        \begin{align*}
+               2r &= e_2\otimes e_1^* - e_1\otimes e_2^* \\
+               2p &= e_2\otimes e_1^* + e_1\otimes e_2^* \\
+               2q & =e_1\otimes e_1^* - e_2\otimes e_2^*
+        \end{align*}
+        so that $\fso_2(\RR) = \langle r\rangle$, $\fm = \langle p,q\rangle$
+        and we have
+        $[r, p]= -q$, $[r,q]=p$, $[p,q]=r$.
+        By (1), we have $\eta(r) = \frac{1}{2}\partial_\phi$.
+        Then, writing $\eta(p) = f_p(\phi)\partial_\phi$ and $\eta(q) = f_q(\phi)\partial_\phi$ and
+        imposing the above Lie brackets,
+        one finds 
+        $$ \eta(p) = \cos\phi\partial_\phi,\quad \eta(q) = \sin\phi\partial_\phi $$
+        \emph{up to conjugation} by $\SO_2(\RR)$.
+        .....
 \end{proof}
 
 \subsection{Growing the tail}
