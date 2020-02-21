@@ -329,6 +329,41 @@ we state here is not new, and may be pursued far deeper (cf. {\bf[Bor-Levi-Perli
         are equal).\label{fig:seg}}
 \end{figure}
 
+Let $M_1$ be the configuration space of the single segment, moving along
+a Euclidean plane identified with $\RR^2$.
+Assume the segment has unit length, and fix an ordering of its two endpoints.
+We then have three well-defined projections:
+$$
+ \varphi : M_1 \to \TT,\quad p_0, p_1 : M_1 \rightrightarrows \RR^2
+$$
+mapping the segment's configuration to, respectively,
+its orientation, and the positions of the two endpoints.
+Identifying $\TT$ with the unit circle in $\RR^2$, we have the relation
+\begin{equation}\label{eq:seg-rel} p_1(m) - p_0(m) = \varphi(m)\quad\textrm{for}\ m \in M_1.\end{equation}
+Identifying $T_{p_0(m)}\RR^2, T_{p_1(m)}\RR^2$ with $\RR^2$
+using the Euclidean structure,
+the no-slip-or-skid condition
+on $v \in T_m M_1$ becomes 
+\begin{equation}
+        \label{eq:seg-cons}
+        (p_{0*}v + p_{1*}v) \wedge \varphi(m) = 0\quad \textrm{in}\ \Lambda^2\RR^2.
+\end{equation}
+\begin{lem}\label{lem:seg-trans}
+        Suppose $v \in T_m M_1$ satisfies \eqref{eq:seg-cons}. Then
+        $$p_{1*}v = S_{\varphi(m)} (p_{0*}v)$$
+        where $S_u \in \End\RR^2$ denotes reflection in the axis $\RR u$ for $u \in \TT$.
+\end{lem}
+In other words, the infinitesimal motions of the two endpoints
+are related by a reflection in the axis spanned by the segment,
+see Figure~\ref{fig:seg}.
+\begin{proof}
+        Let $P_u \in \End\RR^2$ be the orthogonal projection onto $\RR u$ for $u \in \TT$.
+        By \eqref{eq:seg-cons}, $(1-P_{\varphi(m)}) p_{1*}v = - (1-P_{\varphi(m)}) p_{0*}v$. On the other hand,
+        differentiating \eqref{eq:seg-rel} we have $P_{\varphi(m)} p_{1*}v=P_{\varphi(m)} p_{0*}v$. It follows that
+        $p_{1*}v = (2P_{\varphi(m)}-1)p_{0*v} = S_{\varphi(m)}p_{0*v}$.
+\end{proof}
+
+
 
 \subsection{Growing the tail}
 
