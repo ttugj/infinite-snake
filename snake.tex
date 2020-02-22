@@ -401,22 +401,17 @@ on the circle.
 \end{lem}
 \begin{proof}
         Let us compute explicitly with a standard Euclidean basis $e_1,e_2 \in \RR^2$
-        and an angle coordinate $\phi$ on $\TT$. Let
-        \begin{align*}
-               2r &= e_2\otimes e_1^* - e_1\otimes e_2^* \\
-               2p &= e_2\otimes e_1^* + e_1\otimes e_2^* \\
-               2q & =e_1\otimes e_1^* - e_2\otimes e_2^*
-        \end{align*}
-        so that $\fso_2(\RR) = \langle r\rangle$, $\fm = \langle p,q\rangle$
-        and we have
-        $[r, p]= -q$, $[r,q]=p$, $[p,q]=r$.
-        By (1), we have $\eta(r) = \frac{1}{2}\partial_\phi$.
+        and an angle coordinate $\phi$ on $\TT$. Let $r \in \fso_2(\RR)$ be a generator
+        acting as $\eta(r)=\partial_\phi$ (thus satisfying condition (1) of the Lemma), 
+        and $p,q \in \fm$ a basis such that
+        $[r,p]=-q$, $[r,q]=p$, $[p,q]=r$.
         Then, writing $\eta(p) = f_p(\phi)\partial_\phi$ and $\eta(q) = f_q(\phi)\partial_\phi$ and
         imposing the above Lie brackets,
         one finds 
-        $$ \eta(p) = \cos\phi\partial_\phi,\quad \eta(q) = \sin\phi\partial_\phi $$
-        \emph{up to conjugation} by $\SO_2(\RR)$.
-        .....
+        $$ \eta(p) = \cos(\phi-\phi_0)\ \partial_\phi,\quad \eta(q) = \sin(\phi-\phi_0)\partial_\phi $$
+        for some $\phi_0$. Choosing $\phi_0=-\pi/2$ makes the isomorphism
+        $$ \RR^2 \to \fm,\quad e_1 \mapsto p,\quad e_2\mapsto q $$
+        satisfy condition (2).
 \end{proof}
 
 \subsection{Growing the tail}
