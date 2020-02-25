@@ -19,6 +19,7 @@
 \def\CC{\mathbb{C}}
 \def\TT{\mathbb{T}}
 \def\XX{\mathcal{X}}
+\def\OO{\mathcal{O}}
 \def\SO{\mathsf{SO}}
 \DeclareMathOperator{\Der}{\mathrm{Der}}
 \DeclareMathOperator{\End}{\mathrm{End}}
@@ -391,12 +392,18 @@ M_1\times\RR^2$$ is a vector bundle isomorphism.
         the claim follows from Lemma \ref{lem:seg-trans}.
 \end{proof}
 
-Let us now consider the map
-$$ \xi : \RR^2 \xrightarrow{ p_{0*}^{-1}}  \Gamma(M_1,\sD_1)^{\RR^2} \xrightarrow{\varphi_*} \XX(\TT) $$
-where $\Gamma(M_1,\sD_1)^{\RR^2}$ is the space of sections of $\sD_1$
-invariant under the translation action of $\RR^2$ (and thus with well-defined projections onto
-$\TT$). Given a vector $v \in \RR^2$, dragging the first endpoint
-of the segment along $v$ produces $\xi(v)$ as the corresponding
+The translation group $\RR^2$
+acts on $M_1$ so that $p_0,p_1$ are equivariant,
+and $\varphi$ identifies $\TT$ with a quotient $M_1/\RR^2$.
+The distribution $\sD_1 \subset TM_1$ is preserved by $\RR^2$.
+We may thus consider the map
+\begin{equation}
+        \label{eq:xi1}
+        \xi_1 : \RR^2 \xrightarrow{ p_{0*}^{-1}}  \Gamma(M_1,\sD_1)^{\RR^2} \xrightarrow{\varphi_*} \XX(\TT) 
+\end{equation}
+where $\Gamma(M_1,\sD_1)^{\RR^2}$ is the space of translation-invariant sections of $\sD_1$.
+Given a vector $v \in \RR^2$, dragging the first endpoint
+of the segment along $v$ produces $\xi_1(v)$ as the corresponding
 vector field on the \emph{reduced} configuration space $\TT$ of the segment.
 Remarkably, these vector fields generate the `standard' infinitesimal action of $\fsl_2(\RR)$
 on the circle.
@@ -409,7 +416,7 @@ on the circle.
         such that:
         \begin{enumerate}
                 \item $\eta|_{\fso_2(\RR)}$ acts naturally by infinitesimal rotations of $\TT\subset \RR^2$,
-                \item $\eta|_\fm$ coincides with $\xi$ under $\fm\simeq\RR^2$.
+                \item $\eta|_\fm$ coincides with $\xi_1$ under $\fm\simeq\RR^2$.
         \end{enumerate}
         Furthermore, up to $\SO_2(\RR)$-conjugacy, $\eta$ is determined by condition (1) alone.
 \end{lem}
@@ -447,7 +454,7 @@ is thus given by:
 $$
 TM_n\supset \sD_n = \bigcap_{k=1}^n s_k^{-1} \sD_1.
 $$
-\begin{lem}
+\begin{lem}\label{lem:n-iso}
 $\sD_n \subset TM_n$ is a rank $2$ sub-bundle, and
 $s_{k*}:\sD_n \to s_k^*\sD_1$ is an isomorphism for each $1\le k\le n$.
 \end{lem}
@@ -467,6 +474,85 @@ $s_{k*}:\sD_n \to s_k^*\sD_1$ is an isomorphism for each $1\le k\le n$.
         It then follows that the canonical projections $\sD_n \to s_1^*\sD_k$, $1\le k\le n$
         from the limit are themselves isomorphisms.
 \end{proof}
+Given a somewhat abstract proof, let us note that the interpretation is simple:
+the motion of the entire $n$-segment snake is determined by that of any of its segments.
+Further, by Lemma \ref{lem:seg-iso}, it is in fact determined by the motion of the head
+or any of the joints. In particular thus,
+$$ p_{0*}^n : \sD_n \to p_0^{n*}T\RR^2 \simeq M_n \times \RR^2 $$
+is an isomorphism.
+The translation action of $\RR^2$ on each factor $M_1$ induces an action
+on $M_n$, preserving $\sD_n$ and 
+making each $p^n_k$ equivariant.
+We may, analogously to \eqref{eq:xi1}, consider the map
+$$
+\xi_n : \RR^2 \xrightarrow{(p_{0*}^n)^{-1}} \Gamma(M_n, \sD_n)^{\RR^2} \to
+ \XX(M_n/\RR^2)
+$$
+into vector fields on the \emph{reduced configuration space} $M_n/\RR^2$.
+
+Note that $\langle \varphi s_1,\dots,\varphi s_k\rangle : M_n \to \TT^n$ 
+is an $\RR^2$-principal bundle (for the translation action), thus providing
+a diffeomorphism
+$M_n/\RR^2 \simeq \TT^n$. We don't want to identify the two at this stage,
+so we'll write $\overline M_n = M_n/\RR^2$, equipped with the map
+$$\xi_n:\RR^2 \to \XX(\overline M_n).$$ Now, for $m<n$, projection $M_n\to M_m$ onto 
+the first $m$ factors induces a map
+$$ \pi^n_m : \overline M_n \to \overline M_m. $$
+We will say that a vector field $\eta \in \XX(\overline M_n)$ is \emph{projectable},
+if $\pi^n_{m*}\eta \in \XX(\overline M_m)$ is well-defined for all $1 < m < n$.
+The space of projectable vector fields on $\overline M_n$ is closed under the Lie bracket,
+and we denote it $\XX^\p(\overline M_n)$.
+
+\begin{lem}\label{lem:xi-proj}
+        $\xi_n$ is projectable, and $\pi^n_{m*}\circ\xi_n = \xi_m$ for $0 < m < n$.
+\end{lem}
+\begin{proof}
+        $p^n_{0*} = p^m_{0*} \circ \pi^n_{m*}$ as maps $\sD_n \to T\RR^2$.
+\end{proof}
+
+
+The $\pi^n_m$, $0 < m < n$ form a \emph{projective system},
+and we would like to consider its limit $\overline M_\infty$ along with
+canonical projections $\pi^\infty_n : \overline M_\infty \to \overline M_n$. That requires passing
+to a larger category of spaces; several suitable generalisations of smooth manifolds
+are available (see \textbf{[ComparativeSmoothology]}), and the choice is inessential
+for our purposes. Since we'll only be interested in studying the Lie algebra of
+projectable vector fields on $\overline M_\infty$, let us work in the category of 
+\emph{locally ringed spaces}. 
+A manifold $N$ is viewed as a locally ringed space $(N, \OO_N)$ where
+$\OO_N$ is the sheaf of smooth functions on $N$. Then, we take
+$$ \overline M_\infty = \varprojlim \overline M_n\quad\textrm{(as locally ringed spaces)} $$
+and define
+$$ C^\infty(\overline M_\infty) := \Gamma(\overline M_\infty, \OO_{\overline M_\infty}) 
+\simeq \varinjlim C^\infty(\overline M_n). $$
+The latter colimit refers to the system of algebras $C^\infty(\overline M_n)$ and monomorphisms 
+$\pi^{n*}_m : C^\infty(\overline M_m)\to C^\infty(\overline M_n)$. In particular, each $C^\infty(\overline M_n)$ 
+embeds
+as a subalgebra in $C^\infty(\overline M_\infty)$.
+
+Vector fields on $\overline M_\infty$ are generally derivations of the algebra of smooth functions.
+We will however only be interested in \emph{projectable} vector fields: these are
+derivations preserving each of the subalgebras $C^\infty(\overline M_n) \subset C^\infty(\overline M_\infty)$.
+Since every derivation is determined by its action on these subalgebras, and every derivation of
+$C^\infty(\overline M_n)$ into itself is a vector field on $\overline M_n$, we find that the space of projectable
+vector fields on $\overline M_\infty$ is simply
+$$
+\XX^\p(\overline M_\infty) = \varprojlim \XX^p(\overline M_n),
+$$
+where the $\XX^p(\overline M_n)$ form a projective system with the maps $\pi^n_{m*}$ (thanks to projectability!).
+
+An element of the above projective limit is a system of projectable vector fields
+$\eta_n \in \XX^\p(\overline M_n)$ such that $\pi^n_{m*}\eta_n=\eta_m$, and
+Lie brackets may be computed componentwise.
+By Lemma \ref{lem:xi-proj}, the maps $\xi_n$ induce a well-defined map
+$$
+ \xi_\infty : \RR^2 \to \XX^\p(\overline M_\infty).
+$$
+\begin{defn}
+        The \emph{concrete serpentine algebra} is
+        the Lie sub-algebra of $\XX^\p(\overline M_\infty)$ generated
+        by the image of $\xi_\infty$.
+\end{defn}
 
 \subsection{Abstracting the symmetry}
 
