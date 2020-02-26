@@ -21,6 +21,8 @@
 \def\XX{\mathcal{X}}
 \def\OO{\mathcal{O}}
 \def\SO{\mathsf{SO}}
+\def\O{\mathsf{O}}
+\def\E{\mathsf{E}}
 \DeclareMathOperator{\Der}{\mathrm{Der}}
 \DeclareMathOperator{\End}{\mathrm{End}}
 \DeclareMathOperator{\Hom}{\mathrm{Hom}}
@@ -313,7 +315,7 @@ viewing the infinite snake as a chain of segments, we will be able
 to propagate the motions of its head toward subsequent joints, along the tail. 
 Remarkably, the Lie algebra $\fsl_2(\RR)$ shows up already at this stage. 
 What
-we state here is not new, and may be pursued far deeper (cf. {\bf[Bor-Levi-Perline-Tabachnikov]})
+we state here is not new, and may be pursued far deeper (cf. {\bf[BorLeviPerlineTabachnikov:TireTracks]})
 
 \begin{figure} % one segment; transfer
         \begin{center}\begin{tikzpicture}[scale=0.6]
@@ -392,10 +394,15 @@ M_1\times\RR^2$$ is a vector bundle isomorphism.
         the claim follows from Lemma \ref{lem:seg-trans}.
 \end{proof}
 
-The translation group $\RR^2$
-acts on $M_1$ so that $p_0,p_1$ are equivariant,
-and $\varphi$ identifies $\TT$ with a quotient $M_1/\RR^2$.
-The distribution $\sD_1 \subset TM_1$ is preserved by $\RR^2$.
+The Euclidean group $\E_2 \simeq \RR^2 \rtimes \O_2(\RR)$ of $\RR^2$ 
+acts on $M_1$ so that $p_0,p_1$ are equivariant. 
+Letting the translation subgroup $\RR^2$ act trivially on $\TT$,
+and the factor $\O_2(\RR)$ naturally (via $\TT \subset \RR^2$),
+we have that
+$\varphi : M_1 \to \TT$ is equivariant as well,
+and identifies $\TT$ with the quotient $M_1/\RR^2$.
+The distribution $\sD_1 \subset TM_1$ is preserved by $\E_2$, and in particular
+by $\RR^2$.
 We may thus consider the map
 \begin{equation}
         \label{eq:xi1}
@@ -515,7 +522,7 @@ The $\pi^n_m$, $0 < m < n$ form a \emph{projective system},
 and we would like to consider its limit $\overline M_\infty$ along with
 canonical projections $\pi^\infty_n : \overline M_\infty \to \overline M_n$. That requires passing
 to a larger category of spaces; several suitable generalisations of smooth manifolds
-are available (see \textbf{[ComparativeSmoothology]}), and the choice is inessential
+are available (see \textbf{[Stacey:Comparative]}), and the choice is inessential
 for our purposes. Since we'll only be interested in studying the Lie algebra of
 projectable vector fields on $\overline M_\infty$, let us work in the category of 
 \emph{locally ringed spaces}. 
@@ -550,11 +557,101 @@ $$
 $$
 \begin{defn}
         The \emph{concrete serpentine algebra} is
-        the Lie sub-algebra of $\XX^\p(\overline M_\infty)$ generated
+        the Lie sub-algebra $\fS\subset \XX^\p(\overline M_\infty)$ generated
         by the image of $\xi_\infty$.
 \end{defn}
 
-\subsection{Abstracting the symmetry}
+\subsection{Cutting the head}
+
+Our aim is to describe the structure of $\fS$. Let us first examine
+the symmetry properties of $\xi_\infty : \RR^2 \to \XX^\p(\overline M_\infty)$.
+Having passed to a quotient by the translation subgroup of the full Euclidean group $\E_2$ of $\RR^2$,
+we are left with the factor $\O_2(\RR)$. The following is rather obvious: 
+\begin{lem}\label{lem:xi-equiv}
+        $\xi_\infty$ is $\O_2(\RR)$-equivariant.
+\end{lem}
+\begin{proof}
+        The action of $\O_2(\RR)$ on $\RR^2$ extends
+        to $M_n$ and $\overline M_n$ so that the various projections
+        $s_k$, $p^n_k$, $\pi^n_m$ are equivariant; then, the action
+        lifts to the limit $\overline M_\infty$, inducing one on
+        $\XX^\p(\overline M_\infty)$. Then, equivariance of $\xi_\infty$ follows
+        from that of $\xi_n$, which in turn follows from equivariance of
+        $p^n_0 : \sD_n \to T\RR^2$.
+\end{proof}
+
+However, as we have hinted at in the introduction, the infinite
+snake possesses yet another type of symmetry beyond the Euclidean group.
+Indeed, let $$\varpi_n : \overline M_n \to \overline M_{n-1},\quad n>1$$ be the map induced by
+projection $M_n\to M_{n-1}$ onto \emph{all but the first} factor $M_1$.
+Since $\pi^{n-1}_{m-1}\varpi_n = \varpi_m \pi^n_m$ for all $1<m<n$,
+it follows that the $\varpi_n$ induce a homomorphism of locally ringed spaces
+$$
+\overline M_\infty = \varprojlim \overline M_n \xrightarrow{\varpi_\infty} \varprojlim \overline M_{n-1} = \overline M_\infty,
+$$
+i.e. a self-map of $\overline M_\infty$.
+
+It is easy to check that the underlying map $M_n \to M_{n-1}$
+sends $\sD_n \subset TM_n$ into $\sD_{n-1}\subset TM_{n-1}$,
+so that, in a suitable sense, $\varpi_\infty$ should preserve
+whatever structure 
+the $\sD_n$ induce on
+$\overline M_\infty$. We could have
+expressed that structure as a distribution $\overline \sD_\infty \subset T\overline M_\infty$,
+ a colimit of the $\overline \sD_n = \sD_n/\RR^2$. However, in the infinite-dimensional
+context it is easier to take a shortcut and work with the map $\xi_\infty$.
+It is the latter that we view as the relevant `structure' to be, in some sense,
+preserved by $\varpi_\infty$. Our next step is to make this precise.
+
+Consider the map $\phi\circ s_1 : M_n \to \TT$. It is $\RR^2$-invariant,
+and thus descends to a map we shall denote $\phi^n_1 : \overline M_n \to \TT$.
+These are compatible with the projections $\pi^n_m$, and induce a homomorphism
+$\phi^\infty_1 : \overline M_\infty \to \TT$ of locally ringed spaces. Observing that 
+$\phi^\infty_1$ maps the infinite snake to its head, and $\varpi_\infty$ to its tail,
+the following is expected:
+\begin{lem}\label{lem:ht-inv}
+        $\langle \phi^\infty_1, \varpi_\infty\rangle : \overline M_\infty \to \TT \times \overline M_\infty$
+        is an isomorphism.
+\end{lem}
+\begin{proof}
+        It is easy to check that $\langle \phi^n_1,\varpi_n\rangle : \overline M_n \to \TT\times\overline M_{n-1}$
+        is a diffeomorphism for all $n>1$. Letting $\psi_n$ denote its image,
+        and checking that $\pi^n_m\circ \psi_n = \psi_m \circ (\id_\TT \times \pi^{n-1}_{m-1})$,
+        we obtain a homomorphism of locally ringed spaces
+        \begin{equation} \label{eq:psi}
+                \psi_\infty = \varprojlim \psi_n : \TT \times \overline M_\infty \to \overline M_\infty
+        \end{equation}
+        inverse to $\langle \phi_1^\infty,\varpi_\infty\rangle$.
+\end{proof}
+We will use the notation $\psi_\infty$ of the proof, as in \eqref{eq:psi}.
+One component is an isomorphism
+$$ \psi^*_\infty : C^\infty(\overline M_\infty) \to  C^\infty(\TT \times \overline M_\infty)  $$
+of algebras of smooth functions. 
+The algebra $C^\infty(\TT \times \overline M_\infty)$
+is a $C^\infty$-tensor product, a completion of the algebraic tensor product
+$C^\infty(\TT) \otimes C^\infty(\overline M_\infty)$.
+In particular, every derivation of the former is determined by its restriction
+to the latter, a subalgebra.
+We may then define a map 
+$$
+  \psi_{\infty*} : C^\infty(\TT) \otimes \XX^\p(\overline M_\infty) \to \XX^\p(\overline M_\infty).
+$$
+requiring compatibility with
+$$
+ \psi^{*,-1}_\infty : C^\infty(\TT) \otimes C^\infty(\overline M_\infty) \to C^\infty(\overline M_\infty)
+$$
+with respect to evaluating vector fields on functions. That allows us to state
+the `symmetry' property of $\varpi_\infty$ with respect to $\xi_\infty$:
+\begin{prop}
+        Let $\tilde S : \RR^2 \times C^\infty(\TT) \otimes \RR^2$
+        denote the conjugate of the map $$\TT\ni u \mapsto S_u \in \End\RR^2$$ (cf. Lemma~\ref{lem:seg-trans}).
+        Then the composite
+        $$
+         \RR^2 \xrightarrow{\tilde S} C^\infty(\TT) \otimes \RR^2 \xrightarrow{\id\otimes\xi_\infty}
+         C^\infty(\TT)\otimes\XX^\p(\overline M_\infty) \xrightarrow{\psi_{\infty*}} \XX^\p(\overline M_\infty)
+        $$
+        coincides with $\xi_\infty$.
+\end{prop}
 
 \section{Serpentine Lie algebra}
 \label{sec:algebra}
