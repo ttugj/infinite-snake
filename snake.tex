@@ -414,7 +414,7 @@ of the segment along $v$ produces $\xi_1(v)$ as the corresponding
 vector field on the \emph{reduced} configuration space $\TT$ of the segment.
 Remarkably, these vector fields generate the `standard' infinitesimal action of $\fsl_2(\RR)$
 on the circle.
-\begin{lem}
+\begin{lem}\label{lem:seg-sl2}
         Let $\fsl_2(\RR) = \fso_2(\RR) \oplus \fm$ be the decomposition
         of the Lie algebra $\fsl_2(\RR)$ into eigenspaces of the Cartan
         involution $x\mapsto-x^T$. Then there exists a Lie algebra monomorphism
@@ -505,8 +505,8 @@ so we'll write $\overline M_n = M_n/\RR^2$, equipped with the map
 $$\xi_n:\RR^2 \to \XX(\overline M_n).$$ Now, for $m<n$, projection $M_n\to M_m$ onto 
 the first $m$ factors induces a map
 $$ \pi^n_m : \overline M_n \to \overline M_m. $$
-We will say that a vector field $\eta \in \XX(\overline M_n)$ is \emph{projectable},
-if $\pi^n_{m*}\eta \in \XX(\overline M_m)$ is well-defined for all $1 < m < n$.
+We will say that a vector field $\upsilon \in \XX(\overline M_n)$ is \emph{projectable},
+if $\pi^n_{m*}\upsilon \in \XX(\overline M_m)$ is well-defined for all $1 < m < n$.
 The space of projectable vector fields on $\overline M_n$ is closed under the Lie bracket,
 and we denote it $\XX^\p(\overline M_n)$.
 
@@ -549,7 +549,7 @@ $$
 where the $\XX^p(\overline M_n)$ form a projective system with the maps $\pi^n_{m*}$ (thanks to projectability!).
 
 An element of the above projective limit is a system of projectable vector fields
-$\eta_n \in \XX^\p(\overline M_n)$ such that $\pi^n_{m*}\eta_n=\eta_m$, and
+$\upsilon_n \in \XX^\p(\overline M_n)$ such that $\pi^n_{m*}\upsilon_n=\upsilon_m$, and
 Lie brackets may be computed componentwise.
 By Lemma \ref{lem:xi-proj}, the maps $\xi_n$ induce a well-defined map
 $$
@@ -624,7 +624,10 @@ the following is expected:
         inverse to $\langle \phi_1^\infty,\varpi_\infty\rangle$.
 \end{proof}
 We will use the notation $\psi_\infty$ of the proof, as in \eqref{eq:psi}.
-One component is an isomorphism
+It is an isomomorphism of locally ringed spaces,
+and thus induces an isomorphism of spaces of global sections of 
+structure sheaves -- that is, 
+an isomorphism
 $$ \psi^*_\infty : C^\infty(\overline M_\infty) \to  C^\infty(\TT \times \overline M_\infty)  $$
 of algebras of smooth functions. 
 The algebra $C^\infty(\TT \times \overline M_\infty)$
@@ -634,24 +637,64 @@ In particular, every derivation of the former is determined by its restriction
 to the latter, a subalgebra.
 We may then define a map 
 $$
-  \psi_{\infty*} : C^\infty(\TT) \otimes \XX^\p(\overline M_\infty) \to \XX^\p(\overline M_\infty).
+\psi''_{\infty*} : C^\infty(\TT) \otimes \XX^\p(\overline M_\infty) \to \XX^\p(\overline M_\infty).
 $$
 requiring compatibility with
 $$
  \psi^{*,-1}_\infty : C^\infty(\TT) \otimes C^\infty(\overline M_\infty) \to C^\infty(\overline M_\infty)
 $$
-with respect to evaluating vector fields on functions. That allows us to state
-the `symmetry' property of $\varpi_\infty$ with respect to $\xi_\infty$:
+with respect to evaluating vector fields on functions.
+We also have a more obvious inclusion
+$$
+\psi'_{\infty*} : \XX(\TT) \to \XX^\p(\overline M_\infty)
+$$
+such that $\phi^\infty_{1*}\circ\psi'_{\infty*} = \id$
+and the image of $\psi'_{\infty*}$ annihilates
+$\varpi_\infty^* C^\infty(\overline M_\infty)$.
+Together, $\psi'_{\infty*}$ and $\psi''_{\infty*}$ form the 
+components of a map
+$$
+\psi_{\infty*} : \XX(\TT) \ \oplus\ C^\infty(\TT)\otimes\XX^\p(\overline M_\infty)
+  \to \XX^\p(\overline M_\infty).
+$$
+We
+express the `symmetry' property of $\varpi_\infty$ with respect to $\xi_\infty$ in terms of $\psi_{\infty*}$:
 \begin{prop}
-        Let $\tilde S : \RR^2 \times C^\infty(\TT) \otimes \RR^2$
-        denote the conjugate of the map $$\TT\ni u \mapsto S_u \in \End\RR^2$$ (cf. Lemma~\ref{lem:seg-trans}).
-        Then the composite
-        $$
-         \RR^2 \xrightarrow{\tilde S} C^\infty(\TT) \otimes \RR^2 \xrightarrow{\id\otimes\xi_\infty}
-         C^\infty(\TT)\otimes\XX^\p(\overline M_\infty) \xrightarrow{\psi_{\infty*}} \XX^\p(\overline M_\infty)
-        $$
-        coincides with $\xi_\infty$.
+        The middle horizontal arrow is the sum of the top and bottom composites 
+        in the following diagram:
+        $$\begin{diagram}\dgARROWLENGTH=2.0em
+                \node{} \node{\fm} \arrow{e,t}{\eta|_\fm} \node{\XX(\TT)} \arrow{se,r}{\psi'_{\infty*}} 
+                \\
+                \node{\RR^2}\arrow{ne,t}{\simeq}\arrow{se,b}{\tilde S} \arrow[3]{e,t,..}{\xi_\infty}\node{} \node{} \node{\XX^\p(\overline M_\infty)}
+                \\
+                \node{} \node{C^\infty(\TT)\otimes\RR^2} \arrow{e,b}{\id\otimes\xi_\infty}
+                \node{C^\infty(\TT)\otimes\XX^\p(\overline M_\infty)}\arrow{ne,b}{\psi''_{\infty*}}
+        \end{diagram}$$
+        where:
+        \begin{itemize}
+                \item 
+        $\tilde S : \RR^2 \to C^\infty(\TT) \otimes \RR^2$
+        denotes a conjugate of the map $\TT\ni u \mapsto S_u \in \End\RR^2$ (cf. Lemma~\ref{lem:seg-trans}),
+\item 
+        $\eta : \fsl_2 \to \XX(\TT)$ and $\fm\simeq\RR^2$ are as in Lemma \ref{lem:seg-sl2}.
+        \end{itemize}
+        Symbolically:
+        \fbox{$\xi_\infty = \eta +  \tilde S \otimes \xi_\infty.$}
 \end{prop}
+\begin{proof}
+        It is enough to check that the statement holds after
+        projecting $\XX^\p(\overline M_\infty)$ down to $\XX^\p(\overline M_n)$
+        for all $n>0$. Then, we need to check that
+        \begin{align*}
+                \phi^n_{1*}\xi_n(v)_{\bar m} &= \eta(v)_{\bar m},\\
+                \varpi_{n*}\xi_n(v)_{\bar m} &= \xi_{n-1}(S_{\phi^n_1(\bar m)} v)
+        \end{align*}
+        for all $\bar m \in \overline M_n$. The first equality follows from Lemma \ref{lem:seg-sl2}
+        since $\phi^n_{1*}\xi_n = \xi_1$, the latter defined as in \eqref{eq:xi1}. The
+        second equality follows from Lemma \ref{lem:seg-trans}, by construction of $\xi_n$.
+\end{proof}
+
+\subsection{Abstracting the symmetry}
 
 \section{Serpentine Lie algebra}
 \label{sec:algebra}
