@@ -572,7 +572,7 @@ such that $\pi^\infty_{n*}\circ\xi_\infty  = \xi_n$.
 \end{defn}
 
 
-\subsection{Cutting the head}
+\subsection{Cutting the head off}
 
 Our aim is to describe the structure of $\fS$. Let us first examine
 the symmetry properties of $\xi_\infty : \RR^2 \to \XX^\p(\overline M_\infty)$.
@@ -700,8 +700,8 @@ may now express the `symmetry' property of $\varpi_\infty$ with respect to $\xi_
 \item 
         $\eta : \fsl_2 \to \XX(\TT)$ and $\fm\simeq\RR^2$ are as in Lemma \ref{lem:seg-sl2}.
         \end{itemize}
-        Symbolically, using $\varphi_\infty^*$ to view $C^\infty(\TT)$ as a subalgebra in $C^\infty(\overline M_\infty)$, we have:
-        \begin{equation}\label{eq:xi-rec}\fbox{\xi_\infty = \iota_h \eta +  \tilde S \cdot \iota_t \xi_\infty.}
+        Symbolically, using $\varphi_\infty^*$ to view $C^\infty(\TT)$ as a subalgebra in $C^\infty(\overline M_\infty)$, and letting $\tilde S$ act on $\Hom(\RR^2, \XX^p(\overline M_\infty))$, we have:
+        \begin{equation}\label{eq:xi-rec}{\xi_\infty = \iota_h \eta +  \tilde S \cdot \iota_t \xi_\infty.}
         \end{equation}
 \end{prop}
 \begin{proof}
@@ -719,13 +719,14 @@ may now express the `symmetry' property of $\varpi_\infty$ with respect to $\xi_
 
 \subsection{Abstracting the symmetry}
 The cognitive load of working with $\overline M_\infty$
-is justified by the concise formula \eqref{xi-rec}.
+is justified by the concise formula \eqref{eq:xi-rec}.
 We may interpret it as stating that $\xi_\infty$ is the fixed point of an affine
 map
 $$
-\psi_{\infty*} \circ \left( \eta + \tilde S \otimes - \right): \XX^\p(\overline M_\infty)\otimes\RR^{2*} \to
+\iota_h\eta + \tilde S \iota_t :
+\XX^\p(\overline M_\infty)\otimes\RR^{2*} \to
 \XX^p(\overline M_\infty)\otimes\RR^{2*}. $$
-The homogeneous part $$\psi_{\infty*}\circ(\tilde S \otimes -) \in \End(\XX^\p(\overline M_\infty)\otimes\RR^{2*})$$
+The homogeneous part $$\tilde S\iota_t \in \End(\XX^\p(\overline M_\infty)\otimes\RR^{2*})$$
 is injective, so that the fixed point is unique -- that is, the corecursive relation \eqref{eq:xi-rec} determines
 $\xi_\infty$ uniquely!
 
