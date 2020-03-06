@@ -520,63 +520,74 @@ and we denote it $\XX^\p(\overline M_n)$.
 
 
 The $\pi^n_m$, $0 < m < n$ form a \emph{projective system},
-and we would like to consider its limit $\overline M_\infty$ along with
-canonical projections $\pi^\infty_n : \overline M_\infty \to \overline M_n$. That requires passing
-to a larger category of spaces; several suitable generalisations of smooth manifolds
-are available (see \textbf{[Stacey:Comparative]}), and the choice is inessential
-for our purposes. Since we'll only be interested in studying the Lie algebra of
-projectable vector fields on $\overline M_\infty$, let us work in the category of 
-\emph{locally ringed spaces}. 
-A manifold $N$ is viewed as a locally ringed space $(N, \OO_N)$ where
-$\OO_N$ is the sheaf of smooth functions on $N$. Then, we take
-$$ \overline M_\infty = \varprojlim \overline M_n\quad\textrm{(as locally ringed spaces)} $$
-and define
-$$ C^\infty(\overline M_\infty) := \Gamma(\overline M_\infty, \OO_{\overline M_\infty}) 
-\simeq \varinjlim C^\infty(\overline M_n). $$
-The latter colimit refers to the system of algebras $C^\infty(\overline M_n)$ and monomorphisms 
-$\pi^{n*}_m : C^\infty(\overline M_m)\to C^\infty(\overline M_n)$. In particular, each $C^\infty(\overline M_n)$ 
-embeds
-as a subalgebra in $C^\infty(\overline M_\infty)$.
+and we would like to consider its (infinite-dimensional) limit $$\overline M_\infty = \varprojlim \overline M_n $$
+together with
+canonical projections $\pi^\infty_n : \overline M_\infty \to \overline M_n$. 
+That would require passing to a larger category than that of $C^\infty$ mainfolds;
+there are several possible choices, and the resulting object is in each case essentially the
+same. 
+For now, we shall simply give a direct definition of smooth functions and projectable vector fields
+on $\overline M_\infty$
+(constructing $\overline M_\infty$ as an object in any reasonable extension of the category of smooth manifolds
+would give rise to an algebra of smooth functions and 
+a space of projectable vector fields canonically identifiable with those in the following definition).
+\begin{defn}
+        The objects associated with $\overline M_\infty$ are:
+        \begin{align*}
+                C^\infty(\overline M_\infty) &= \varinjlim C^\infty(\overline M_n) & \textrm{(smooth functions)} \\
+                \XX^\p(\overline M_\infty) &= \varprojlim \XX^p(\overline M_n) & \textrm{(projectable v. fields)}
+        \end{align*}
+        where:
+        \begin{itemize}
+\item $C^\infty(\overline M_\infty)$ is the colimit of the direct system  $\pi^{n*}_m$ of 
+        commutative algebra monorphisms, and we denote the canonical injections by
+        $$\pi^{\infty*}_n : C^\infty(\overline M_n) \to C^\infty(\overline M_\infty);$$
+\item $\XX^\p(\overline M_\infty)$ is the limit of the projective system $\pi^n_{m*}$ of
+        Lie algebra epimorphisms, and we denote the canonical projections by
+        $$ \pi^\infty_{n*}:\XX^\p(\overline M_\infty) \to \XX^\p(\overline M_n);$$
+\item $\XX^p(\overline M_\infty)$ acts on $C^\infty(\overline M_\infty)$
+        so that $$\upsilon\cdot \pi^{\infty*}_n f = \pi^{\infty*}_n (\pi^\infty_{n*}\upsilon\cdot f)$$
+        for $\upsilon \in \XX^\p(\overline M_\infty)$, $f \in C^\infty(\overline M_n)$.
+        \end{itemize}
+\end{defn}
 
-Vector fields on $\overline M_\infty$ are generally derivations of the algebra of smooth functions.
-We will however only be interested in \emph{projectable} vector fields: these are
-derivations preserving each of the subalgebras $C^\infty(\overline M_n) \subset C^\infty(\overline M_\infty)$.
-Since every derivation is determined by its action on these subalgebras, and every derivation of
-$C^\infty(\overline M_n)$ into itself is a vector field on $\overline M_n$, we find that the space of projectable
-vector fields on $\overline M_\infty$ is simply
-$$
-\XX^\p(\overline M_\infty) = \varprojlim \XX^p(\overline M_n),
-$$
-where the $\XX^p(\overline M_n)$ form a projective system with the maps $\pi^n_{m*}$ (thanks to projectability!).
+We will typically omit $\pi^{\infty*}_n$ and thus identify
+$C^\infty(\overline M_n)$ with a subalgebra of $C^\infty(\overline M_\infty)$.
+Then:\begin{enumerate}
+        \item the $C^\infty(\overline M_n)$, $n>0$ form an exhaustive increasing filtration
+of $C^\infty(\overline M_\infty)$;
+\item the action of $\XX^\p(\overline M_\infty)$ on $C^\infty(\overline M_\infty)$ 
+        identifies the former with the space of derivations of the latter preserving the filtration.
+\end{enumerate}        
 
-An element of the above projective limit is a system of projectable vector fields
-$\upsilon_n \in \XX^\p(\overline M_n)$ such that $\pi^n_{m*}\upsilon_n=\upsilon_m$, and
-Lie brackets may be computed componentwise.
-By Lemma \ref{lem:xi-proj}, the maps $\xi_n$ induce a well-defined map
+Now, by Lemma \ref{lem:xi-proj}, the maps $\xi_n$ induce a well-defined map
 $$
- \xi_\infty : \RR^2 \to \XX^\p(\overline M_\infty).
+ \xi_\infty : \RR^2 \to \XX^\p(\overline M_\infty)
 $$
+such that $\pi^\infty_{n*}\circ\xi_\infty  = \xi_n$.
 \begin{defn}
         The \emph{concrete serpentine algebra} is
         the Lie sub-algebra $\fS\subset \XX^\p(\overline M_\infty)$ generated
         by the image of $\xi_\infty$.
 \end{defn}
 
+
 \subsection{Cutting the head}
 
 Our aim is to describe the structure of $\fS$. Let us first examine
 the symmetry properties of $\xi_\infty : \RR^2 \to \XX^\p(\overline M_\infty)$.
 Having passed to a quotient by the translation subgroup of the full Euclidean group $\E_2$ of $\RR^2$,
-we are left with the factor $\O_2(\RR)$. The following is rather obvious: 
+we are left with the factor $\O_2(\RR)$. Observe that the actions of $\O_2(\RR)$ on 
+the $\overline M_n$ commute with the system $\pi^n_m$ of projections, and thus
+define actions on the colimit $C^\infty(\overline M_\infty)$ (via the induced action on smooth functions on each
+$M_n$)
+and on the limit $\XX^\p(\overline M_\infty)$ (via the induced action on vector fields on each $M_n$).
+The following is rather obvious: 
 \begin{lem}\label{lem:xi-equiv}
         $\xi_\infty$ is $\O_2(\RR)$-equivariant.
 \end{lem}
 \begin{proof}
-        The action of $\O_2(\RR)$ on $\RR^2$ extends
-        to $M_n$ and $\overline M_n$ so that the various projections
-        $s_k$, $p^n_k$, $\pi^n_m$ are equivariant; then, the action
-        lifts to the limit $\overline M_\infty$, inducing one on
-        $\XX^\p(\overline M_\infty)$. Then, equivariance of $\xi_\infty$ follows
+        Equivariance of $\xi_\infty$ follows
         from that of $\xi_n$, which in turn follows from equivariance of
         $p^n_0 : \sD_n \to T\RR^2$.
 \end{proof}
@@ -586,90 +597,82 @@ snake possesses yet another type of symmetry beyond the Euclidean group.
 Indeed, let $$\varpi_n : \overline M_n \to \overline M_{n-1},\quad n>1$$ be the map induced by
 projection $M_n\to M_{n-1}$ onto \emph{all but the first} factor $M_1$.
 Since $\pi^{n-1}_{m-1}\varpi_n = \varpi_m \pi^n_m$ for all $1<m<n$,
-it follows that the $\varpi_n$ induce a homomorphism of locally ringed spaces
-$$
-\overline M_\infty = \varprojlim \overline M_n \xrightarrow{\varpi_\infty} \varprojlim \overline M_{n-1} = \overline M_\infty,
-$$
-i.e. a self-map of $\overline M_\infty$.
-
-It is easy to check that the underlying map $M_n \to M_{n-1}$
+we expect the $\varpi_n$ to induce a self-map $\varpi_\infty$ of the limit $\overline M_\infty$.
+The underlying map $M_n \to M_{n-1}$
 sends $\sD_n \subset TM_n$ into $\sD_{n-1}\subset TM_{n-1}$,
 so that, in a suitable sense, $\varpi_\infty$ should preserve
 whatever structure 
 the $\sD_n$ induce on
-$\overline M_\infty$. We could have
-expressed that structure as a distribution $\overline \sD_\infty \subset T\overline M_\infty$,
- a colimit of the $\overline \sD_n = \sD_n/\RR^2$. However, in the infinite-dimensional
-context it is easier to take a shortcut and work with the map $\xi_\infty$.
-It is the latter that we view as the relevant `structure' to be, in some sense,
-preserved by $\varpi_\infty$. Our next step is to make this precise.
+$\overline M_\infty$. Given an actual realisation of $\overline M_\infty$, one could 
+express that structure as a distribution $\overline \sD_\infty \subset T\overline M_\infty$,
+ a colimit of the $\overline \sD_n = \sD_n/\RR^2$. In our `algebraic' approach,
+the structure is embodied by the map $\xi_\infty$ into $\XX^\p(\overline M_\infty)$.
+Then, we expect $\varpi_n$ to be compatible with $\xi_\infty$, in a sense that we
+are about to make precise.
 
-Consider the map $\phi\circ s_1 : M_n \to \TT$. It is $\RR^2$-invariant,
-and thus descends to a map we shall denote $\phi^n_1 : \overline M_n \to \TT$.
-These are compatible with the projections $\pi^n_m$, and induce a homomorphism
-$\phi^\infty_1 : \overline M_\infty \to \TT$ of locally ringed spaces. Observing that 
-$\phi^\infty_1$ maps the infinite snake to its head, and $\varpi_\infty$ to its tail,
-the following is expected:
-\begin{lem}\label{lem:ht-inv}
-        $\langle \phi^\infty_1, \varpi_\infty\rangle : \overline M_\infty \to \TT \times \overline M_\infty$
-        is an isomorphism.
+
+Recall the map $\varphi : M_1 \to \TT$. Since $\varphi$ is
+translation-invariant, it factors through $\bar\varphi : \overline M_1 \to \TT$,
+and we may generally consider the maps
+$$ \varphi_n = \bar\varphi \circ \pi^n_1 : \overline M_n \to \TT. $$
+In the limit, these would give rise to $\varphi_\infty : \overline M_\infty \to \TT$. 
+Now, for each $n>1$, it is clear that
+$$ \langle \varphi_n, \varpi_n\rangle : \overline M_n \to \TT \times \overline M_{n-1} $$
+is a diffeomorphism, expressing a decomposition of the snake into its `head' and `tail'..
+In the limit, these in turn would give rise to an isomorphism
+$$ \langle \varphi_\infty, \varpi_\infty\rangle : \overline M_\infty \to \TT\times\overline M_\infty $$
+in a suitable category. We may interpret it as saying that $\varpi_\infty$
+expresses $\overline M_\infty$ as a canonically trivialised \emph{circle bundle over itself}.
+This point of view is useful, since it leads to a map
+$$ \iota_t : \XX^\p(\overline M_\infty) \to \XX^\p(\overline M_\infty) $$
+expressing \emph{horizontal lift} of vector fields along $\varpi_\infty$
+(with respect to the canonical trivialisation), characterised by the property
+\begin{equation}\label{eq:iota-t}
+        \iota_t \upsilon \cdot \varpi_\infty^* f= \varpi_\infty^* (\upsilon \cdot f)\quad \textrm{and}\quad
+        \iota_t \upsilon \cdot \varphi_\infty^* g = 0
+\end{equation}
+for all $\upsilon\in\XX^\p(\overline M_\infty)$, $f \in C^\infty(\overline M_\infty)$ 
+and $g \in C^\infty(\TT)$.
+On the other hand, vector fields acting on the fibre $\TT$
+should extend to the bundle $\varpi_\infty$, giving rise to a map
+$$ \iota_h : \XX(\TT) \to \XX^p(\overline M_\infty) $$
+such that
+\begin{equation}\label{eq:iota-h} \iota_h \chi \cdot \varpi_\infty^* f = 0\quad\textrm{and}\quad \iota_h \chi \cdot \varphi_\infty^* g = \varphi_\infty^* (\chi\cdot g) \end{equation}
+for all $\chi\in\XX(\TT)$, $f \in C^\infty(\overline M_\infty)$ 
+and $g \in C^\infty(\TT)$.
+
+We need to construct these maps
+in our algebraic setting. Observe first that the $\varpi_n^*$
+induce an algebra monomorphism
+$$ \varpi_\infty^* : C^\infty(\overline M_\infty) \to C^\infty(\overline M_\infty) $$
+such that
+$\varpi_\infty^* \circ \pi^{\infty*}_{n-1} = \pi^{\infty*}_n \circ \varpi_n^*$ for all $n>0$.
+Likewise, the $\varphi_n^*$
+induce an algebra monomorphism
+$$ \varphi_\infty^* : C^\infty(\TT) \to C^\infty(\overline M_\infty)$$
+such that
+$\pi^{\infty*}_n \circ \varphi_n^* = \varphi_\infty^*$ for all $n>0$.
+\begin{lem}\label{lem:iota}
+        There are unique maps
+        $$\XX(\TT) \xrightarrow{\iota_h} \XX^\p(\overline M_\infty) \xleftarrow{\iota_t} \XX^\p(\overline M_\infty)
+        $$
+satisfying \eqref{eq:iota-t} and \eqref{eq:iota-h}.
 \end{lem}
 \begin{proof}
-        It is easy to check that $\langle \phi^n_1,\varpi_n\rangle : \overline M_n \to \TT\times\overline M_{n-1}$
-        is a diffeomorphism for all $n>1$. Letting $\psi_n$ denote its image,
-        and checking that $\pi^n_m\circ \psi_n = \psi_m \circ (\id_\TT \times \pi^{n-1}_{m-1})$,
-        we obtain a homomorphism of locally ringed spaces
-        \begin{equation} \label{eq:psi}
-                \psi_\infty = \varprojlim \psi_n : \TT \times \overline M_\infty \to \overline M_\infty
-        \end{equation}
-        inverse to $\langle \phi_1^\infty,\varpi_\infty\rangle$.
 \end{proof}
-We will use the notation $\psi_\infty$ of the proof, as in \eqref{eq:psi}.
-It is an isomomorphism of locally ringed spaces,
-and thus induces an isomorphism of spaces of global sections of 
-structure sheaves -- that is, 
-an isomorphism
-$$ \psi^*_\infty : C^\infty(\overline M_\infty) \to  C^\infty(\TT \times \overline M_\infty)  $$
-of algebras of smooth functions. 
-The algebra $C^\infty(\TT \times \overline M_\infty)$
-is a $C^\infty$-tensor product, a completion of the algebraic tensor product
-$C^\infty(\TT) \otimes C^\infty(\overline M_\infty)$.
-In particular, every derivation of the former is determined by its restriction
-to the latter, a subalgebra.
-We may then define a map 
-$$
-\psi''_{\infty*} : C^\infty(\TT) \otimes \XX^\p(\overline M_\infty) \to \XX^\p(\overline M_\infty).
-$$
-requiring compatibility with
-$$
- \psi^{*,-1}_\infty : C^\infty(\TT) \otimes C^\infty(\overline M_\infty) \to C^\infty(\overline M_\infty)
-$$
-with respect to evaluating vector fields on functions.
-We also have a more obvious inclusion
-$$
-\psi'_{\infty*} : \XX(\TT) \to \XX^\p(\overline M_\infty)
-$$
-such that $\phi^\infty_{1*}\circ\psi'_{\infty*} = \id$
-and the image of $\psi'_{\infty*}$ annihilates
-$\varpi_\infty^* C^\infty(\overline M_\infty)$.
-Together, $\psi'_{\infty*}$ and $\psi''_{\infty*}$ form the 
-components of a map
-$$
-\psi_{\infty*} : \XX(\TT) \ \oplus\ C^\infty(\TT)\otimes\XX^\p(\overline M_\infty)
-  \to \XX^\p(\overline M_\infty).
-$$
+
 We
-express the `symmetry' property of $\varpi_\infty$ with respect to $\xi_\infty$ in terms of $\psi_{\infty*}$:
-\begin{prop}
+may now express the `symmetry' property of $\varpi_\infty$ with respect to $\xi_\infty$:
+\begin{prop}\label{prop:xi-rec}
         The middle horizontal arrow is the sum of the top and bottom composites 
         in the following diagram:
         $$\begin{diagram}\dgARROWLENGTH=2.0em
-                \node{} \node{\fm} \arrow{e,t}{\eta|_\fm} \node{\XX(\TT)} \arrow{se,r}{\psi'_{\infty*}} 
+                \node{} \node{\fm} \arrow{e,t}{\eta|_\fm} \node{\XX(\TT)} \arrow{se,r}{\iota_h} 
                 \\
                 \node{\RR^2}\arrow{ne,t}{\simeq}\arrow{se,b}{\tilde S} \arrow[3]{e,t,..}{\xi_\infty}\node{} \node{} \node{\XX^\p(\overline M_\infty)}
                 \\
                 \node{} \node{C^\infty(\TT)\otimes\RR^2} \arrow{e,b}{\id\otimes\xi_\infty}
-                \node{C^\infty(\TT)\otimes\XX^\p(\overline M_\infty)}\arrow{ne,b}{\psi''_{\infty*}}
+                \node{C^\infty(\TT)\otimes\XX^\p(\overline M_\infty)}\arrow{ne,b}{\varphi_\infty^* \otimes \iota_t}
         \end{diagram}$$
         where:
         \begin{itemize}
@@ -679,36 +682,32 @@ express the `symmetry' property of $\varpi_\infty$ with respect to $\xi_\infty$ 
 \item 
         $\eta : \fsl_2 \to \XX(\TT)$ and $\fm\simeq\RR^2$ are as in Lemma \ref{lem:seg-sl2}.
         \end{itemize}
-        Symbolically:
-        \fbox{$\xi_\infty = \eta +  \tilde S \otimes \xi_\infty.$}
+        Symbolically, using $\varphi_\infty^*$ to view $C^\infty(\TT)$ as a subalgebra in $C^\infty(\overline M_\infty)$, we have:
+        \begin{equation}\label{eq:xi-rec}\fbox{\xi_\infty = \iota_h \eta +  \tilde S \cdot \iota_t \xi_\infty.}
+        \end{equation}
 \end{prop}
 \begin{proof}
         It is enough to check that the statement holds after
         projecting $\XX^\p(\overline M_\infty)$ down to $\XX^\p(\overline M_n)$
         for all $n>0$. Then, we need to check that
         \begin{align*}
-                \phi^n_{1*}\xi_n(v)_{\bar m} &= \eta(v)_{\bar m},\\
-                \varpi_{n*}\xi_n(v)_{\bar m} &= \xi_{n-1}(S_{\phi^n_1(\bar m)} v)
+                \varphi^n_{1*}\xi_n(v)_{\bar m} &= \eta(v)_{\bar m},\\
+                \varpi_{n*}\xi_n(v)_{\bar m} &= \xi_{n-1}(S_{\varphi^n_1(\bar m)} v)
         \end{align*}
         for all $\bar m \in \overline M_n$. The first equality follows from Lemma \ref{lem:seg-sl2}
-        since $\phi^n_{1*}\xi_n = \xi_1$, the latter defined as in \eqref{eq:xi1}. The
+        since $\varphi^n_{1*}\xi_n = \xi_1$, the latter defined as in \eqref{eq:xi1}. The
         second equality follows from Lemma \ref{lem:seg-trans}, by construction of $\xi_n$.
 \end{proof}
 
 \subsection{Abstracting the symmetry}
 The cognitive load of working with $\overline M_\infty$
-is justified by the concise formula \begin{equation}
-        \label{eq:xi-rec}
-\xi_\infty = \eta + \tilde S \otimes \xi_\infty.\end{equation}
-Recall that we use $\psi_{\infty*}$ to identify
-$\XX(\TT)$ and $C^\infty(\TT)\otimes \XX^\p(\overline M_\infty)$
-with subspaces in $\XX^\p(\overline M_\infty)$.
-We may interpret \eqref{eq:xi-rec} as stating that $\xi_\infty$ is the fixed point of an affine
+is justified by the concise formula \eqref{xi-rec}.
+We may interpret it as stating that $\xi_\infty$ is the fixed point of an affine
 map
 $$
-\eta + (\tilde S \otimes -): \XX^\p(\overline M_\infty)\otimes\RR^{2*} \to
+\psi_{\infty*} \circ \left( \eta + \tilde S \otimes - \right): \XX^\p(\overline M_\infty)\otimes\RR^{2*} \to
 \XX^p(\overline M_\infty)\otimes\RR^{2*}. $$
-It is easy to see that the linear part $$(\tilde S \otimes -) \in \End(\XX^\p(\overline M_\infty)\otimes\RR^{2*})$$
+The homogeneous part $$\psi_{\infty*}\circ(\tilde S \otimes -) \in \End(\XX^\p(\overline M_\infty)\otimes\RR^{2*})$$
 is injective, so that the fixed point is unique -- that is, the corecursive relation \eqref{eq:xi-rec} determines
 $\xi_\infty$ uniquely!
 
