@@ -622,7 +622,7 @@ is a diffeomorphism, expressing a decomposition of the snake into its `head' and
 In the limit, these in turn would give rise to an isomorphism
 $$ \langle \varphi_\infty, \varpi_\infty\rangle : \overline M_\infty \to \TT\times\overline M_\infty $$
 in a suitable category. We may interpret it as saying that $\varpi_\infty$
-expresses $\overline M_\infty$ as a canonically trivialised \emph{circle bundle over itself}.
+\emph{expresses $\overline M_\infty$ as a canonically trivialised circle bundle over itself}.
 This point of view is useful, since it leads to a map
 $$ \iota_t : \XX^\p(\overline M_\infty) \to \XX^\p(\overline M_\infty) $$
 expressing \emph{horizontal lift} of vector fields along $\varpi_\infty$
@@ -634,7 +634,7 @@ expressing \emph{horizontal lift} of vector fields along $\varpi_\infty$
 for all $\upsilon\in\XX^\p(\overline M_\infty)$, $f \in C^\infty(\overline M_\infty)$ 
 and $g \in C^\infty(\TT)$.
 On the other hand, vector fields acting on the fibre $\TT$
-should extend to the bundle $\varpi_\infty$, giving rise to a map
+should give rise to vertical vector fields on the bundle $\varpi_\infty$, giving rise to a map
 $$ \iota_h : \XX(\TT) \to \XX^p(\overline M_\infty) $$
 such that
 \begin{equation}\label{eq:iota-h} \iota_h \chi \cdot \varpi_\infty^* f = 0\quad\textrm{and}\quad \iota_h \chi \cdot \varphi_\infty^* g = \varphi_\infty^* (\chi\cdot g) \end{equation}
@@ -660,6 +660,24 @@ satisfying \eqref{eq:iota-t} and \eqref{eq:iota-h}.
 \end{lem}
 \begin{proof}
 \end{proof}
+
+Let us remark for completeness that 
+invertibility of $\langle \varphi_\infty, \varpi_\infty\rangle : \overline M_\infty
+\to \TT \times \overline M_\infty$ is in our setting reflected by
+an isomorphism
+$$
+\varphi_\infty^* \widehat\otimes \varpi_\infty^* : C^\infty(\TT) \widehat{\otimes}
+C^\infty(\overline M_\infty) \xrightarrow{\sim} C^\infty(\overline M_\infty)
+$$
+where $\widehat\otimes$ denotes the $C^\infty$ tensor product, a coproduct
+in the category of $C^\infty$-algebras (cf. \textbf{[Spivak]}).
+Likewise, $\iota_h$ and $\iota_t$ give rise to an isomorphism
+$$
+\langle \iota_h, \varphi_\infty^* \widehat\otimes \iota_t \rangle : \XX(\TT)\ \oplus\ C^\infty(\TT)
+\widehat\otimes \XX^\p(\overline M_\infty) \xrightarrow{\sim} \XX^\p(\overline M_\infty).  
+$$
+We will not need these in what follows, restricting to plain algebraic tensor products
+(in fact, we shall soon pass from smooth functions to trigonometric polynomials).
 
 We
 may now express the `symmetry' property of $\varpi_\infty$ with respect to $\xi_\infty$:
