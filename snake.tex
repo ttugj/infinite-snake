@@ -2,6 +2,7 @@
 \usepackage{amsmath,amsfonts,amssymb,amscd,amsthm,pb-diagram}
 \usepackage{tikz}\usetikzlibrary{fadings}
 \usepackage[osf]{baskervillef}
+\def\MISS{\texttt{*** missing ***}}
 \def\fsl{\mathfrak{sl}}
 \def\fso{\mathfrak{so}}
 \def\fg{\mathfrak{g}}
@@ -661,6 +662,7 @@ $\pi^{\infty*}_n \circ \varphi_n^* = \varphi_\infty^*$ for all $n>0$.
 satisfying \eqref{eq:iota-t} and \eqref{eq:iota-h}.
 \end{lem}
 \begin{proof}
+\MISS
 \end{proof}
 
 Let us remark for completeness that 
@@ -767,18 +769,12 @@ C^\infty(\TT) \otimes C^\infty(\overline M_\infty)
 \xrightarrow{\varphi_\infty^* \otimes \varpi_\infty^*}
 C^\infty(\overline M_\infty).$$
 Now, just as we have defined $\iota_h,\iota_t$ in terms of $\varphi_\infty^*,\varpi_\infty^*$,
-we consider $\widehat \iota_h, \widehat\iota_t$ induced by $\varphi_\infty^*$, $\widehat\varpi_\infty^*$:
-\begin{align*}
-        \widehat\iota_h(\chi) &= \iota_h(\chi) - \varphi_\infty^*(\chi\cdot\phi)\ \iota_t \iota_h \partial_\phi,
-\\
-        \widehat\iota_t(\upsilon) &= S_e \tilde R^{-1} \iota_t(\upsilon) 
-\end{align*}
-for $\chi\in\XX(\TT)$ and $\upsilon\in\XX^\p(\overline M_\infty)$.
+we consider $\widehat \iota_h, \widehat\iota_t$ induced by $\varphi_\infty^*$, $\widehat\varpi_\infty^*$.
 \begin{lem}
-        The maps 
+        There is a unique pair of Lie algebra monomorphisms
         $$\XX(\TT) \xrightarrow{\widehat\iota_h} \XX^\p(\overline M_\infty) \xleftarrow{\widehat\iota_t} \XX^\p(\overline M_\infty)
         $$
-        are Lie algebra monomorphisms, satisfying
+        satisfying
         \begin{align*}
         \widehat\iota_t \upsilon \cdot \widehat\varpi_\infty^* f &= \widehat\varpi_\infty^* (\upsilon \cdot f) \\
         \widehat\iota_t \upsilon \cdot \varphi_\infty^* g &= 0 \\
@@ -789,17 +785,26 @@ for all
 $\chi\in\XX(\TT)$,
  $\upsilon\in\XX^\p(\overline M_\infty)$,
 $f \in C^\infty(\overline M_\infty)$, and 
-$g \in C^\infty(\TT)$.
+$g \in C^\infty(\TT)$. Furthermore, the following identities hold:
+\begin{align*}
+        \widehat\iota_h(\chi) &= \iota_h(\chi) + \varphi_\infty^*(\chi\cdot\phi)\ \widehat\iota_t \widehat\iota_h (\partial_\phi),
+\\
+        \widehat\iota_t(\upsilon) &= S_e \tilde R^{-1} \iota_t(\upsilon) 
+\end{align*}
+for $\chi\in\XX(\TT)$ and $\upsilon\in\XX^\p(\overline M_\infty)$.
 \end{lem}
-\begin{proof}
+\begin{proof}\MISS
 \end{proof}
 
 \begin{lem}
         Using $\varphi_\infty^*$ to view $C^\infty(\TT)$ as a subalgebra in $C^\infty(\overline M_\infty)$
         and letting $\tilde R$ act on $\Hom(\RR^2, \XX^\p(\overline M_\infty))$, we have:
-        $$\xi_\infty = \widehat\iota_h \eta + \tilde R \cdot \widehat\iota_t \xi_\infty.$$
+        $$\xi_\infty = \widehat\iota_h \eta
+         - \langle d\phi, \eta\rangle \widehat\iota_t \widehat\iota_h(\partial_\phi)
+         + \tilde R \cdot \widehat\iota_t \xi_\infty.
+        $$
 \end{lem}
-\begin{proof}
+\begin{proof}\MISS
 \end{proof}
 
 \subsection{Abstracting the symmetry}
