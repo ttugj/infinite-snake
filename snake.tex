@@ -764,57 +764,20 @@ be useful to decompose
 $$ S_u = R_u S_e R_u^{-1},\quad u \in \TT $$
 where $e \in \TT$ is $(1,0) \in \RR^2$, and
 incorporate a reflection factor $S_e R_u^{-1}$ as a \emph{twist}
-of the bundle map $\varpi_\infty$.
-Informally, we consider $\widehat\varpi : \overline M_\infty \to \overline M_\infty$
-such that $$
-\widehat\varpi(\bar m) = S_e R_{\varphi_\infty(\bar m)}^{-1} \varpi_\infty(\bar m)
-$$
-for $\bar m \in \overline M_\infty$. 
-In our setting, this amounts to twisting the homomorphism $\varpi_\infty^*$
-of algebras of smooth functions, producing:
-$$ \widehat\varpi^* : C^\infty(\overline M^\infty) \xrightarrow{S_e^*}
-C^\infty(\overline M_\infty) \xrightarrow{\tilde R^{-1}}
-C^\infty(\TT) \otimes C^\infty(\overline M_\infty)
-\xrightarrow{\varphi_\infty^* \otimes \varpi_\infty^*}
-C^\infty(\overline M_\infty).$$
-Now, just as we have defined $\iota_h,\iota_t$ in terms of $\varphi_\infty^*,\varpi_\infty^*$,
-we consider $\widehat \iota_h, \widehat\iota_t$ induced by $\varphi_\infty^*$, $\widehat\varpi_\infty^*$.
-\begin{lem}
-        There is a unique pair of Lie algebra monomorphisms
-        $$\XX(\TT) \xrightarrow{\widehat\iota_h} \XX^\p(\overline M_\infty) \xleftarrow{\widehat\iota_t} \XX^\p(\overline M_\infty)
-        $$
-        satisfying
-        \begin{align*}
-        \widehat\iota_t \upsilon \cdot \widehat\varpi_\infty^* f &= \widehat\varpi_\infty^* (\upsilon \cdot f) \\
-        \widehat\iota_t \upsilon \cdot \varphi_\infty^* g &= 0 \\
-        \widehat\iota_h \chi \cdot \widehat\varpi_\infty^* f &= 0\\
-\widehat\iota_h \chi \cdot \varphi_\infty^* g &= \varphi_\infty^* (\chi\cdot g) 
-\end{align*}
-for all 
-$\chi\in\XX(\TT)$,
- $\upsilon\in\XX^\p(\overline M_\infty)$,
-$f \in C^\infty(\overline M_\infty)$, and 
-$g \in C^\infty(\TT)$. Furthermore, the following identities hold:
-\begin{align*}
-        \widehat\iota_h(\chi) &= \iota_h(\chi) + \varphi_\infty^*(\chi\cdot\phi)\ \widehat\iota_t \widehat\iota_h (\partial_\phi),
-\\
-        \widehat\iota_t(\upsilon) &= S_e \tilde R^{-1} \iota_t(\upsilon) 
-\end{align*}
-for $\chi\in\XX(\TT)$ and $\upsilon\in\XX^\p(\overline M_\infty)$.
-\end{lem}
-\begin{proof}\MISS
-\end{proof}
-
-\begin{lem}
-        Using $\varphi_\infty^*$ to view $C^\infty(\TT)$ as a subalgebra in $C^\infty(\overline M_\infty)$
-        and letting $\tilde R$ act on $\Hom(\RR^2, \XX^\p(\overline M_\infty))$, we have:
-        $$\xi_\infty = \widehat\iota_h \eta
-         - \langle d\phi, \eta\rangle \widehat\iota_t \widehat\iota_h(\partial_\phi)
-         + \tilde R \cdot \widehat\iota_t \xi_\infty.
-        $$
-\end{lem}
-\begin{proof}\MISS
-\end{proof}
+of the tail map $\varpi_\infty$.
+\begin{defn}
+Let $\rho_\infty : \overline M_\infty \to \overline M_\infty$ be a tail map,
+and $\alpha : \TT \to \O_2(\RR)$ a smooth map. Then the \emph{twist of $\rho_\infty$ by $\alpha$}
+is the tail map 
+$$\rho^\alpha_\infty : \overline M_\infty \to \overline M_\infty,\quad\textrm{where}\quad
+\rho^\alpha_n(\bar m) = \alpha_{\varphi_n(\bar m)} \cdot \rho_n(\bar m) $$
+for $\bar m \in \overline M_n$.
+\end{defn}
+It is easy to check that $\rho^\alpha_\infty$ is indeed a tail map.
+If $(\iota_h,\iota_t)$ is the head-tail split associated with $\rho$,
+we use $(\iota_h^\alpha,\iota_t^\alpha)$ to denote the head-tail split
+associated with $\rho^\alpha$. We will need a formula expressing
+$\iota_{h,t}$ in terms of $\iota^\alpha_{h,t}$.
 
 \subsection{Abstracting the symmetry}
 
