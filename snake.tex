@@ -2,6 +2,7 @@
 \usepackage{amsmath,amsfonts,amssymb,amscd,amsthm,pb-diagram}
 \usepackage{tikz}\usetikzlibrary{fadings}
 \usepackage[osf]{baskervillef}
+\usepackage[affil-it]{authblk}
 \def\MISS{\texttt{*** missing ***}}
 \def\fsl{\mathfrak{sl}}
 \def\fso{\mathfrak{so}}
@@ -25,6 +26,7 @@
 \def\O{\mathsf{O}}
 \def\E{\mathsf{E}}
 \def\fF{\mathfrak{F}}
+\DeclareMathOperator{\ad}{\mathrm{ad}}
 \DeclareMathOperator{\FLA}{\mathsf{FLA}}
 \DeclareMathOperator{\Der}{\mathrm{Der}}
 \DeclareMathOperator{\End}{\mathrm{End}}
@@ -42,7 +44,7 @@
 \def\p{\mathrm{p}}
 \def\sm{\mathrm{sm}}
 \title{Taming the infinite snake}
-\author{JG}
+\author{JG}\affil{Instytut Klary Weber}
 \newtheorem{lem}{Lemma}
 \newtheorem{prop}{Proposition}
 \theoremstyle{definition}
@@ -610,84 +612,90 @@ $\overline M_\infty$. Given an actual realisation of $\overline M_\infty$, one c
 express that structure as a distribution $\overline \sD_\infty \subset T\overline M_\infty$,
  a colimit of the $\overline \sD_n = \sD_n/\RR^2$. In our `algebraic' approach,
 the structure is embodied by the map $\xi_\infty$ into $\XX^\p(\overline M_\infty)$.
-Then, we expect $\varpi_n$ to be compatible with $\xi_\infty$, in a sense that we
+Then, we expect $\varpi_\infty$ to be compatible with $\xi_\infty$, in a sense that we
 are about to make precise.
 
-
-Recall the map $\varphi : M_1 \to \TT$. Since $\varphi$ is
-translation-invariant, it factors through $\bar\varphi : \overline M_1 \to \TT$,
+First, recall the map $\varphi : M_1 \to \TT$. Since $\varphi$ is
+translation-invariant, it factors through a diffeomorphism $\bar\varphi : \overline M_1 \to \TT$,
 and we may generally consider the maps
 $$ \varphi_n = \bar\varphi \circ \pi^n_1 : \overline M_n \to \TT. $$
-In the limit, these would give rise to $\varphi_\infty : \overline M_\infty \to \TT$. 
-Now, for each $n>1$, it is clear that
-$$ \langle \varphi_n, \varpi_n\rangle : \overline M_n \to \TT \times \overline M_{n-1} $$
-is a diffeomorphism, expressing a decomposition of the snake into its `head' and `tail'..
-In the limit, these in turn would give rise to an isomorphism
-$$ \langle \varphi_\infty, \varpi_\infty\rangle : \overline M_\infty \to \TT\times\overline M_\infty $$
-in a suitable category. We may interpret it as saying that $\varpi_\infty$
-\emph{expresses $\overline M_\infty$ as a canonically trivialised circle bundle over itself}.
-This point of view is useful, since it leads to a homomorphism
-$$ \iota_t : \XX^\p(\overline M_\infty) \to \XX^\p(\overline M_\infty) $$
-expressing \emph{horizontal lift} of vector fields along $\varpi_\infty$
-(with respect to the canonical trivialisation), characterised by the property
-\begin{equation}\label{eq:iota-t}
-        \iota_t \upsilon \cdot \varpi_\infty^* f= \varpi_\infty^* (\upsilon \cdot f)\quad \textrm{and}\quad
-        \iota_t \upsilon \cdot \varphi_\infty^* g = 0
-\end{equation}
-for all $\upsilon\in\XX^\p(\overline M_\infty)$, $f \in C^\infty(\overline M_\infty)$ 
-and $g \in C^\infty(\TT)$.
-On the other hand, vector fields acting on the fibre $\TT$
-should give rise to vertical vector fields on the bundle $\varpi_\infty$, giving rise to a homomorphism
-$$ \iota_h : \XX(\TT) \to \XX^p(\overline M_\infty) $$
-such that
-\begin{equation}\label{eq:iota-h} \iota_h \chi \cdot \varpi_\infty^* f = 0\quad\textrm{and}\quad \iota_h \chi \cdot \varphi_\infty^* g = \varphi_\infty^* (\chi\cdot g) \end{equation}
-for all $\chi\in\XX(\TT)$, $f \in C^\infty(\overline M_\infty)$ 
-and $g \in C^\infty(\TT)$.
-
-We need to construct these maps
-in our algebraic setting. Observe first that the $\varpi_n^*$
-induce an algebra monomorphism
-$$ \varpi_\infty^* : C^\infty(\overline M_\infty) \to C^\infty(\overline M_\infty) $$
-such that
-$\varpi_\infty^* \circ \pi^{\infty*}_{n-1} = \pi^{\infty*}_n \circ \varpi_n^*$ for all $n>0$.
-Likewise, the $\varphi_n^*$
-induce an algebra monomorphism
-$$ \varphi_\infty^* : C^\infty(\TT) \to C^\infty(\overline M_\infty)$$
-such that
-$\pi^{\infty*}_n \circ \varphi_n^* = \varphi_\infty^*$ for all $n>0$.
-\begin{lem}\label{lem:iota}
-        There exists a unique pair of Lie algebra monomorphisms
-        $$\XX(\TT) \xrightarrow{\iota_h} \XX^\p(\overline M_\infty) \xleftarrow{\iota_t} \XX^\p(\overline M_\infty)
-        $$
-satisfying \eqref{eq:iota-t} and \eqref{eq:iota-h}.
+In the limit, these would give rise to a projection $\varphi_\infty : \overline M_\infty \to \TT$. 
+Its algebraic expression is the algebra monomorphism
+$$
+ \varphi_\infty^* : C^\infty(\TT) \to C^\infty(\overline M_\infty)
+$$
+defined as a composite of $\varphi^*$ with the canonical injection
+$$\pi_1^{\infty*}:C^\infty(\overline M_1) \to \varinjlim_n C^\infty(\overline M_n) = C^\infty(\overline M_\infty).$$
+\begin{defn}
+        A \emph{tail map}
+        is a system $\rho_n : \overline M_n \to \overline M_{n-1}$, $n>1$
+        such that:\begin{enumerate}
+            \item $\pi^{n-1}_{m-1} \circ \rho_n = \rho_m \circ \pi^n_m$ for all $1<m<n$,
+            \item $\langle \varphi_n, \rho_n\rangle : \overline M_n \to \TT \times \overline M_{n-1}$
+                is a diffeomorphism for all $n>1$.
+        \end{enumerate}
+        We use the notation $\rho_\infty : \overline M_\infty \to \overline M_\infty$
+        to refer to the system $(\rho_n)_{n>1}$.
+        We use $$\rho^*_\infty : C^\infty(\overline M_\infty) \to C^\infty(\overline M_\infty)$$
+        to denote the algebra homomorphism such that
+        $\rho^* \pi^{\infty*}_n = \pi^{\infty*}_{n+1} \rho_{n+1}^*$ for all $n>0$.
+\end{defn}
+\begin{lem}
+        $\varpi_\infty$ is a tail map.
 \end{lem}
 \begin{proof}
-\MISS
+        This is immediate.
 \end{proof}
-
-Let us remark for completeness that 
-invertibility of $\langle \varphi_\infty, \varpi_\infty\rangle : \overline M_\infty
-\to \TT \times \overline M_\infty$ is in our setting reflected by
-an isomorphism
-$$
-\varphi_\infty^* \widehat\otimes \varpi_\infty^* : C^\infty(\TT) \widehat{\otimes}
-C^\infty(\overline M_\infty) \xrightarrow{\sim} C^\infty(\overline M_\infty)
-$$
-where $\widehat\otimes$ denotes the $C^\infty$ tensor product, a coproduct
-in the category of $C^\infty$-algebras (cf. \textbf{[Spivak]}).
-Likewise, $\iota_h$ and $\iota_t$ give rise to an isomorphism
-$$
-\langle \iota_h, \varphi_\infty^* \widehat\otimes \iota_t \rangle : \XX(\TT)\ \oplus\ C^\infty(\TT)
-\widehat\otimes \XX^\p(\overline M_\infty) \xrightarrow{\sim} \XX^\p(\overline M_\infty).  
-$$
-We will not need these in what follows, restricting to plain algebraic tensor products
-(in fact, we shall soon pass from smooth functions to trigonometric polynomials).
+In what follows, we shall view the space $\XX^\p(\overline M_\infty)$ as:
+\begin{enumerate}
+\item a $C^\infty(\TT)$-module via $f\cdot \upsilon = (\pi_1^{\infty*} f)\upsilon$ for $f \in C^\infty(\TT$),
+        $\upsilon \in \XX^\p(\overline M_\infty)$,
+\item a Lie-Rinehart algebra over $C^\infty(\TT)$ via 
+        $$\varphi_{\infty*}:=\varphi_*\pi^\infty_{1*} : \XX^\p(\overline M_\infty) \to \XX(\TT),$$
+        satisfying
+        $$
+        [\upsilon, f\cdot \upsilon'] = f\cdot [\upsilon,\upsilon'] + (\varphi_{\infty*}\upsilon)(f)\cdot \upsilon'.
+        $$
+\end{enumerate}
+\begin{defn}
+        A \emph{head-tail split} is 
+        a pair $(\iota_h,\iota_t)$ of maps
+        $$
+        \XX(\TT) \xrightarrow{\iota_h} \XX^\p(\overline M_\infty) \xleftarrow{\iota_t} \XX^\p(\overline M_\infty)
+        $$
+        such that:
+        \begin{enumerate}
+                \item $\langle\iota_h,\iota_t\rangle : \XX(\TT) \oplus \XX^\p(\overline M_\infty)
+                        \to \XX^\p(\overline M_\infty)$ is a Lie algebra monomorphism,
+            \item $\iota_h$ is a homomorphism of Lie-Rinehart algebras, i.e.
+a $C^\infty(\TT)$-module homomorphism satisfying 
+$$[\iota_h \chi , f\cdot \upsilon] = f\cdot [\iota_h\chi,\upsilon] + \chi(f)\cdot\upsilon$$
+for $\chi\in\XX(\TT)$, $\upsilon\in \XX^\p(\overline M_\infty)$ and $f\in C^\infty(\TT)$,
+            \item $\ad\circ\iota_t$ maps into $C^\infty(\TT)$-linear endomorphisms of $\XX^\p(\overline M_\infty)$,
+                    i.e. $$[\iota_t \upsilon, f\cdot \upsilon'] = f\cdot [\iota_t\upsilon,\upsilon']$$
+                    for all $\upsilon,\upsilon'\in\XX^\p(\overline M_\infty)$ and $f \in C^\infty(\TT)$.
+        \end{enumerate}
+\end{defn}
+\begin{lem}
+        Given a tail map $\rho_\infty : \overline M_\infty \to \overline M_\infty$,
+        there exists a unique head-tail split $(\iota_h,\iota_t)$ such that
+        $$\iota_t \upsilon \cdot \rho_\infty^* g = \rho_\infty^* (\upsilon \cdot g)$$
+        for all $\upsilon \in \XX^\p(\overline M_\infty)$, $g \in C^\infty(\overline M_\infty)$.
+\end{lem}
+The idea is that, formally, we have
+an isomorphism $\langle \varphi_\infty,\rho_\infty\rangle : \overline M_\infty \to 
+\TT \times \overline M_\infty$, expressing $\overline M_\infty$
+as a canonically trivialised circle bundle over itself.  The head-tail split $(\iota_h,\iota_t)$
+corresponds to, respectively, vertical action of vector fields on the fibre, and
+horizontal lift of vector fields from the base.
+\begin{proof}\MISS\end{proof}
 
 We
 may now express the `symmetry' property of $\varpi_\infty$ with respect to $\xi_\infty$:
 \begin{prop}\label{prop:xi-rec}
-        The middle horizontal arrow is the sum of the top and bottom composites 
-        in the following diagram:
+        Let $(\iota_h,\iota_t)$ be the head-tail split associated
+        with $\varpi_\infty$. Then the middle horizontal arrow in the following diagram
+        is the sum of the top and bottom composites:
         $$\begin{diagram}\dgARROWLENGTH=2.0em
                 \node{} \node{\fm} \arrow{e,t}{\eta|_\fm} \node{\XX(\TT)} \arrow{se,r}{\iota_h} 
                 \\
@@ -704,7 +712,8 @@ may now express the `symmetry' property of $\varpi_\infty$ with respect to $\xi_
 \item 
         $\eta : \fsl_2 \to \XX(\TT)$ and $\fm\simeq\RR^2$ are as in Lemma \ref{lem:seg-sl2}.
         \end{itemize}
-        Symbolically, using $\varphi_\infty^*$ to view $C^\infty(\TT)$ as a subalgebra in $C^\infty(\overline M_\infty)$, and letting $\tilde S$ act on $\Hom(\RR^2, \XX^p(\overline M_\infty))$, we have:
+        Symbolically, using the $C^\infty(\TT)$-module structure on $\XX^\p(\overline M_\infty)$
+        and letting $\tilde S$ act on $\Hom(\RR^2, \XX^p(\overline M_\infty))$, we have:
         \begin{equation}\label{eq:xi-rec}{\xi_\infty = \iota_h \eta +  \tilde S \cdot \iota_t \xi_\infty.}
         \end{equation}
 \end{prop}
@@ -721,7 +730,6 @@ may now express the `symmetry' property of $\varpi_\infty$ with respect to $\xi_
         second equality follows from Lemma \ref{lem:seg-trans}, by construction of $\xi_n$.
 \end{proof}
 
-\subsection{Twisting the tail}
 The cognitive load of working with $\overline M_\infty$
 is justified by the concise formula \eqref{eq:xi-rec}.
 We may interpret it as stating that $\xi_\infty$ is the fixed point of an affine
@@ -746,6 +754,7 @@ It will turn out that one may quite efficiently compute Lie brackets using only 
 relations (along with the structure of $\fsl_2(\RR)$ and its action on $\TT$, but
 never writing down an explicit vector field on $\overline M_\infty$).
 
+\subsection{Twisting the tail}
 Returning to \eqref{eq:xi-rec}, recall that
 we view $\tilde S$ as acting on $\Hom(\RR^2, \XX^\p(\overline M_\infty))$
 via reflections in the \emph{domain} $\RR^2$. However, since $\xi_\infty$
