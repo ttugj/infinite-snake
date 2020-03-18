@@ -71,7 +71,7 @@ subalgebra of the
 
 The statement is easy to formulate. Reducing by obvious translational
 symmetry, the snake's configuration space may be identified with an
-infinite torus $\TT^\infty = \varinjlim_{n\to\infty} \TT^n$, parameterising
+infinite torus $\TT^\infty = \varprojlim \TT^n$, parameterising
 the orientations of subsequent segments.
 It is an exercise in imagination to see that the snake `follows its head':
 that is, the motion of the entire system is determined by the initial configuration,
@@ -683,7 +683,7 @@ for $\chi\in\XX(\TT)$, $\upsilon\in \XX^\p(\overline M_\infty)$ and $f\in C^\inf
                     for all $\upsilon,\upsilon'\in\XX^\p(\overline M_\infty)$ and $f \in C^\infty(\TT)$.
         \end{enumerate}
 \end{defn}
-\begin{lem}
+\begin{lem}\label{lem:hts}
         Given a tail map $\rho_\infty : \overline M_\infty \to \overline M_\infty$,
         there exists a unique head-tail split $(\iota_h,\iota_t)$ such that
         $$\iota_t \upsilon \cdot \rho_\infty^* g = \rho_\infty^* (\upsilon \cdot g)$$
@@ -776,6 +776,45 @@ If $(\iota_h,\iota_t)$ is the head-tail split associated with $\rho$,
 we use $(\iota_h^\alpha,\iota_t^\alpha)$ to denote the head-tail split
 associated with $\rho^\alpha$. We will need a formula expressing
 $\iota_{h,t}$ in terms of $\iota^\alpha_{h,t}$.
+To make it more intuitive, let us rotate the image we have used in the previous section,
+and view $\varphi_\infty$ as expressing $\overline M_\infty$ as a bundle over $\TT$,
+with typical fibre (a copy of) $\overline M_\infty$, trivialised by $\rho_\infty$ (mapping each fibre
+onto the typical fibre). Then $\iota_h$ becomes a horizontal lift of vector fields from the base, while $\iota_t$
+sends vector fields on the typical fibre to vertical vector fields on the total space.
+Twisting $\rho_\infty$ by $\alpha$ corresponds to a gauge transformation, whence
+$\iota_h$ transforms like a connection, while $\iota_t$ transforms in the `adjoint' manner. 
+
+It will be useful to introduce the map
+$$ \widetilde{\iota_t} : C^\infty(\TT, \XX^\p(\overline M_\infty)) \to \XX^\p(\overline M_\infty) $$
+defined by
+$$ \rho_{n*} (\pi^\infty_{n*} \widetilde{\iota_t} \Upsilon)_{\bar m} = \Upsilon(\varphi_{n-1})_{\rho_n \bar m} $$
+for $\Upsilon:\TT\to\XX^\p(\overline M_\infty)$, $\bar m \in \overline M_n$. To wit,
+$\widetilde{\iota_t}$ realises $\Upsilon$ as a family of vector fields on the \emph{tail},
+parameterised by the \emph{head}.
+
+\begin{lem}
+        Let $\rho_\infty$ be a tail map, $(\iota_h,\iota_t)$ its associated head-tail split,
+        and $\alpha : \TT \to \O_2(\RR)$ a smooth map. 
+        Write 
+        $$\widetilde{d\alpha} : \XX(\TT) \to \XX^\p(\overline M_\infty) \quad
+        \textrm{and}\quad \widetilde \alpha : \XX^\p(\overline M_\infty) \to \XX^\p(\overline M_\infty)$$
+        for the composites 
+        $$ \XX(\TT) \xrightarrow{d\alpha} C^\infty(\TT, \mathfrak{so}_2(\RR))
+        \xrightarrow{\mathrm{action}_*} C^\infty(\TT, \XX^\p(\overline M_\infty))
+        \xrightarrow{\widetilde{\iota_t}} \XX^\p(\overline M_\infty)$$
+        and
+        $$
+         \XX^\p(\overline M_\infty) \xrightarrow{\mathrm{action}}
+         C^\infty(\O_2(\RR), \XX^\p(\overline M_\infty)) \xrightarrow{\alpha^*} C^\infty(\TT, \XX^\p(\overline M_\infty) \xrightarrow{\widetilde{\iota_t}}
+         \XX^\p(\overline M_\infty).
+        $$
+        Then:
+        \begin{align*}
+                \iota_h^\alpha &=\iota_h + \widetilde{d\alpha} \\
+                \iota_t^\alpha &= \widetilde\alpha.
+        \end{align*}
+\end{lem}
+\begin{proof}\MISS\end{proof}
 
 \subsection{Abstracting the symmetry}
 
