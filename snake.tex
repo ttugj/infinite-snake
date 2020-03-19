@@ -30,6 +30,7 @@
 \DeclareMathOperator{\FLA}{\mathsf{FLA}}
 \DeclareMathOperator{\Der}{\mathrm{Der}}
 \DeclareMathOperator{\End}{\mathrm{End}}
+\DeclareMathOperator{\Aut}{\mathrm{Aut}}
 \DeclareMathOperator{\Hom}{\mathrm{Hom}}
 \DeclareMathOperator{\wt}{\mathrm{wt}}
 \DeclareMathOperator{\gr}{\mathrm{gr}}
@@ -51,6 +52,7 @@
 \newtheorem{defn}{Definition}
 \begin{document}
 \sloppy\maketitle
+\tableofcontents
 \section{Introduction}
 \label{sec:intro}
 \subsection{Overview}
@@ -587,9 +589,12 @@ the $\overline M_n$ commute with the system $\pi^n_m$ of projections, and thus
 define actions on the colimit $C^\infty(\overline M_\infty)$ (via the induced action on smooth functions on each
 $M_n$)
 and on the limit $\XX^\p(\overline M_\infty)$ (via the induced action on vector fields on each $M_n$).
-The following is rather obvious: 
+Furthermore, we realise the `infinitesimal action' on $\overline M_\infty$ as a map 
+$ \mathfrak{so}_2(\RR) \to \XX^\p(\overline M_\infty) $
+arising as the limit of infinitesimal actions $\mathfrak{so}_2(\RR) \to \XX^\p(\overline M_n)$.
+
 \begin{lem}\label{lem:xi-equiv}
-        $\xi_\infty$ is $\O_2(\RR)$-equivariant.
+        $\xi_\infty:\RR^2\to\XX^\p(\overline M_\infty)$ is $\O_2(\RR)$-equivariant.
 \end{lem}
 \begin{proof}
         Equivariance of $\xi_\infty$ follows
@@ -697,6 +702,27 @@ corresponds to, respectively, vertical action of vector fields on the fibre, and
 horizontal lift of vector fields from the base.
 \begin{proof}\MISS{} (check at each $\overline M_n$)\end{proof}
 
+\begin{lem}
+Given a head-tail split $(\iota_h,\iota_t)$ associated with
+a tail map $\rho_\infty$, define 
+$$ \widetilde{\iota_t} : C^\infty(\TT, \XX^\p(\overline M_\infty)) \to \XX^\p(\overline M_\infty) $$
+by the property
+$$
+\left( \langle \varphi_n,\rho_n\rangle_* \pi^\infty_{n*}\widetilde\iota_t\Upsilon \right)_{(u,\bar m)}
+= (0, \Upsilon(u)_{\bar m})
+$$
+for all $\Upsilon : \TT \to \XX^\p(\overline M_\infty)$, $n>1$, $\bar m \in \overline M_{n-1}$.
+Then:\begin{enumerate}
+\item $\widetilde\iota_t$ is a $C^\infty(\TT)$-module homomorphism,
+\item if $\Upsilon:\TT \to \XX^\p(\overline M_\infty)$ 
+is constant with value $\upsilon$, then $\widetilde\iota_t \Upsilon = \iota_t \upsilon$.
+\end{enumerate}
+\end{lem}
+To wit,
+$\widetilde{\iota_t}$ realises $\Upsilon$ as a family of vector fields on the \emph{tail},
+parameterised by the \emph{head}.
+\begin{proof}\MISS\end{proof}
+
 We
 may now express the `symmetry' property of $\varpi_\infty$ with respect to $\xi_\infty$:
 \begin{prop}\label{prop:xi-rec}
@@ -708,20 +734,21 @@ may now express the `symmetry' property of $\varpi_\infty$ with respect to $\xi_
                 \\
                 \node{\RR^2}\arrow{ne,t}{\simeq}\arrow{se,b}{\tilde S} \arrow[3]{e,t,..}{\xi_\infty}\node{} \node{} \node{\XX^\p(\overline M_\infty)}
                 \\
-                \node{} \node{C^\infty(\TT)\otimes\RR^2} \arrow{e,b}{\id\otimes\xi_\infty}
-                \node{C^\infty(\TT)\otimes\XX^\p(\overline M_\infty)}\arrow{ne,b}{\varphi_\infty^* \otimes \iota_t}
+                \node{} \node{C^\infty(\TT,\RR^2)} \arrow{e,b}{\xi_\infty}
+                \node{C^\infty(\TT,\XX^\p(\overline M_\infty))}\arrow{ne,b}{\widetilde\iota_t}
         \end{diagram}$$
         where:
         \begin{itemize}
                 \item 
-        $\tilde S : \RR^2 \to C^\infty(\TT) \otimes \RR^2$
+                $\tilde S : \RR^2 \to C^\infty(\TT, \RR^2)$
         denotes a conjugate of the map $\TT\ni u \mapsto S_u \in \End\RR^2$ (cf. Lemma~\ref{lem:seg-trans}),
 \item 
         $\eta : \fsl_2 \to \XX(\TT)$ and $\fm\simeq\RR^2$ are as in Lemma \ref{lem:seg-sl2}.
         \end{itemize}
         Symbolically, using the $C^\infty(\TT)$-module structure on $\XX^\p(\overline M_\infty)$
         and letting $\tilde S$ act on $\Hom(\RR^2, \XX^p(\overline M_\infty))$, we have:
-        \begin{equation}\label{eq:xi-rec}{\xi_\infty = \iota_h \eta +  \tilde S \cdot \iota_t \xi_\infty.}
+        \begin{equation}\label{eq:xi-rec}
+                \xi_\infty = \iota_h \eta +  \tilde\iota_t \tilde S^* \xi_\infty.
         \end{equation}
 \end{prop}
 \begin{proof}
@@ -740,10 +767,10 @@ may now express the `symmetry' property of $\varpi_\infty$ with respect to $\xi_
 We may interpret \eqref{eq:xi-rec} as stating that $\xi_\infty$ is the (unique!) fixed point of an affine
 map
 $$
-\iota_h\eta + \tilde S \iota_t :
+\iota_h\eta + \widetilde\iota_t\tilde S^* :
 \XX^\p(\overline M_\infty)\otimes\RR^{2*} \to
 \XX^p(\overline M_\infty)\otimes\RR^{2*}, $$
-whose homogeneous part $\tilde S\iota_t$
+whose homogeneous part $\widetilde \iota_t \tilde S^*$
 is injective. That is, the corecursive relation \eqref{eq:xi-rec} determines
 $\xi_\infty$ completely!
 Our strategy will be to find analogous relations
@@ -768,15 +795,18 @@ Let $\rho_\infty : \overline M_\infty \to \overline M_\infty$ be a tail map,
 and $\alpha : \TT \to \O_2(\RR)$ a smooth map. Then the \emph{twist of $\rho_\infty$ by $\alpha$}
 is the tail map 
 $$\rho^\alpha_\infty : \overline M_\infty \to \overline M_\infty,\quad\textrm{where}\quad
-\rho^\alpha_n(\bar m) = \alpha_{\varphi_n(\bar m)} \cdot \rho_n(\bar m) $$
+\rho^\alpha_n(\bar m) = \alpha_{\varphi_n(\bar m)}^{-1} \cdot \rho_n(\bar m) $$
 for $\bar m \in \overline M_n$.
 \end{defn}
+Note the inverse in the definition; it will simplify further calculations.
 It is easy to check that $\rho^\alpha_\infty$ is indeed a tail map.
 If $(\iota_h,\iota_t)$ is the head-tail split associated with $\rho$,
 we use $(\iota_h^\alpha,\iota_t^\alpha)$ to denote the head-tail split
-associated with $\rho^\alpha$. We will need a formula expressing
+associated with $\rho^\alpha$. 
+
+We will need a formula expressing
 $\iota_{h,t}$ in terms of $\iota^\alpha_{h,t}$.
-To make it more intuitive, let us rotate the image we have used in the previous section,
+To make it more intuitive, let us rotate the image we have used in the previous subsection,
 and view $\varphi_\infty$ as expressing $\overline M_\infty$ as a bundle over $\TT$,
 with typical fibre (a copy of) $\overline M_\infty$, trivialised by $\rho_\infty$ (mapping each fibre
 onto the typical fibre). Then $\iota_h$ becomes a horizontal lift of vector fields from the base, while $\iota_t$
@@ -784,35 +814,44 @@ sends vector fields on the typical fibre to vertical vector fields on the total 
 Twisting $\rho_\infty$ by $\alpha$ corresponds to a gauge transformation, whence
 $\iota_h$ transforms like a connection, while $\iota_t$ transforms in the `adjoint' manner. 
 
-It will be useful to introduce the map
-$$ \widetilde{\iota_t} : C^\infty(\TT, \XX^\p(\overline M_\infty)) \to \XX^\p(\overline M_\infty) $$
-defined by
-$$ \rho_{n*} (\pi^\infty_{n*} \widetilde{\iota_t} \Upsilon)_{\bar m} = \Upsilon(\varphi_{n-1})_{\rho_n \bar m} $$
-for $\Upsilon:\TT\to\XX^\p(\overline M_\infty)$, $\bar m \in \overline M_n$. To wit,
-$\widetilde{\iota_t}$ realises $\Upsilon$ as a family of vector fields on the \emph{tail},
-parameterised by the \emph{head}.
 
 \begin{lem}
         Let $\rho_\infty$ be a tail map, $(\iota_h,\iota_t)$ its associated head-tail split,
-        and $\alpha : \TT \to \O_2(\RR)$ a smooth map. 
-        Write 
-        $$\widetilde{d\alpha} : \XX(\TT) \to \XX^\p(\overline M_\infty) \quad
-        \textrm{and}\quad \widetilde \alpha : \XX^\p(\overline M_\infty) \to \XX^\p(\overline M_\infty)$$
-        for the composites 
-        $$ \XX(\TT) \xrightarrow{d\alpha} C^\infty(\TT, \mathfrak{so}_2(\RR))
-        \xrightarrow{\mathrm{action}_*} C^\infty(\TT, \XX^\p(\overline M_\infty))
-        \xrightarrow{\widetilde{\iota_t}} \XX^\p(\overline M_\infty)$$
-        and
-        $$
-         \XX^\p(\overline M_\infty) \xrightarrow{\mathrm{action}}
-         C^\infty(\O_2(\RR), \XX^\p(\overline M_\infty)) \xrightarrow{\alpha^*} C^\infty(\TT, \XX^\p(\overline M_\infty) \xrightarrow{\widetilde{\iota_t}}
-         \XX^\p(\overline M_\infty).
-        $$
-        Then:
-        $$ \iota_h^\alpha =\iota_h + \widetilde{d\alpha}\quad\textrm{and}\quad 
-                \iota_t^\alpha = \widetilde\alpha.$$
+        and $\alpha : \TT \to \O_2(\RR)$ a smooth map. Then the following diagram commutes:
+        $$\begin{diagram}
+                        \node{C^\infty(\TT,\mathfrak{so}_2(\RR))} 
+                        \arrow{e,t}{\mathrm{action}'} \node{C^\infty(\TT, \XX^\p(\overline M_\infty))}
+                        \arrow{s,r}{\widetilde{\iota_t}} 
+                        \node{C^\infty(\O_2(\RR), \XX^\p(\overline M_\infty))}
+                        \arrow{w,t}{\alpha^*} 
+                        \\
+                        \node{\XX(\TT)} 
+                        \arrow{n,l}{\alpha^*\omega_{\mathrm{MC}}} 
+                        \arrow{e,b}{\iota^\alpha_h-\iota_h}
+                        \node{\XX^\p(\overline M_\infty)}
+                        \node{\XX^\p(\overline M_\infty),} 
+                        \arrow{w,b}{\iota^\alpha_t}
+                        \arrow{n,r}{\mathrm{action}}
+        \end{diagram}$$
+        where:\begin{itemize}
+        \item $\omega_{\mathrm{MC}}$
+        denotes the right-invariant Maurer-Cartan form on $\O_2(\RR)$,
+        \item $\mathrm{action}$ refers to the induced action $\O_2(\RR) \to \Aut \XX^\p(\overline M_\infty)$,
+        \item $\mathrm{action}'$ refers to the `infinitesimal action'
+                $\fso_2(\RR) \to \XX^\p(\overline M_\infty)$.
+        \end{itemize}
 \end{lem}
+% alpha . sigma = e
+% sigma = alpha^-1
+% dsigma = -dalpha  = -dalpha . alpha sigma = (alpha^{-1*}omega_MC) sigma 
 \begin{proof}\MISS\end{proof}
+
+Now, as suggested in the first paragraph of this subsection,
+we consider
+$$ \alpha : \TT \to \O_2(\RR),\quad \alpha(u) = R_u S_e $$
+and the corresponding twist of the original tail map
+$\varpi$. We let $(\iota_h,\iota_t)$ be the head-tail split
+associated with $\varpi$.
 
 \subsection{Abstracting the symmetry}
 
