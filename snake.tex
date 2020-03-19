@@ -537,7 +537,13 @@ For now, we shall simply give a direct definition of smooth functions and projec
 on $\overline M_\infty$
 (constructing $\overline M_\infty$ as an object in any reasonable extension of the category of smooth manifolds
 would give rise to an algebra of smooth functions and 
-a space of projectable vector fields canonically identifiable with those in the following definition).
+a space of projectable vector fields canonically identifiable with those in the following definition).\footnote{
+        My preferred setting would be the (opposite of) the category of $C^\infty$ rings;
+        several statements in the remainder of this section could then be expressed more naturally,
+        at the cost of introducing a substantial dependency on a not widely known framework. Instead,
+        I chose a more elementary, if sometimes tedious, presentation with the aim of dropping
+        the geometric scaffolding as soon as possible.
+}
 \begin{defn}
         The objects associated with $\overline M_\infty$ are:
         \begin{align*}
@@ -651,47 +657,33 @@ $$\pi_1^{\infty*}:C^\infty(\overline M_1) \to \varinjlim_n C^\infty(\overline M_
 \begin{proof}
         This is immediate.
 \end{proof}
-In what follows, we shall view the space $\XX^\p(\overline M_\infty)$ as:
-\begin{enumerate}
-\item a $C^\infty(\TT)$-module via $f\cdot \upsilon = (\pi_1^{\infty*} f)\upsilon$ for $f \in C^\infty(\TT$),
-        $\upsilon \in \XX^\p(\overline M_\infty)$,
-\item a Lie-Rinehart algebra\footnote{
-A Lie-Rinehart algebra over an $\RR$-algebra $A$ is
-an $A$-module $\fg$ equipped with a Lie algebra structure
-and a Lie algebra homomorphism $\theta:\fg \to \Der_\RR A$ 
-such that $[x,ay] = a[x,y] + \theta_x(a) y$ for $x,y \in \fg$, $a\in A$.
-For example, the space of smooth sections of a Lie algebroid is a Lie-Rinehart
-algebra over the algebra of smooth functions on the base manifold.
-        } over $C^\infty(\TT)$ via 
-        $$\varphi_{\infty*}:=\varphi_*\pi^\infty_{1*} : \XX^\p(\overline M_\infty) \to \XX(\TT),$$
-        satisfying
-        $$
-        [\upsilon, f\cdot \upsilon'] = f\cdot [\upsilon,\upsilon'] + (\varphi_{\infty*}\upsilon)(f)\cdot \upsilon'.
-        $$
-\end{enumerate}
+
+Condition (2) in the definition of a tail map suggests that
+a tail map $\rho_\infty$ give rise to an isomorphism
+$$\langle \varphi_\infty,\rho_\infty\rangle : \overline M_\infty \to \TT\times\overline M_\infty.$$
+We express it in terms of vector fields.
 \begin{defn}
-        A \emph{head-tail split} is 
-        a pair $(\iota_h,\iota_t)$ of maps
-        $$
-        \XX(\TT) \xrightarrow{\iota_h} \XX^\p(\overline M_\infty) \xleftarrow{\iota_t} \XX^\p(\overline M_\infty)
-        $$
-        such that:
-        \begin{enumerate}
-                \item $\langle\iota_h,\iota_t\rangle : \XX(\TT) \oplus \XX^\p(\overline M_\infty)
-                        \to \XX^\p(\overline M_\infty)$ is a Lie algebra monomorphism,
-            \item $\iota_h$ is a homomorphism of Lie-Rinehart algebras, i.e.
-a $C^\infty(\TT)$-module homomorphism satisfying 
-$$[\iota_h \chi , f\cdot \upsilon] = f\cdot [\iota_h\chi,\upsilon] + \chi(f)\cdot\upsilon$$
-for $\chi\in\XX(\TT)$, $\upsilon\in \XX^\p(\overline M_\infty)$ and $f\in C^\infty(\TT)$,
-            \item $\ad\circ\iota_t$ maps into $C^\infty(\TT)$-linear endomorphisms of $\XX^\p(\overline M_\infty)$,
-                    i.e. $$[\iota_t \upsilon, f\cdot \upsilon'] = f\cdot [\iota_t\upsilon,\upsilon']$$
-                    for all $\upsilon,\upsilon'\in\XX^\p(\overline M_\infty)$ and $f \in C^\infty(\TT)$.
-        \end{enumerate}
+        A head-tail split is a Lie algebra isomorphism
+$$
+J : \XX(\TT) \oplus C^\infty(\TT, \XX^\p(\overline M_\infty)) \to \XX^\p(\overline M_\infty)
+$$
+where:
+\begin{enumerate}
+        \item $\varphi_{\infty*}\circ J|_{\XX(\TT)} = \id_{\XX(\TT)}$,
+        \item $C^\infty(\TT,\XX^\p(\overline M_\infty)):=\varprojlim C^\infty(\TT,\XX^\p(\overline M_n))$, naturally identified with a subset of the set of all functions $\TT \to \XX^\p(\overline M_\infty)$,
+        \item the domain of $J$ is a semidirect product, with  $\XX(\TT)$ a subalgebra, and $C^\infty(\TT,\XX^\p(\overline M_\infty))$ an ideal,
+        \item $\XX(\TT)$ acts on $C^\infty(\TT, \XX^\p(\overline M_\infty))$
+                via its action on $C^\infty(\TT,\XX^\p(\overline M_n))$,  $n>0$.
+\end{enumerate}
+We use the notation $\iota_h=J|_{\XX(\TT)}$,
+$\widetilde\iota_t = J|_{C^\infty(\TT,\XX^\p(\overline M_\infty))}$
+and $$\iota_t : \XX^\p(\overline M_\infty)\xrightarrow{\mathrm{const}}C^\infty(\TT,\XX^\p(\overline M_\infty))
+\xrightarrow{J} \XX^\p(\overline M_\infty).$$
 \end{defn}
 \begin{lem}\label{lem:hts}
         Given a tail map $\rho_\infty : \overline M_\infty \to \overline M_\infty$,
-        there exists a unique head-tail split $(\iota_h,\iota_t)$ such that
-        $$\iota_t \upsilon \cdot \rho_\infty^* g = \rho_\infty^* (\upsilon \cdot g)$$
+        there exists a unique head-tail split $J$
+        such that $$\iota_t \upsilon \cdot \rho_\infty^* g = \rho_\infty^* (\upsilon \cdot g)$$
         for all $\upsilon \in \XX^\p(\overline M_\infty)$, $g \in C^\infty(\overline M_\infty)$.
 \end{lem}
 The idea is that, formally, we have
@@ -702,40 +694,19 @@ corresponds to, respectively, vertical action of vector fields on the fibre, and
 horizontal lift of vector fields from the base.
 \begin{proof}\MISS{} (check at each $\overline M_n$)\end{proof}
 
-\begin{lem}
-Given a head-tail split $(\iota_h,\iota_t)$ associated with
-a tail map $\rho_\infty$, define 
-$$ \widetilde{\iota_t} : C^\infty(\TT, \XX^\p(\overline M_\infty)) \to \XX^\p(\overline M_\infty) $$
-by the property
-$$
-\left( \langle \varphi_n,\rho_n\rangle_* \pi^\infty_{n*}\widetilde\iota_t\Upsilon \right)_{(u,\bar m)}
-= (0, \Upsilon(u)_{\bar m})
-$$
-for all $\Upsilon : \TT \to \XX^\p(\overline M_\infty)$, $n>1$, $\bar m \in \overline M_{n-1}$.
-Then:\begin{enumerate}
-\item $\widetilde\iota_t$ is a $C^\infty(\TT)$-module homomorphism,
-\item if $\Upsilon:\TT \to \XX^\p(\overline M_\infty)$ 
-is constant with value $\upsilon$, then $\widetilde\iota_t \Upsilon = \iota_t \upsilon$.
-\end{enumerate}
-\end{lem}
-To wit,
-$\widetilde{\iota_t}$ realises $\Upsilon$ as a family of vector fields on the \emph{tail},
-parameterised by the \emph{head}.
-\begin{proof}\MISS\end{proof}
-
 We
 may now express the `symmetry' property of $\varpi_\infty$ with respect to $\xi_\infty$:
 \begin{prop}\label{prop:xi-rec}
-        Let $(\iota_h,\iota_t)$ be the head-tail split associated
+        Let $J$ be the head-tail split associated
         with $\varpi_\infty$. Then the middle horizontal arrow in the following diagram
         is the sum of the top and bottom composites:
         $$\begin{diagram}\dgARROWLENGTH=2.0em
-                \node{} \node{\fm} \arrow{e,t}{\eta|_\fm} \node{\XX(\TT)} \arrow{se,r}{\iota_h} 
+                \node{} \node{\fm} \arrow{e,t}{\eta|_\fm} \node{\XX(\TT)} \arrow{se,t}{J} 
                 \\
                 \node{\RR^2}\arrow{ne,t}{\simeq}\arrow{se,b}{\tilde S} \arrow[3]{e,t,..}{\xi_\infty}\node{} \node{} \node{\XX^\p(\overline M_\infty)}
                 \\
                 \node{} \node{C^\infty(\TT,\RR^2)} \arrow{e,b}{\xi_\infty}
-                \node{C^\infty(\TT,\XX^\p(\overline M_\infty))}\arrow{ne,b}{\widetilde\iota_t}
+        \node{C^\infty(\TT,\XX^\p(\overline M_\infty))}\arrow{ne,b}{J}
         \end{diagram}$$
         where:
         \begin{itemize}
@@ -800,8 +771,8 @@ for $\bar m \in \overline M_n$.
 \end{defn}
 Note the inverse in the definition; it will simplify further calculations.
 It is easy to check that $\rho^\alpha_\infty$ is indeed a tail map.
-If $(\iota_h,\iota_t)$ is the head-tail split associated with $\rho$,
-we use $(\iota_h^\alpha,\iota_t^\alpha)$ to denote the head-tail split
+If $J$ along with $(\iota_h,\iota_t)$ is the head-tail split associated with $\rho$,
+we use $J^\alpha$ along with $(\iota_h^\alpha,\iota_t^\alpha)$ to denote the head-tail split
 associated with $\rho^\alpha$. 
 
 We will need a formula expressing
@@ -850,7 +821,7 @@ Now, as suggested in the first paragraph of this subsection,
 we consider
 $$ \alpha : \TT \to \O_2(\RR),\quad \alpha(u) = R_u S_e $$
 and the corresponding twist of the original tail map
-$\varpi$. We let $(\iota_h,\iota_t)$ be the head-tail split
+$\varpi$. We let $J$ along with $(\iota_h,\iota_t)$ be the head-tail split
 associated with $\varpi$.
 
 \subsection{Abstracting the symmetry}
