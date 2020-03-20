@@ -276,7 +276,7 @@ description with respect to $\Phi$. Let $\XX^\p(M)$ denote the space of
 smooth projectable vector fields on $M$ (that is an inverse limit of 
 spaces of smooth projectable vector fields on the configuration spaces of finite sub-snakes),
 and let
-$$ \XX(\TT) \xrightarrow{\iota} \XX^\p(M) \xleftarrow{\Sigma} \XX^\p(M) $$
+$$ \XX(\TT) \xrightarrow{ j} \XX^\p(M) \xleftarrow{\Sigma} \XX^\p(M) $$
 be the maps induced by $\Phi^{-1} :  \TT\times M \to M$. Note that these in turn induce
 an isomorphism\footnote{For simplicity, at this stage we use
 smooth functions, whence the need for a completed tensor product.
@@ -285,14 +285,14 @@ work with Laurent polynomials on complex tori.}
 $$
 \XX(\TT) \oplus C^\infty(\TT) \widehat\otimes \XX^p(M) \to \XX^\p(M),
 \quad
-(v, f \otimes V) \mapsto \iota v + (\pi_h^* f)\cdot \Sigma V.
+(v, f \otimes V) \mapsto  j v + (\pi_h^* f)\cdot \Sigma V.
 $$
 It will be most convenient to complexify and consider
 $Z = X+iY \in \CC\otimes\XX^\p(M)$.
 Then, we find the following corecursive formula (see Section~\ref{sec:basic}):
 $$
 Z = -e^{i\varphi} \left( 
-        \Sigma Z + i(\Sigma-1)\iota\partial_\varphi
+        \Sigma Z + i(\Sigma-1) j\partial_\varphi
 \right)$$
 where we view $\varphi$ as a function on $M$ via $\pi_h^*$.
 Since the operator $1+e^{i\varphi}\Sigma$ 
@@ -675,24 +675,26 @@ where:
         \item $\XX(\TT)$ acts on $C^\infty(\TT, \XX^\p(\overline M_\infty))$
                 via its action on $C^\infty(\TT,\XX^\p(\overline M_n))$,  $n>0$.
 \end{enumerate}
-We use the notation $\iota_h=J|_{\XX(\TT)}$,
-$\widetilde\iota_t = J|_{C^\infty(\TT,\XX^\p(\overline M_\infty))}$
-and $$\iota_t : \XX^\p(\overline M_\infty)\xrightarrow{\mathrm{const}}C^\infty(\TT,\XX^\p(\overline M_\infty))
-\xrightarrow{J} \XX^\p(\overline M_\infty).$$
 \end{defn}
+Given a head-tail split $J$, we use the notation $ j_h=J|_{\XX(\TT)}$,
+$J_t = J|_{C^\infty(\TT,\XX^\p(\overline M_\infty))}$
+and $$ j_t : \XX^\p(\overline M_\infty)\xrightarrow{\mathrm{const}}C^\infty(\TT,\XX^\p(\overline M_\infty))
+\xrightarrow{J} \XX^\p(\overline M_\infty).$$
+It is now easy to distinguish the head-tail split $J$
+associated with a given tail map $\rho_\infty$:
+the formal isomorphism $\langle \varphi_\infty,\rho_\infty\rangle$
+expresses $\overline M_\infty$
+as a canonically trivialised circle bundle over itself,
+and $j_h$, $j_t$
+correspond to, respectively, vertical action of vector fields on the fibre, and
+horizontal lift of vector fields from the base.
 \begin{lem}\label{lem:hts}
         Given a tail map $\rho_\infty : \overline M_\infty \to \overline M_\infty$,
         there exists a unique head-tail split $J$
-        such that $$\iota_t \upsilon \cdot \rho_\infty^* g = \rho_\infty^* (\upsilon \cdot g)$$
+        such that $$ j_t \upsilon \cdot \rho_\infty^* g = \rho_\infty^* (\upsilon \cdot g)$$
         for all $\upsilon \in \XX^\p(\overline M_\infty)$, $g \in C^\infty(\overline M_\infty)$.
 \end{lem}
-The idea is that, formally, we have
-an isomorphism $\langle \varphi_\infty,\rho_\infty\rangle : \overline M_\infty \to 
-\TT \times \overline M_\infty$, expressing $\overline M_\infty$
-as a canonically trivialised circle bundle over itself.  The head-tail split $(\iota_h,\iota_t)$
-corresponds to, respectively, vertical action of vector fields on the fibre, and
-horizontal lift of vector fields from the base.
-\begin{proof}\MISS{} (check at each $\overline M_n$)\end{proof}
+\begin{proof}\MISS{}\end{proof}
 
 We
 may now express the `symmetry' property of $\varpi_\infty$ with respect to $\xi_\infty$:
@@ -719,7 +721,7 @@ may now express the `symmetry' property of $\varpi_\infty$ with respect to $\xi_
         Symbolically, using the $C^\infty(\TT)$-module structure on $\XX^\p(\overline M_\infty)$
         and letting $\tilde S$ act on $\Hom(\RR^2, \XX^p(\overline M_\infty))$, we have:
         \begin{equation}\label{eq:xi-rec}
-                \xi_\infty = \iota_h \eta +  \tilde\iota_t \tilde S^* \xi_\infty.
+                \xi_\infty =  j_h \eta +  J_t \tilde S^* \xi_\infty.
         \end{equation}
 \end{prop}
 \begin{proof}
@@ -738,10 +740,10 @@ may now express the `symmetry' property of $\varpi_\infty$ with respect to $\xi_
 We may interpret \eqref{eq:xi-rec} as stating that $\xi_\infty$ is the (unique!) fixed point of an affine
 map
 $$
-\iota_h\eta + \widetilde\iota_t\tilde S^* :
+ j_h\eta + J_t\tilde S^* :
 \XX^\p(\overline M_\infty)\otimes\RR^{2*} \to
 \XX^p(\overline M_\infty)\otimes\RR^{2*}, $$
-whose homogeneous part $\widetilde \iota_t \tilde S^*$
+whose homogeneous part $J_t \tilde S^*$
 is injective. That is, the corecursive relation \eqref{eq:xi-rec} determines
 $\xi_\infty$ completely!
 Our strategy will be to find analogous relations
@@ -771,37 +773,37 @@ for $\bar m \in \overline M_n$.
 \end{defn}
 Note the inverse in the definition; it will simplify further calculations.
 It is easy to check that $\rho^\alpha_\infty$ is indeed a tail map.
-If $J$ along with $(\iota_h,\iota_t)$ is the head-tail split associated with $\rho$,
-we use $J^\alpha$ along with $(\iota_h^\alpha,\iota_t^\alpha)$ to denote the head-tail split
+If $J$ is the head-tail split associated with $\rho$,
+we use $J^\alpha$ to denote the head-tail split
 associated with $\rho^\alpha$. 
 
 We will need a formula expressing
-$\iota_{h,t}$ in terms of $\iota^\alpha_{h,t}$.
+$ j_{h,t}$ in terms of $ j^\alpha_{h,t}$.
 To make it more intuitive, let us rotate the image we have used in the previous subsection,
 and view $\varphi_\infty$ as expressing $\overline M_\infty$ as a bundle over $\TT$,
 with typical fibre (a copy of) $\overline M_\infty$, trivialised by $\rho_\infty$ (mapping each fibre
-onto the typical fibre). Then $\iota_h$ becomes a horizontal lift of vector fields from the base, while $\iota_t$
+onto the typical fibre). Then $ j_h$ becomes a horizontal lift of vector fields from the base, while $ j_t$
 sends vector fields on the typical fibre to vertical vector fields on the total space.
 Twisting $\rho_\infty$ by $\alpha$ corresponds to a gauge transformation, whence
-$\iota_h$ transforms like a connection, while $\iota_t$ transforms in the `adjoint' manner. 
+$ j_h$ transforms like a connection, while $ j_t$ transforms in the `adjoint' manner. 
 
 
 \begin{lem}
-        Let $\rho_\infty$ be a tail map, $(\iota_h,\iota_t)$ its associated head-tail split,
+        Let $\rho_\infty$ be a tail map, $J$ its associated head-tail split,
         and $\alpha : \TT \to \O_2(\RR)$ a smooth map. Then the following diagram commutes:
         $$\begin{diagram}
                         \node{C^\infty(\TT,\mathfrak{so}_2(\RR))} 
                         \arrow{e,t}{\mathrm{action}'} \node{C^\infty(\TT, \XX^\p(\overline M_\infty))}
-                        \arrow{s,r}{\widetilde{\iota_t}} 
+                        \arrow{s,r}{J_t}
                         \node{C^\infty(\O_2(\RR), \XX^\p(\overline M_\infty))}
                         \arrow{w,t}{\alpha^*} 
                         \\
                         \node{\XX(\TT)} 
                         \arrow{n,l}{\alpha^*\omega_{\mathrm{MC}}} 
-                        \arrow{e,b}{\iota^\alpha_h-\iota_h}
+                        \arrow{e,b}{ j^\alpha_h- j_h}
                         \node{\XX^\p(\overline M_\infty)}
                         \node{\XX^\p(\overline M_\infty),} 
-                        \arrow{w,b}{\iota^\alpha_t}
+                        \arrow{w,b}{ j^\alpha_t}
                         \arrow{n,r}{\mathrm{action}}
         \end{diagram}$$
         where:\begin{itemize}
@@ -821,7 +823,7 @@ Now, as suggested in the first paragraph of this subsection,
 we consider
 $$ \alpha : \TT \to \O_2(\RR),\quad \alpha(u) = R_u S_e $$
 and the corresponding twist of the original tail map
-$\varpi$. We let $J$ along with $(\iota_h,\iota_t)$ be the head-tail split
+$\varpi$. We let $J$ be the head-tail split
 associated with $\varpi$.
 
 \subsection{Abstracting the symmetry}
@@ -854,12 +856,12 @@ and the action is compatible with $\tau$.
 
 Our next goal is to introduce a Lie algebra structure on 
 $\fM$ and $\widehat\fM$. There is a split short exact sequence
-$$ 0 \to \CC[z^{\pm1}]\otimes_\CC A \xrightarrow{\iota} A \rightleftarrows \CC[z^{\pm1}] \to 0 $$
-of $\CC[z^{\pm1}]$-modules, with $\iota(f\otimes a) = f\Sigma a$
-and the image of $\iota$ identified with $\langle\Sigma\rangle$. This induces
+$$ 0 \to \CC[z^{\pm1}]\otimes_\CC A \xrightarrow{ j} A \rightleftarrows \CC[z^{\pm1}] \to 0 $$
+of $\CC[z^{\pm1}]$-modules, with $ j(f\otimes a) = f\Sigma a$
+and the image of $ j$ identified with $\langle\Sigma\rangle$. This induces
 another 
 split short exact sequence of $\CC[z^{\pm1}]$-modules:
-\begin{equation} 0 \to \CC[z^{\pm1}]\otimes_\CC \fM \xrightarrow{\iota\otimes\id_{\fsl_2}} \fM \overset{\pi}{\underset{\sigma}{\rightleftarrows}} \CC[z^{\pm1}]\otimes\fsl_2 \to 0 
+\begin{equation} 0 \to \CC[z^{\pm1}]\otimes_\CC \fM \xrightarrow{ j\otimes\id_{\fsl_2}} \fM \overset{\pi}{\underset{\sigma}{\rightleftarrows}} \CC[z^{\pm1}]\otimes\fsl_2 \to 0 
 \label{eq:ses-m}
 \end{equation}
 Observe that the $\fsl_2$-action on $\CC[z^{\pm1}]$ equips
