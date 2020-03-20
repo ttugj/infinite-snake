@@ -700,8 +700,8 @@ We
 may now express the `symmetry' property of $\varpi_\infty$ with respect to $\xi_\infty$:
 \begin{prop}\label{prop:xi-rec}
         Let $J$ be the head-tail split associated
-        with $\varpi_\infty$. Then the middle horizontal arrow in the following diagram
-        is the sum of the top and bottom composites:
+        with $\varpi_\infty$. Then $\xi_\infty$ is the sum of
+        the top and bottom composites in the following diagram:
         $$\begin{diagram}\dgARROWLENGTH=2.0em
                 \node{} \node{\fm} \arrow{e,t}{\eta|_\fm} \node{\XX(\TT)} \arrow{se,t}{J} 
                 \\
@@ -835,7 +835,7 @@ and setting $$\widehat r = \mathrm{action}'(r) \in \XX^\p(\overline M_\infty),$$
 we may write
 $$
 j_h (\chi) =
-j^\alpha_h(\chi) - J^\alpha_h \left( \langle d\phi,\chi\rangle \otimes \widehat r\right)
+j^\alpha_h(\chi) - J^\alpha_t \left( \langle d\phi,\chi\rangle \otimes \widehat r\right)
 $$
 for $\chi \in \XX(\TT)$, where $\widehat r$
 is viewed as a constant map $\TT \to \XX^\p(\overline M_\infty)$ and
@@ -852,8 +852,40 @@ Fig.~\ref{fig:param}, as discussed in the Introduction):
 \end{proof}
 Finally thus, we get:
 $$
-j_h(\chi) = j^\alpha_h(\chi) - J^\alpha_h(\langle d\phi,\chi\rangle \otimes j^\alpha_h(r)).
+j_h(\chi) = j^\alpha_h(\chi) - J^\alpha_t(\langle d\phi,\chi\rangle \otimes j^\alpha_h(r)).
 $$
+This allows us to state an analogue of Proposition~\ref{prop:xi-rec} in terms of $\varpi^\alpha$:
+\begin{prop}\label{prop:xi-rec-twist}
+Let $J^\alpha$ be the head-tail split associated with $\varpi^\alpha_\infty$,
+where $\alpha(u) = R_uS_e$. Then $\xi_\infty$ is the sum of the following composites:
+\begin{enumerate}
+        \item $\RR^2 \simeq \fm \xrightarrow{\eta} \XX(\TT) \xrightarrow{J^\alpha} \XX^\p(\overline M_\infty)$
+        \item $\RR^2 \simeq \fm \xrightarrow{\eta} \XX(\TT) \xrightarrow{d\phi} C^\infty(\TT)
+                \xrightarrow{-j^\alpha_h(r)} 
+                C^\infty(\TT, \XX^\p(\overline M_\infty)) \xrightarrow{J^\alpha}
+                \XX^\p(\overline M_\infty)$
+        \item $\RR^2 \xrightarrow{\widetilde R^{-1}} C^\infty(\TT,\RR^2)
+                \xrightarrow{\xi_\infty} 
+                C^\infty(\TT, \XX^\p(\overline M_\infty)) \xrightarrow{J^\alpha}
+                \XX^\p(\overline M_\infty)$
+\end{enumerate}
+where:
+        \begin{itemize}
+                \item 
+                $\widetilde R^{-1} : \RR^2 \to C^\infty(\TT, \RR^2)$
+                denotes a conjugate of the map $\TT\ni u \mapsto R_u^{-1} \in \End\RR^2$ (cf. Lemma~\ref{lem:seg-trans}),
+\item 
+        $\eta : \fsl_2 \to \XX(\TT)$ and $\fm\simeq\RR^2$ are as in Lemma \ref{lem:seg-sl2}.
+        \end{itemize}
+        Symbolically, using the $C^\infty(\TT)$-module structure on $\XX^\p(\overline M_\infty)$
+        and letting $\tilde R^{-1}$ act on $\Hom(\RR^2, \XX^p(\overline M_\infty))$, we have:
+        \begin{equation}\label{eq:xi-rec}
+                \xi_\infty =  j_h^\alpha \eta   
+                - J^\alpha_t \langle d\phi,\eta\rangle j^\alpha_h(r)
+                + J^\alpha_t \tilde R^{-1,*} \xi_\infty.
+        \end{equation}
+\end{prop}
+\begin{proof}\MISS\end{proof}
 
 \subsection{Abstracting the symmetry}
 
