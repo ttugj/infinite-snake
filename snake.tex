@@ -658,8 +658,8 @@ $$\pi_1^{\infty*}:C^\infty(\overline M_1) \to \varinjlim_n C^\infty(\overline M_
         This is immediate.
 \end{proof}
 
-Condition (2) in the definition of a tail map suggests that
-a tail map $\rho_\infty$ give rise to an isomorphism
+Condition (2) in the above definition suggests that
+a tail map $\rho_\infty$ give rise to a formal isomorphism
 $$\langle \varphi_\infty,\rho_\infty\rangle : \overline M_\infty \to \TT\times\overline M_\infty.$$
 We express it in terms of vector fields.
 \begin{defn}
@@ -788,7 +788,7 @@ Twisting $\rho_\infty$ by $\alpha$ corresponds to a gauge transformation, whence
 $ j_h$ transforms like a connection, while $ j_t$ transforms in the `adjoint' manner. 
 
 
-\begin{lem}
+\begin{lem}\label{lem:twist}
         Let $\rho_\infty$ be a tail map, $J$ its associated head-tail split,
         and $\alpha : \TT \to \O_2(\RR)$ a smooth map. Then the following diagram commutes:
         $$\begin{diagram}
@@ -824,7 +824,36 @@ we consider
 $$ \alpha : \TT \to \O_2(\RR),\quad \alpha(u) = R_u S_e $$
 and the corresponding twist of the original tail map
 $\varpi$. We let $J$ be the head-tail split
-associated with $\varpi$.
+associated with $\varpi$. Applying Lemma \ref{lem:twist}
+to $\varpi=(\varpi^\alpha)^{\alpha^{-1}}$ as a twist of $\varpi^\alpha$,
+we get
+$$
+ j_h = j^\alpha_h - J^\alpha_t \circ \mathrm{action}' \circ (\alpha^*\omega_{\mathrm{MC}}).
+$$
+Now, letting $r \in \fso_2(\RR)$ be the generator acting on $\TT$ as $\partial_\phi$,
+and setting $$\widehat r = \mathrm{action}'(r) \in \XX^\p(\overline M_\infty),$$
+we may write
+$$
+j_h (\chi) =
+j^\alpha_h(\chi) - J^\alpha_h \left( \langle d\phi,\chi\rangle \otimes \widehat r\right)
+$$
+for $\chi \in \XX(\TT)$, where $\widehat r$
+is viewed as a constant map $\TT \to \XX^\p(\overline M_\infty)$ and
+then multiplied by $\langle d\phi,\chi\rangle \in C^\infty(\TT)$.
+Remarkably, we have the following identity (evident if one 
+views $\varpi^\alpha$ as giving rise to the parameterisation
+illustrated in
+Fig.~\ref{fig:param}, as discussed in the Introduction):
+\begin{lem}
+        $\widehat r = j^\alpha_h(r)$.
+\end{lem}
+\begin{proof}
+\MISS
+\end{proof}
+Finally thus, we get:
+$$
+j_h(\chi) = j^\alpha_h(\chi) - J^\alpha_h(\langle d\phi,\chi\rangle \otimes j^\alpha_h(r)).
+$$
 
 \subsection{Abstracting the symmetry}
 
