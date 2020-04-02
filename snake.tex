@@ -662,15 +662,8 @@ Condition (2) in the above definition suggests that
 a tail map $\rho_\infty$ give rise to a formal isomorphism
 $$\langle \varphi_\infty,\rho_\infty\rangle : \overline M_\infty \to \TT\times\overline M_\infty.$$
 We express it in terms of vector fields. First,
-let us introduce the following notation:\footnote{
-We could write $C^\infty(\TT,\XX^\p(\overline M_n))
-= C^\infty(\TT) \widehat\otimes \XX^\p(\overline M_n)$
-in terms of extension of scalars for $C^\infty$-modules
-over $C^\infty$-rings, with the $C^\infty(\TT)$-linear
-Lie algebra structure and $\XX(\TT)$-action by derivations
-appearing for free. Without the $C^\infty$-ring setting,
-we resort to the embedding in $\XX(\TT\times\overline M_n)$.}
-\begin{itemize}
+let us introduce the following notation:
+\begin{enumerate}
 \item        
 $C^\infty(\TT, \XX^\p(\overline M_n))$
 is identified with the space of vector fields $\Upsilon$ on $\TT \times \overline M_n$
@@ -683,20 +676,21 @@ under the identification $\{u\} \times \overline M_n \simeq \overline M_n$ for a
 \item 
         We may thus view $C^\infty(\TT, \XX^\p(\overline M_n))$
         as a Lie algebra in itself, with $\XX(\TT)$ acting on it by derivations.
-\end{itemize}
+\item   Projections $\pi^n_{m*} : \XX^\p(\overline M_n) \to \XX^\p(\overline M_m)$ lift to Lie algebra epimorphisms $$C^\infty(\TT,\pi^n_{m*}) : C^\infty(\TT,\XX^\p(\overline M_n))
+        \to C^\infty(\TT, \XX^\p(\overline M_m))$$ compatible with
+        the action of $\XX(\TT)$.
+\item This allows us to define $C^\infty(\TT, \overline M_\infty) = \varprojlim C^\infty(\TT,\overline M_n)$,
+        as a Lie algebra with $\XX(\TT)$ acting by derivations.
+\end{enumerate}
 \begin{defn}
 A head-tail split is a Lie algebra isomorphism
 $$
-J : \XX(\TT) \oplus C^\infty(\TT, \XX^\p(\overline M_\infty)) \to \XX^\p(\overline M_\infty)
+J : \XX(\TT) \oplus C^\infty(\TT, \XX^\p(\overline M_\infty)) \to \XX^\p(\overline M_\infty),\quad
+        \varphi_{\infty*}\circ J|_{\XX(\TT)} = \id_{\XX(\TT)}
 $$
-where:
-\begin{enumerate}
-        \item $\varphi_{\infty*}\circ J|_{\XX(\TT)} = \id_{\XX(\TT)}$;
-        \item $C^\infty(\TT,\XX^\p(\overline M_\infty)):=\varprojlim C^\infty(\TT,\XX^\p(\overline M_n))$;
-        \item the domain of $J$ is a semidirect product, with  $\XX(\TT)$ a subalgebra, and $C^\infty(\TT,\XX^\p(\overline M_\infty))$ an ideal;
-        \item the Lie algebra structure and the $\XX(\TT)$-action on $C^\infty(\TT, \XX^\p(\overline M_\infty))$
-                is induced by those on $C^\infty(\TT,\XX^\p(\overline M_n))$, $n>0$.
-\end{enumerate}
+where the domain of $J$ is a semidirect product of Lie algebras, with 
+        $\XX(\TT)$ as a subalgebra, $C^\infty(\TT,\XX^\p(\overline M_\infty))$ as an ideal,
+        and the former acting on the latter as described above. 
 \end{defn}
 Given a head-tail split $J$, we use the notation $ j_h=J|_{\XX(\TT)}$,
 $J_t = J|_{C^\infty(\TT,\XX^\p(\overline M_\infty))}$
