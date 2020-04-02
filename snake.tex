@@ -276,7 +276,7 @@ description with respect to $\Phi$. Let $\XX^\p(M)$ denote the space of
 smooth projectable vector fields on $M$ (that is an inverse limit of 
 spaces of smooth projectable vector fields on the configuration spaces of finite sub-snakes),
 and let
-$$ \XX(\TT) \xrightarrow{ j} \XX^\p(M) \xleftarrow{\Sigma} \XX^\p(M) $$
+$$ \XX(\TT) \xrightarrow{\iota} \XX^\p(M) \xleftarrow{\Sigma} \XX^\p(M) $$
 be the maps induced by $\Phi^{-1} :  \TT\times M \to M$. Note that these in turn induce
 an isomorphism\footnote{For simplicity, at this stage we use
 smooth functions, whence the need for a completed tensor product.
@@ -285,14 +285,14 @@ work with Laurent polynomials on complex tori.}
 $$
 \XX(\TT) \oplus C^\infty(\TT) \widehat\otimes \XX^p(M) \to \XX^\p(M),
 \quad
-(v, f \otimes V) \mapsto  j v + (\pi_h^* f)\cdot \Sigma V.
+(v, f \otimes V) \mapsto \iota v + (\pi_h^* f)\cdot \Sigma V.
 $$
 It will be most convenient to complexify and consider
 $Z = X+iY \in \CC\otimes\XX^\p(M)$.
 Then, we find the following corecursive formula (see Section~\ref{sec:basic}):
 $$
 Z = -e^{i\varphi} \left( 
-        \Sigma Z + i(\Sigma-1) j\partial_\varphi
+        \Sigma Z + i(\Sigma-1) \iota\partial_\varphi
 \right)$$
 where we view $\varphi$ as a function on $M$ via $\pi_h^*$.
 Since the operator $1+e^{i\varphi}\Sigma$ 
@@ -661,19 +661,41 @@ $$\pi_1^{\infty*}:C^\infty(\overline M_1) \to \varinjlim_n C^\infty(\overline M_
 Condition (2) in the above definition suggests that
 a tail map $\rho_\infty$ give rise to a formal isomorphism
 $$\langle \varphi_\infty,\rho_\infty\rangle : \overline M_\infty \to \TT\times\overline M_\infty.$$
-We express it in terms of vector fields.
+We express it in terms of vector fields. First,
+let us introduce the following notation:\footnote{
+We could write $C^\infty(\TT,\XX^\p(\overline M_n))
+= C^\infty(\TT) \widehat\otimes \XX^\p(\overline M_n)$
+in terms of extension of scalars for $C^\infty$-modules
+over $C^\infty$-rings, with the $C^\infty(\TT)$-linear
+Lie algebra structure and $\XX(\TT)$-action by derivations
+appearing for free. Without the $C^\infty$-ring setting,
+we resort to the embedding in $\XX(\TT\times\overline M_n)$.}
+\begin{itemize}
+\item        
+$C^\infty(\TT, \XX^\p(\overline M_n))$
+is identified with the space of vector fields $\Upsilon$ on $\TT \times \overline M_n$
+that are horizontal with respect to projection onto $\overline M_n$,
+and satisfy $\Upsilon|_{\{u\}\times \overline M_n} \in \XX^\p(\overline M_n)$
+under the identification $\{u\} \times \overline M_n \simeq \overline M_n$ for all $u \in \TT$.
+\item
+        $C^\infty(\TT, \XX^\p(\overline M_n))$ becomes a Lie subalgebra in $\XX(\TT\times\overline M_n)$,
+        stable under the action of the naturally embedded $\XX(\TT) \subset \XX(\TT\times\overline M_n)$. 
+\item 
+        We may thus view $C^\infty(\TT, \XX^\p(\overline M_n))$
+        as a Lie algebra in itself, with $\XX(\TT)$ acting on it by derivations.
+\end{itemize}
 \begin{defn}
-        A head-tail split is a Lie algebra isomorphism
+A head-tail split is a Lie algebra isomorphism
 $$
 J : \XX(\TT) \oplus C^\infty(\TT, \XX^\p(\overline M_\infty)) \to \XX^\p(\overline M_\infty)
 $$
 where:
 \begin{enumerate}
-        \item $\varphi_{\infty*}\circ J|_{\XX(\TT)} = \id_{\XX(\TT)}$,
-        \item $C^\infty(\TT,\XX^\p(\overline M_\infty)):=\varprojlim C^\infty(\TT,\XX^\p(\overline M_n))$, naturally identified with a subset of the set of all functions $\TT \to \XX^\p(\overline M_\infty)$,
-        \item the domain of $J$ is a semidirect product, with  $\XX(\TT)$ a subalgebra, and $C^\infty(\TT,\XX^\p(\overline M_\infty))$ an ideal,
-        \item $\XX(\TT)$ acts on $C^\infty(\TT, \XX^\p(\overline M_\infty))$
-                via its action on $C^\infty(\TT,\XX^\p(\overline M_n))$,  $n>0$.
+        \item $\varphi_{\infty*}\circ J|_{\XX(\TT)} = \id_{\XX(\TT)}$;
+        \item $C^\infty(\TT,\XX^\p(\overline M_\infty)):=\varprojlim C^\infty(\TT,\XX^\p(\overline M_n))$;
+        \item the domain of $J$ is a semidirect product, with  $\XX(\TT)$ a subalgebra, and $C^\infty(\TT,\XX^\p(\overline M_\infty))$ an ideal;
+        \item the Lie algebra structure and the $\XX(\TT)$-action on $C^\infty(\TT, \XX^\p(\overline M_\infty))$
+                is induced by those on $C^\infty(\TT,\XX^\p(\overline M_n))$, $n>0$.
 \end{enumerate}
 \end{defn}
 Given a head-tail split $J$, we use the notation $ j_h=J|_{\XX(\TT)}$,
@@ -845,23 +867,25 @@ views $\varpi^\alpha$ as giving rise to the parameterisation
 illustrated in
 Fig.~\ref{fig:param}, as discussed in the Introduction):
 \begin{lem}
-        $\widehat r = j^\alpha_h(r)$.
+        $\widehat r = j^\alpha_h(\partial_\phi)$.
 \end{lem}
 \begin{proof}
 \MISS
 \end{proof}
 Finally thus, we get:
 $$
-j_h(\chi) = j^\alpha_h(\chi) - J^\alpha_t(\langle d\phi,\chi\rangle \otimes j^\alpha_h(r)).
+j_h(\chi) = j^\alpha_h(\chi) - J^\alpha_t(\langle d\phi,\chi\rangle \otimes j^\alpha_h(\partial_\phi)).
 $$
-This allows us to state an analogue of Proposition~\ref{prop:xi-rec} in terms of $\varpi^\alpha$:
+This allows us to state an analogue of Proposition~\ref{prop:xi-rec} in terms of $\varpi^\alpha$.
+We'll identify $\fso_2(\RR)$ with the complement of $\fm$ in $\fsl_2(\RR)$,
+so that we can write $\partial_\phi = \eta(r)$.
 \begin{prop}\label{prop:xi-rec-twist}
 Let $J^\alpha$ be the head-tail split associated with $\varpi^\alpha_\infty$,
 where $\alpha(u) = R_uS_e$. Then $\xi_\infty$ is the sum of the following composites:
 \begin{enumerate}
         \item $\RR^2 \simeq \fm \xrightarrow{\eta} \XX(\TT) \xrightarrow{J^\alpha} \XX^\p(\overline M_\infty)$
         \item $\RR^2 \simeq \fm \xrightarrow{\eta} \XX(\TT) \xrightarrow{d\phi} C^\infty(\TT)
-                \xrightarrow{-j^\alpha_h(r)} 
+                \xrightarrow{j^\alpha_h\eta(-r)} 
                 C^\infty(\TT, \XX^\p(\overline M_\infty)) \xrightarrow{J^\alpha}
                 \XX^\p(\overline M_\infty)$
         \item $\RR^2 \xrightarrow{\widetilde R^{-1}} C^\infty(\TT,\RR^2)
@@ -879,15 +903,25 @@ where:
         \end{itemize}
         Symbolically, using the $C^\infty(\TT)$-module structure on $\XX^\p(\overline M_\infty)$
         and letting $\tilde R^{-1}$ act on $\Hom(\RR^2, \XX^p(\overline M_\infty))$, we have:
-        \begin{equation}\label{eq:xi-rec}
+        \begin{equation}\label{eq:xi-rec-twist}
                 \xi_\infty =  j_h^\alpha \eta   
-                - J^\alpha_t \langle d\phi,\eta\rangle j^\alpha_h(r)
+                - J^\alpha_t \langle d\phi,\eta\rangle j^\alpha_h\eta(r)
                 + J^\alpha_t \tilde R^{-1,*} \xi_\infty.
         \end{equation}
 \end{prop}
 \begin{proof}\MISS\end{proof}
 
 \subsection{Abstracting the symmetry}
+We can obtain a much simpler expression of the recurrence relation \eqref{eq:xi-rec-twist} 
+once we:
+\begin{itemize}
+        \item complexify $\xi_\infty$ so that rotations can be diagonalised,
+        \item use $j^\alpha_h \eta$ to identify $\fsl_2(\CC)$ with its image in $\XX^\p_\CC(\overline M_\infty)$.
+\end{itemize}
+In fact, it will then be convenient to
+restrict to the smallest Lie subalgebra in $\XX^\p_\CC(\overline M_\infty)$ containing
+$\fsl_2(\CC)$ and stable under $J^\alpha_t \tilde R^{-1}$: essentially, the Lie algebra
+of projectable vector fields on an infinite-dimensional (complexified) torus whose coefficients are (complexified) trigonometric polynomials.
 
 
 \section{Serpentine Lie algebra}
