@@ -662,26 +662,41 @@ Condition (2) in the above definition suggests that
 a tail map $\rho_\infty$ give rise to a formal isomorphism
 $$\langle \varphi_\infty,\rho_\infty\rangle : \overline M_\infty \to \TT\times\overline M_\infty.$$
 We express it in terms of vector fields. First,
-let us introduce the following notation:
+let us introduce the following notation.
 \begin{enumerate}
 \item        
-$C^\infty(\TT, \XX^\p(\overline M_n))$
-is identified with the space of vector fields $\Upsilon$ on $\TT \times \overline M_n$
-that are horizontal with respect to projection onto $\overline M_n$,
-and satisfy $\Upsilon|_{\{u\}\times \overline M_n} \in \XX^\p(\overline M_n)$
-under the identification $\{u\} \times \overline M_n \simeq \overline M_n$ for all $u \in \TT$.
+Given a smooth manifold $T$,
+let $C^\infty(T, \XX^\p(\overline M_n))$
+be the space of maps $\Upsilon : T \to \XX^\p(\overline M_n)$
+such that
+the assignment $(u, \bar m) \mapsto (0, \Upsilon(u)_{\bar m})$
+defines a smooth vector field on $T \times \overline M_n$.
+Accordingly, we have an embedding $C^\infty(T, \XX^\p(\overline M_n)) \hookrightarrow
+\XX(T \times \overline M_n)$.
 \item
-        $C^\infty(\TT, \XX^\p(\overline M_n))$ becomes a Lie subalgebra in $\XX(\TT\times\overline M_n)$,
-        stable under the action of the naturally embedded $\XX(\TT) \subset \XX(\TT\times\overline M_n)$. 
-\item 
-        We may thus view $C^\infty(\TT, \XX^\p(\overline M_n))$
-        as a Lie algebra in itself, with $\XX(\TT)$ acting on it by derivations.
-\item   Projections $\pi^n_{m*} : \XX^\p(\overline M_n) \to \XX^\p(\overline M_m)$ lift to Lie algebra epimorphisms $$C^\infty(\TT,\pi^n_{m*}) : C^\infty(\TT,\XX^\p(\overline M_n))
-        \to C^\infty(\TT, \XX^\p(\overline M_m))$$ compatible with
-        the action of $\XX(\TT)$.
-\item This allows us to define $C^\infty(\TT, \overline M_\infty) = \varprojlim C^\infty(\TT,\overline M_n)$,
-        as a Lie algebra with $\XX(\TT)$ acting by derivations.
+        $C^\infty(T, \XX^\p(\overline M_n))$ becomes a Lie subalgebra in $\XX(T\times\overline M_n)$,
+        stable under the action of the naturally embedded $\XX(T) \subset \XX(T\times\overline M_n)$. 
+        We may thus view $C^\infty(T, \XX^\p(\overline M_n))$
+        as a Lie algebra in itself, with $\XX(T)$ acting on it by derivations. 
+\item   Projections $\pi^n_{m*} : \XX^\p(\overline M_n) \to \XX^\p(\overline M_m)$ lift to Lie algebra epimorphisms $$C^\infty(T,\pi^n_{m*}) : C^\infty(T,\XX^\p(\overline M_n))
+        \to C^\infty(T, \XX^\p(\overline M_m))$$ compatible with
+        the action of $\XX(T)$.
+        This allows us to define $$C^\infty(T, \XX^\p(\overline M_\infty)) 
+        = \varprojlim C^\infty(T,\XX^\p(\overline M_n))$$
+        as a Lie algebra with $\XX(T)$ acting by derivations. It is also naturally a subspace
+        in the space of all maps $T \to\XX^\p( \overline M_\infty )$.
+\item A smooth map $T' \to T$
+        induces a well-defined pullback map\footnote{
+            To a functorially minded reader, this realises $\XX^\p(\overline M_\infty)$
+            as a generalised space in the form of a sheaf on the site of smooth manifolds.
+        } $C^\infty(T, \XX^\p(\overline M_\infty)) \to
+        C^\infty(T', \XX^\p(\overline M_\infty))$.
+\item If 
+$V$ is a finite-dimensional vector space,
+then every linear map $V\to \XX^\p(\overline M_\infty)$ 
+induces a well-defined pushforward map $C^\infty(T,V) \to C^\infty(T,\XX^\p(\overline M_\infty))$.
 \end{enumerate}
+
 \begin{defn}
 A head-tail split is a Lie algebra isomorphism
 $$
