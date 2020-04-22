@@ -663,18 +663,15 @@ a tail map $\rho_\infty$ give rise to a formal isomorphism
 $$\langle \varphi_\infty,\rho_\infty\rangle : \overline M_\infty \to \TT\times\overline M_\infty.$$
 We express it in terms of vector fields. First,
 let us introduce the following notation.
-\begin{enumerate}
-\item        
+\begin{itemize}
+\item
 Given a smooth manifold $T$,
-let $C^\infty(T, \XX^\p(\overline M_n))$
-be the space of maps $\Upsilon : T \to \XX^\p(\overline M_n)$
+we denote by $C^\infty(T, \XX^\p(\overline M_n))$
+the space of maps $\Upsilon : T \to \XX^\p(\overline M_n)$
 such that
 the assignment $(u, \bar m) \mapsto (0, \Upsilon(u)_{\bar m})$
 defines a smooth vector field on $T \times \overline M_n$.
-Accordingly, we have an embedding $C^\infty(T, \XX^\p(\overline M_n)) \hookrightarrow
-\XX(T \times \overline M_n)$.
-\item
-        $C^\infty(T, \XX^\p(\overline M_n))$ becomes a Lie subalgebra in $\XX(T\times\overline M_n)$,
+\item   $C^\infty(T, \XX^\p(\overline M_n))$ becomes a Lie subalgebra in $\XX(T\times\overline M_n)$,
         stable under the action of the naturally embedded $\XX(T) \subset \XX(T\times\overline M_n)$. 
         We may thus view $C^\infty(T, \XX^\p(\overline M_n))$
         as a Lie algebra in itself, with $\XX(T)$ acting on it by derivations. 
@@ -683,19 +680,19 @@ Accordingly, we have an embedding $C^\infty(T, \XX^\p(\overline M_n)) \hookright
         the action of $\XX(T)$.
         This allows us to define $$C^\infty(T, \XX^\p(\overline M_\infty)) 
         = \varprojlim C^\infty(T,\XX^\p(\overline M_n))$$
-        as a Lie algebra with $\XX(T)$ acting by derivations. It is also naturally a subspace
+        as a Lie algebra with $\XX(T)$ acting by derivations. 
+        
+        It is also naturally a subspace
         in the space of all maps $T \to\XX^\p( \overline M_\infty )$.
-\item A smooth map $T' \to T$
-        induces a well-defined pullback map\footnote{
-            To a functorially minded reader, this realises $\XX^\p(\overline M_\infty)$
-            as a generalised space in the form of a sheaf on the site of smooth manifolds.
-        } $C^\infty(T, \XX^\p(\overline M_\infty)) \to
-        C^\infty(T', \XX^\p(\overline M_\infty))$.
-\item If 
-$V$ is a finite-dimensional vector space,
-then every linear map $V\to \XX^\p(\overline M_\infty)$ 
-induces a well-defined pushforward map $C^\infty(T,V) \to C^\infty(T,\XX^\p(\overline M_\infty))$.
-\end{enumerate}
+\item Every smooth map $f:T' \to T$
+        induces a well-defined pullback map
+        $$f^*:C^\infty(T, \XX^\p(\overline M_\infty)) \to
+        C^\infty(T', \XX^\p(\overline M_\infty)).$$
+        Furthermore, every linear map
+$\vartheta: V\to \XX^\p(\overline M_\infty)$ 
+from a finite-dimensional vector space 
+induces a well-defined pushforward map $$\vartheta_*:C^\infty(T,V) \to C^\infty(T,\XX^\p(\overline M_\infty)).$$
+\end{itemize}
 
 \begin{defn}
 A head-tail split is a Lie algebra isomorphism
@@ -731,29 +728,21 @@ We
 may now express the `symmetry' property of $\varpi_\infty$ with respect to $\xi_\infty$:
 \begin{prop}\label{prop:xi-rec}
         Let $J$ be the head-tail split associated
-        with $\varpi_\infty$. Then $\xi_\infty$ is the sum of
-        the top and bottom composites in the following diagram:
-        $$\begin{diagram}\dgARROWLENGTH=2.0em
-                \node{} \node{\fm} \arrow{e,t}{\eta|_\fm} \node{\XX(\TT)} \arrow{se,t}{J} 
-                \\
-                \node{\RR^2}\arrow{ne,t}{\simeq}\arrow{se,b}{\tilde S} \arrow[3]{e,t,..}{\xi_\infty}\node{} \node{} \node{\XX^\p(\overline M_\infty)}
-                \\
-                \node{} \node{C^\infty(\TT,\RR^2)} \arrow{e,b}{\xi_\infty}
-        \node{C^\infty(\TT,\XX^\p(\overline M_\infty))}\arrow{ne,b}{J}
-        \end{diagram}$$
-        where:
-        \begin{itemize}
-                \item 
-                $\tilde S : \RR^2 \to C^\infty(\TT, \RR^2)$
-        denotes a conjugate of the map $\TT\ni u \mapsto S_u \in \End\RR^2$ (cf. Lemma~\ref{lem:seg-trans}),
-\item 
-        $\eta : \fsl_2 \to \XX(\TT)$ and $\fm\simeq\RR^2$ are as in Lemma \ref{lem:seg-sl2}.
-        \end{itemize}
-        Symbolically, using the $C^\infty(\TT)$-module structure on $\XX^\p(\overline M_\infty)$
-        and letting $\tilde S$ act on $\Hom(\RR^2, \XX^p(\overline M_\infty))$, we have:
-        \begin{equation}\label{eq:xi-rec}
-                \xi_\infty =  j_h \eta +  J_t \tilde S^* \xi_\infty.
-        \end{equation}
+        with $\varpi_\infty$. Let $\eta : \fsl_2 \to \XX(\TT)$
+        and an identification $\RR^2 \simeq \fm \subset \fsl_2$ be as in Lemma~\ref{lem:seg-sl2}.
+        Then 
+        $$
+        \xi_\infty(v) = j_h \underbrace{ \eta(v) }_{\XX(\TT)} 
+        + J_t\underbrace{
+        \left[ u \mapsto \xi_\infty(S_u v) \right]
+        }_{C^\infty(\TT, \XX^\p(\overline M_\infty))} 
+        $$
+        for all $v \in \RR^2$; or, in a point-free notation:
+\begin{equation}\label{eq:xi-rec}
+         \xi_\infty = j_h\eta + J_t \tilde S^* \xi_\infty
+\end{equation}
+        where $\tilde S  : \RR^2 \to C^\infty(\TT, \RR^2)$
+        maps $v \in \RR^2$ to $u\mapsto S_uv$.
 \end{prop}
 \begin{proof}
         It is enough to check that the statement holds after
@@ -888,40 +877,26 @@ $$
 This allows us to state an analogue of Proposition~\ref{prop:xi-rec} in terms of $\varpi^\alpha$.
 We'll identify $\fso_2(\RR)$ with the complement of $\fm$ in $\fsl_2(\RR)$,
 so that we can write $\partial_\phi = \eta(r)$.
+Let us also write
+$$ \eta_\phi(u,v) = \langle d\phi, \eta(v)\rangle(u) $$
+for $u \in \TT$, $v \in \RR^2\simeq\fm$.
 \begin{prop}\label{prop:xi-rec-twist}
 Let $J^\alpha$ be the head-tail split associated with $\varpi^\alpha_\infty$,
-where $\alpha(u) = R_uS_e$. Then $\xi_\infty$ is the sum of the following composites:
-\begin{enumerate}
-        \item $\RR^2 \simeq \fm \xrightarrow{\eta} \XX(\TT) \xrightarrow{J^\alpha} \XX^\p(\overline M_\infty)$
-        \item $\RR^2 \simeq \fm \xrightarrow{\eta} \XX(\TT) \xrightarrow{d\phi} C^\infty(\TT)
-                \xrightarrow{j^\alpha_h\eta(-r)} 
-                C^\infty(\TT, \XX^\p(\overline M_\infty)) \xrightarrow{J^\alpha}
-                \XX^\p(\overline M_\infty)$
-        \item $\RR^2 \xrightarrow{\widetilde R^{-1}} C^\infty(\TT,\RR^2)
-                \xrightarrow{\xi_\infty} 
-                C^\infty(\TT, \XX^\p(\overline M_\infty)) \xrightarrow{J^\alpha}
-                \XX^\p(\overline M_\infty)$
-\end{enumerate}
-where:
-        \begin{itemize}
-                \item 
-                $\widetilde R^{-1} : \RR^2 \to C^\infty(\TT, \RR^2)$
-                denotes a conjugate of the map $\TT\ni u \mapsto R_u^{-1} \in \End\RR^2$ (cf. Lemma~\ref{lem:seg-trans}),
-\item 
-        $\eta : \fsl_2 \to \XX(\TT)$ and $\fm\simeq\RR^2$ are as in Lemma \ref{lem:seg-sl2}.
-        \end{itemize}
-        Symbolically, using the $C^\infty(\TT)$-module structure on $\XX^\p(\overline M_\infty)$
-        and letting $\tilde R^{-1}$ act on $\Hom(\RR^2, \XX^p(\overline M_\infty))$, we have:
-        \begin{equation}\label{eq:xi-rec-twist}
-                \xi_\infty =  j_h^\alpha \eta   
-                - J^\alpha_t \langle d\phi,\eta\rangle j^\alpha_h\eta(r)
-                + J^\alpha_t \tilde R^{-1,*} \xi_\infty.
-        \end{equation}
+where $\alpha(u) = R_uS_e$. 
+Then 
+$$
+ \xi_\infty(v) = j^\alpha_h \eta(v) + J^\alpha_t \left[ u\mapsto \xi_\infty(R^{-1}_u v) 
+ - \eta_\phi(u,v) j^\alpha_h(r) \right]
+$$
+for all $v\in\RR^2$.
 \end{prop}
+A point-free version of the above equation, as a recurrence relation on $\xi_\infty$
+in analogy to~\eqref{eq:xi-rec},
+is straightforward to intuit, yet cumbersome to write down.
 \begin{proof}\MISS\end{proof}
 
 \subsection{Abstracting the symmetry}
-We can obtain a much simpler expression of the recurrence relation \eqref{eq:xi-rec-twist} 
+We can obtain a much simpler expression of the recurrence relation 
 once we:
 \begin{itemize}
         \item complexify $\xi_\infty$ so that rotations can be diagonalised,
