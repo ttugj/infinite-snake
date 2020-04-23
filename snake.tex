@@ -805,7 +805,7 @@ with typical fibre (a copy of) $\overline M_\infty$, trivialised by $\rho_\infty
 onto the typical fibre). Then $ j_h$ becomes a horizontal lift of vector fields from the base, while $ j_t$
 sends vector fields on the typical fibre to vertical vector fields on the total space.
 Twisting $\rho_\infty$ by $\alpha$ corresponds to a gauge transformation, whence
-$ j_h$ transforms like a connection, while $ j_t$ transforms in the `adjoint' manner. 
+$j_h$ `transforms like a connection.'
 
 
 \begin{lem}\label{lem:twist}
@@ -895,18 +895,51 @@ in analogy to~\eqref{eq:xi-rec},
 is straightforward to intuit, yet cumbersome to write down.
 \begin{proof}\MISS\end{proof}
 
-\subsection{Abstracting the symmetry}
-We can obtain a much simpler expression of the recurrence relation 
-once we:
-\begin{itemize}
-        \item complexify $\xi_\infty$ so that rotations can be diagonalised,
-        \item use $j^\alpha_h \eta$ to identify $\fsl_2(\CC)$ with its image in $\XX^\p_\CC(\overline M_\infty)$.
-\end{itemize}
-In fact, it will then be convenient to
-restrict to the smallest Lie subalgebra in $\XX^\p_\CC(\overline M_\infty)$ containing
-$\fsl_2(\CC)$ and stable under $J^\alpha_t \tilde R^{-1}$: essentially, the Lie algebra
-of projectable vector fields on an infinite-dimensional (complexified) torus whose coefficients are (complexified) trigonometric polynomials.
+\subsection{Distilling the symmetry}
+`Twisting the tail' in the previous subsection
+transformed the relation
+$$ \xi_\infty(v) = j_h\eta(v) + J_t\left[ u \mapsto \xi_\infty(S_uv) \right] $$
+into
+$$ \xi_\infty(v) = j^\alpha_h\eta(v) + J_t^\alpha \left[ u \mapsto \xi_\infty(R_u^{-1}v) - 
+\eta_\phi(u,v)j^\alpha_h(r) \right].
+$$
+At the cost of an additional term, $\eta_\phi(u,v)j^\alpha(r)$,
+we have replaced reflections $S_u$ by rotations $R^{-1}_u$; these can be
+simultaneously diagonalised upon complexification.
 
+Let us identify $\CC^2$ with $\CC\otimes\RR^2$,
+write $\XX_\CC^\p(\overline M_\infty) = \CC \otimes \XX^\p(\overline M_\infty)$
+and $C^\infty(T, \XX_\CC^\p(\overline M_\infty) = \CC\otimes C^\infty(T, \XX^\p(\overline M_\infty)$.
+We abuse the notation $\xi_\infty$, $J^\alpha$, $j_h^\alpha$, $j_t^\alpha$, etc.
+to denote $\CC$-linear extensions of these maps.
+Let
+$z = e^{i\phi} \in C^\infty(\TT,\CC)$,
+so that the $\CC$-linear extension of $R^{-1}_u$ is diagonalised as
+$$
+R^{-1}_u (e_1 \pm ie_2) = z^{\pm1}(u) (e_1\pm i e_2)
+$$
+with $e_1,e_2$ denoting the standard orthonormal basis in $\RR^2$.
+\begin{lem}
+Let $\zeta = \xi_\infty(e_1 + ie_2)$ in $\XX^\p_\CC(\overline M_n)$. Then:
+\begin{enumerate}
+\item
+$\eta(r) = iz\partial_z$,
+\item 
+$\eta(e_1\pm ie_2) = z^{\pm 1} z\partial_z$,
+\item
+        $ \zeta = j^\alpha_h (z^2\partial_z) + J^\alpha_t \left( z  \underline{\zeta}
+        -z  \underline{j^\alpha_h (z\partial_z)} \right)$
+ \end{enumerate}
+ where $\alpha$ is as in Prop.~\ref{prop:xi-rec-twist}, and
+ underline indicates a constant map $\TT \to \XX^\p_\CC(\overline M_n)$
+ with given value.
+\end{lem}
+\begin{proof} This is a straightforward application 
+        of the formulas for $\eta$
+        in the proof of Lemma~\ref{lem:seg-sl2},
+        and the recurrence relation of Prop.~\ref{prop:xi-rec-twist} quoted
+        in the first paragraph of this subsection. \MISS
+\end{proof}
 
 \section{Serpentine Lie algebra}
 \label{sec:algebra}
