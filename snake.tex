@@ -779,9 +779,9 @@ via reflections in the \emph{domain} $\RR^2$. However, since $\xi_\infty$
 is $\O_2(\RR)$-equivariant (by Lemma \ref{lem:xi-equiv}), we may as well
 act in the \emph{codomain} $\XX^\p(\overline M_\infty)$. In fact, it will
 be useful to decompose
-$$ S_u = R_u S_e R_u^{-1},\quad u \in \TT $$
-where $e \in \TT$ is $(1,0) \in \RR^2$, and
-incorporate a reflection factor $S_e R_u^{-1}$ as a \emph{twist}
+$$ S_u = R_u S_{e_1} R_u^{-1},\quad u \in \TT $$
+where $e_1 \in \TT$ is $(1,0) \in \RR^2$, and
+incorporate a reflection factor $S_{e_1} R_u^{-1}$ as a \emph{twist}
 of the tail map $\varpi_\infty$.
 \begin{defn}
 Let $\rho_\infty : \overline M_\infty \to \overline M_\infty$ be a tail map,
@@ -841,7 +841,7 @@ $j_h$ `transforms like a connection.'
 
 Now, as suggested in the first paragraph of this subsection,
 we consider
-$$ \alpha : \TT \to \O_2(\RR),\quad \alpha(u) = R_u S_e $$
+$$ \alpha : \TT \to \O_2(\RR),\quad \alpha(u) = R_u S_{e_1} $$
 and the corresponding twist of the original tail map
 $\varpi$. We let $J$ be the head-tail split
 associated with $\varpi$. Applying Lemma \ref{lem:twist}
@@ -882,7 +882,7 @@ $$ \eta_\phi(u,v) = \langle d\phi, \eta(v)\rangle(u) $$
 for $u \in \TT$, $v \in \RR^2\simeq\fm$.
 \begin{prop}\label{prop:xi-rec-twist}
 Let $J^\alpha$ be the head-tail split associated with $\varpi^\alpha_\infty$,
-where $\alpha(u) = R_uS_e$. 
+where $\alpha(u) = R_uS_{e_1}$. 
 Then 
 $$
  \xi_\infty(v) = j^\alpha_h \eta(v) + J^\alpha_t \left[ u\mapsto \xi_\infty(R^{-1}_u v) 
@@ -895,7 +895,7 @@ in analogy to~\eqref{eq:xi-rec},
 is straightforward to intuit, yet cumbersome to write down.
 \begin{proof}\MISS\end{proof}
 
-\subsection{Distilling the symmetry}
+\subsection{Abstracting the symmetry}
 `Twisting the tail' in the previous subsection
 transformed the relation
 $$ \xi_\infty(v) = j_h\eta(v) + J_t\left[ u \mapsto \xi_\infty(S_uv) \right] $$
@@ -954,17 +954,98 @@ use $j^\alpha_h \circ \eta$ to regard
 $\fsl_2(\CC)$ as a Lie sub-algebra in $\XX^\p_\CC(\overline M_\infty)$.
 \item 
 To remove $\alpha$ from notation, write $\Sigma = j^\alpha_t$ as an endomorphism of $\XX^\p(\overline M_\infty)$.
+\item
+        Write $\tau$ for the involution on $\XX^\p(\overline M_\infty)$
+        induced by the action of $S_{e_1}$.
 \end{enumerate}
+Note that in particular $\zeta^\tau = \xi_\infty(e_1 - ie_2)$
+with $\zeta = \xi_\infty(e_1+ie_2)$ as in Lemma~\ref{lem:zeta}.
 \begin{prop}\label{prop:zeta}
         Let $\e,\h,\f \in \fsl_2(\CC)$ be a standard (Chevalley) basis
-        such that $\h = 2r$, $\e = e_1 + ie_2$ and $\f = e_1 - ie_2$ under the identification
-        $\fsl_2(\CC) = \fso_2(\CC) \oplus \fm_\CC$. Let $\zeta = \xi_\infty(e_1+ie_2)$
-        as in Lemma \ref{lem:zeta}. Then
-        $$
-        \zeta = \e + z\Sigma(\zeta - \h/2). 
-        $$
+        such that $\h = -2ir$, $\e = e_1 + ie_2$ and $\f = e_1 - ie_2$ under the identification
+        $\fsl_2(\CC) = \fso_2(\CC) \oplus \fm_\CC$. 
+        Then:
+        \begin{enumerate}
+                \item $\e^\tau=-\f$, $\h^\tau=\h$, $\f^\tau=-\e$,
+                \item $z\tau = \tau z^{-1}$,
+                \item $\Sigma\tau = \tau\Sigma$,
+                \item $\zeta = \e + z\Sigma(\zeta - \h/2)$.
+        \end{enumerate}
 \end{prop}
+\begin{proof}
+        \MISS
+\end{proof}
 
+The relation on $\zeta$ 
+had now lost any trace
+of the geometric construction. This encourages
+further abstraction. 
+\begin{defn}
+An \emph{ambient module} is
+a triple $(\fM,\iota,\Sigma,\tau)$
+where:
+\begin{itemize}
+\item $\fM$ is a complex Lie algebra
+eqipped with
+a $\CC[z^{\pm1}]$-module structure,
+\item
+$\iota:\fsl_2(\CC) \hookrightarrow \fM$ is
+an embedding, further omitted from notation,
+\item $\Sigma,\tau : \fM \to \fM$ are
+        Lie algebra endomorphisms, with $\tau^2=\id$,
+\end{itemize}
+such that:
+\begin{enumerate}
+\item $\Sigma\tau=\tau\Sigma$ and $z\tau=\tau z^{-1}$,
+\item $\tau|_{\fsl_2}$ is conjugate to the involution $A \mapsto -A^t$,
+\item the adjoint action of $\fsl_2(\CC)$ on $\fM$
+        is compatible with
+        the $\CC[z^{\pm 1}]$-module structure,
+        and the standard action of $\fsl_2(\CC)$ on $\CC[z^{\pm1}]$
+        by derivations.
+\end{enumerate}
+The last two points
+mean that, in a standard Chevalley basis
+$\e,\h,\f\in\fsl_2(\CC)$, we have
+$$\e^\tau=-\f,\quad \h^\tau=\h,\quad \f^\tau=-\e$$
+and
+$$[\e,z^p] = pz^{p+1}, \quad [\h,z^p]=2pz^p, \quad [\f,z^\p]= pz^{p-1}$$
+as
+linear endomorphisms of $\fM$.
+\end{defn}
+
+\begin{lem} \label{lem:smod} $(\XX^\p(\overline M_\infty), j_h^\alpha\circ\eta, j_t^\alpha, S_{e_1})$
+is an ambient module.         
+\end{lem}
+\begin{proof}\MISS\end{proof}
+
+\begin{defn}Let $(\fM,\iota,\Sigma,\tau)$ be an ambient module.
+        \begin{itemize}
+\item A \emph{serpentine element} of $\fM$
+                        is
+        $\zeta \in \fM$ satisfying $\zeta = \e + z\Sigma(\zeta - \h/2)$.
+\item A \emph{serpentine subalgebra} is a Lie subalgebra of $\fM$
+        generated by $\zeta,\zeta^\tau$ for a serpentine element $\zeta \in\fM$.
+\item The ambient module is \emph{fine} if it contains a unique serpentine element.
+\end{itemize}
+\end{defn}
+
+\begin{lem}
+        Let $(\fM,\iota,\Sigma,\tau)$ be an ambient module.
+        Assume $\Sigma$ is injective, and
+        $\fM$ is complete with respect to
+        the $\Sigma$-adic topology (generated
+        by translates of subspaces $\Sigma^k \fM$, $k\ge 0$).
+        Then the ambient module is fine.
+\end{lem}
+\begin{proof}\MISS\end{proof}
+
+\begin{prop}
+        $\XX^\p(\overline M_\infty)$ with an ambient module structure as in Lemma~\ref{lem:smod}
+        is fine, and
+        $\zeta = \xi_\infty(e_1+ie_2)$ is its unique serpentine element.
+\end{prop}
+\begin{proof}\MISS\end{proof}
 \section{Serpentine Lie algebra}
 \label{sec:algebra}
 \subsection{Algebraic setup}
