@@ -913,13 +913,13 @@ and $C^\infty(T, \XX_\CC^\p(\overline M_\infty) = \CC\otimes C^\infty(T, \XX^\p(
 We abuse the notation $\xi_\infty$, $J^\alpha$, $j_h^\alpha$, $j_t^\alpha$, etc.
 to denote $\CC$-linear extensions of these maps.
 Let
-$z = e^{i\phi} \in C^\infty(\TT,\CC)$,
+$z = e^{i\phi} \in C^\infty_\CC(\TT)$,
 so that the $\CC$-linear extension of $R^{-1}_u$ is diagonalised as
 $$
 R^{-1}_u (e_1 \pm ie_2) = z^{\pm1}(u) (e_1\pm i e_2)
 $$
 with $e_1,e_2$ denoting the standard orthonormal basis in $\RR^2$.
-\begin{lem}
+\begin{lem}\label{lem:zeta}
 Let $\zeta = \xi_\infty(e_1 + ie_2)$ in $\XX^\p_\CC(\overline M_n)$. Then:
 \begin{enumerate}
 \item
@@ -927,12 +927,11 @@ $\eta(r) = iz\partial_z$,
 \item 
 $\eta(e_1\pm ie_2) = z^{\pm 1} z\partial_z$,
 \item
-        $ \zeta = j^\alpha_h (z^2\partial_z) + J^\alpha_t \left( z  \underline{\zeta}
-        -z  \underline{j^\alpha_h (z\partial_z)} \right)$
+        $ \zeta = j^\alpha_h (z^2\partial_z) + J^\alpha_t \left( z  \cdot \underline{\zeta}
+        -z  \cdot \underline{j^\alpha_h (z\partial_z)} \right)$
  \end{enumerate}
  where $\alpha$ is as in Prop.~\ref{prop:xi-rec-twist}, and
- underline indicates a constant map $\TT \to \XX^\p_\CC(\overline M_n)$
- with given value.
+ underline indicates a constant map $\TT \to \XX^\p_\CC(\overline M_n)$.
 \end{lem}
 \begin{proof} This is a straightforward application 
         of the formulas for $\eta$
@@ -940,6 +939,31 @@ $\eta(e_1\pm ie_2) = z^{\pm 1} z\partial_z$,
         and the recurrence relation of Prop.~\ref{prop:xi-rec-twist} quoted
         in the first paragraph of this subsection. \MISS
 \end{proof}
+
+We have thus passed from a recursion relation
+on the map $\xi_\infty$ to a relation satisfied by 
+a single element $\zeta \in \XX^\p_\CC(\overline M_\infty)$.
+It begs for a few more simplifications.
+\begin{enumerate}
+        \item Let us reuse the symbol $z$ to denote the function
+$\varphi^*_\infty z \in C^\infty_\CC(\overline M_\infty)$,
+where as usual $\varphi^*_\infty$ had been extended
+by $\CC$-linearity. 
+\item Let us
+use $j^\alpha_h \circ \eta$ to regard 
+$\fsl_2(\CC)$ as a Lie sub-algebra in $\XX^\p_\CC(\overline M_\infty)$.
+\item 
+To remove $\alpha$ from notation, write $\Sigma = j^\alpha_t$ as an endomorphism of $\XX^\p(\overline M_\infty)$.
+\end{enumerate}
+\begin{prop}\label{prop:zeta}
+        Let $\e,\h,\f \in \fsl_2(\CC)$ be a standard (Chevalley) basis
+        such that $\h = 2r$, $\e = e_1 + ie_2$ and $\f = e_1 - ie_2$ under the identification
+        $\fsl_2(\CC) = \fso_2(\CC) \oplus \fm_\CC$. Let $\zeta = \xi_\infty(e_1+ie_2)$
+        as in Lemma \ref{lem:zeta}. Then
+        $$
+        \zeta = \e + z\Sigma(\zeta - \h/2). 
+        $$
+\end{prop}
 
 \section{Serpentine Lie algebra}
 \label{sec:algebra}
