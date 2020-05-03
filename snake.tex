@@ -4,6 +4,8 @@
 \usepackage[osf]{baskervillef}
 \usepackage[affil-it]{authblk}
 \def\MISS{\texttt{*** TODO ***}}
+\def\llb{\llbracket}
+\def\rrb{\rrbracket}
 \def\fsl{\mathfrak{sl}}
 \def\fso{\mathfrak{so}}
 \def\fg{\mathfrak{g}}
@@ -1199,43 +1201,38 @@ lenght of an element of $\sA$.
 Given any \emph{regular
 ambient module} $\fM$ with serpentine element $\zeta$, we define the \emph{bracket map}
 $$
-[\cdot]_\fM : \sA_+ \to \fM
+\llb\cdot\rrb_\fM : \sA_+ \to \fM
 $$
 inductively by:
-$$ [\a]_\fM=\zeta,\ [\a^\inv]_\fM=\zeta^\inv,\quad
-[a \alpha]_\fM = [ [a]_\fM, [\alpha]_\fM ].
+$$ \llb\a\rrb_\fM=\zeta,\ \llb\a^\inv\rrb_\fM=\zeta^\inv,\quad
+\llb a \alpha\rrb_\fM = [ \llb a\rrb_\fM, \llb \alpha\rrb_\fM ].
 $$
 for $a \in A$, $\alpha\in\sA_+$.
-Note that in the last equation,
-we use square brackets to denote
-both the evaluation map and the
-bracket in the Lie algebra $\fM$;
-this should not lead to confusion.
-Furthermore, we use $\tau$ to denote
+Note that we use $\tau$ to denote
 both the involution on $\sA_+$ and on $\fM$.
 This abuse of notation is justified by the fact that 
 $$
-[\alpha^\tau]_\fM = [\alpha_\fM]^\tau
+\llb\alpha^\tau\rrb_\fM = \llb\alpha_\fM\rrb^\tau
 $$
 for all $\alpha\in\sA_+$, following easily
 by induction.
 
 We will also define another bracket map
 $$
-[\cdot]_{\fsl_2(\CC)} : \sA_+ \to \fsl_2(\CC)
+\llb\cdot\rrb_{\fsl_2(\CC)} : \sA_+ \to \fsl_2(\CC)
 $$
 inductively by:
-$$ [\a]_{\fsl_2(\CC)}=\e,\ [\a^\inv]_{\fsl_2(\CC)}=-\f,\quad
-[a \alpha]_{\fsl_2(\CC)} = [ [a]_{\fsl_2(\CC)}, [\alpha]_{\fsl_2(\CC)} ]. $$
+$$ \llb\a\rrb_{\fsl_2(\CC)}=\e,\ \llb\a^\inv\rrb_{\fsl_2(\CC)}=-\f,\quad
+\llb a \alpha\rrb_{\fsl_2(\CC)} = [ \llb a\rrb_{\fsl_2(\CC)}, \llb\alpha\rrb_{\fsl_2(\CC)} ]. $$
 This one is once again compatible with the involution:
-$$ [\alpha^\tau]_{\fsl_2(\CC)} = [\alpha]_{\fsl_2(\CC)}^\tau $$
+$$ \llb\alpha^\tau\rrb_{\fsl_2(\CC)} = \llb\alpha\rrb_{\fsl_2(\CC)}^\tau $$
 where
 we use $\tau$ to denote the involution 
 $\e^\tau=-\f$, $\f^\tau=-\e$, $\h^\tau=-\h$
 on $\fsl_2(\CC)$. This latter notation for the involution is compatible
 with the embedding $\iota:\fsl_2(\CC)\to\fM$.
 On the other hand, note that
-$[\alpha]_\fM$ and $\iota[\alpha]_{\fsl_2(\CC)}$
+$\llb\alpha\rrb_\fM$ and $\iota\llb\alpha\rrb_{\fsl_2(\CC)}$
 are equal only modulo $\langle\Sigma\rangle$.
 
 The bracket maps
@@ -1246,26 +1243,25 @@ as described by the weight function:
         Let $\bullet$ be either
         $\fsl_2(\CC)$,
         or a regular ambient module $\fM$. Then
-        $$[\h/2, [\alpha]_\bullet] = \wt(\alpha) [\alpha]_\bullet$$
+        $$[\h/2, \llb\alpha\rrb_\bullet] = \wt(\alpha) \llb\alpha\rrb_\bullet$$
         for all $\alpha\in\sA_+$.
 \end{lem}
 \begin{proof}\MISS\end{proof}
 
 Observe that $\wt(\alpha^\tau) = -\wt(\alpha)$ for
-all $\alpha\in\sA$. 
-We will need another map
+all $\alpha\in\sA$. That is, $\wt:\sA\to\ZZ$ is $\tau$-equivariant,
+with $\tau$ acting as $-1$ on $\ZZ$.
+We will use yet another $\tau$-equivariant map, namely
 $$ \mu : \sA_+ \to \ZZ,$$
 defined inductively by:
 $$
 \mu(\a)=1,\quad\mu(\a^\inv)=-1,\quad \mu(\a\alpha) = (1-\wt\alpha)\mu(\alpha),\quad
 \mu(\a^\inv\alpha) = (1 + \wt\alpha)\mu(\alpha).
 $$
-This one is again equivariant,
-$\mu(\alpha^\tau)=-\mu(\alpha)$.
 \begin{lem}
         Let $\alpha \in \sA_+$. Then
         $$
-         \mu(\alpha) = \frac{[\alpha]_{\fsl_2(\CC)} \cdot z}{(-z)^{\wt\alpha + 1}}
+         \mu(\alpha) = \frac{\llb\alpha\rrb_{\fsl_2(\CC)} \cdot z}{(-z)^{\wt\alpha + 1}}
         $$
         in terms of the standard action of $\fsl_2(\CC)$ on $\CC[z^{\pm1}]$.
 \end{lem}
