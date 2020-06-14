@@ -3,6 +3,7 @@ import algebra.module
 import algebra.lie_algebra
 import algebra.classical_lie_algebras
 import ring_theory.algebra
+import data.matrix.basic
 
 universe u
 
@@ -27,7 +28,6 @@ class invol_module_over_invol_ring (R: Type u) (M : Type u)
 [add_comm_group M] [module R M] extends invol_add_comm_group M :=
 (invol_module  : ∀ (r : R) (m : M),  τ (r • m) = (τ r) • (τ m))  
 
--- base ring
 variables (k : Type u) [comm_ring k]
 
 class invol_module (M : Type u) [add_comm_group M] [module k M] extends invol_add_comm_group M :=
@@ -44,7 +44,24 @@ class is_sl2 (L : Type u)
 (univ : Π {M : Type u} [add_comm_group M] [module k M] (e h f : M), L →+ M)
 (univ_eq : ∀ {M : Type u} [add_comm_group M] [module k M] (e h f : M), univ e h f E = e ∧ univ e h f H = h ∧ univ e h f F = f)
 
-def model_sl2 := lie_algebra.special_linear.sl (fin 2) k
+namespace models
+
+open lie_algebra
+
+def sl2 := coe_sort (special_linear.sl (fin 2) k)
+
+def invol_sl2_closed (A : sl2 k) : matrix.trace (fin 2) k k (-A.val.transpose) = 0 := begin
+    rw (by simp : matrix.trace (fin 2) k k (-A.val.transpose) = -(matrix.trace (fin 2) k k A.val)),
+    rw (set.mem_def.1 A.property : matrix.trace (fin 2) k k A.val = 0),
+    simp,
+end
+
+instance : has_invol (sl2 k) := {
+    invol := λ A, ⟨-A.val.transpose, invol_sl2_closed k A⟩,
+    invol_eq := begin rw function.comp, simp, refl end
+}
+
+end models
 
 class is_circle (R : Type u) 
 [comm_ring R] [algebra k R] 
@@ -56,10 +73,11 @@ class is_circle (R : Type u)
 (univ_eq : ∀ {M : Type u} [add_comm_group M] [module k M] (w : ℤ → M), univ w ∘ z = w) 
 (invol_z : ∀ (i : ℤ), τ (z i) = z (-i)) 
 
-def model_circle := add_monoid_algebra k ℤ 
+namespace models
 
-#check is_circle.z
-#check is_circle.univ
+def circle := add_monoid_algebra k ℤ 
+
+end models
 
 def sl2_circle_action (R : Type u) (L : Type u)
 [comm_ring R] [algebra k R] 
@@ -76,6 +94,3 @@ let (e' : R →+ R) := is_circle.univ k $ λ (i : ℤ), i • (is_circle.z k (i+
     (f' : R →+ R) := is_circle.univ k $ λ (i : ℤ), i • (is_circle.z k (i-1) : R) 
 in is_sl2.univ k e' h' f' 
 
-
-
--- TODO: std action of sl2 on circle 
