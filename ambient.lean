@@ -77,14 +77,27 @@ prod.fst $ @free_semigroup.rec_on gen
                 (λ (_ : gen) (_ : words) (a b : α × gen), (su a.2 b.1, a.2))
                
 
- 
 lemma rec_ze { α : Type } : ∀ (ze : gen → α) (su : gen → α → α) (a : gen),
-                            rec ze su (of a) = ze a
-:= sorry
+                            rec ze su (of a) = ze a :=
+begin
+    unfold rec, unfold free_semigroup.rec_on, intros, 
+    have h : ∀ (a : α) (a' : gen), (a, a').1 = a  := by simp, 
+    erewrite h
+end 
 
 lemma rec_su { α : Type } : ∀ (ze : gen → α) (su : gen → α → α) (w : words) (a : gen),
-                            rec ze su (of a * w) = su a (rec ze su w)
-:= sorry
+                            rec ze su (of a * w) = su a (rec ze su w) :=
+begin
+    unfold rec, intros, unfold free_semigroup.rec_on,
+    have h : ∀ (a : gen), (ze a, a).2 = a := by simp,
+    simp [h],
+    have h' : of a * w = (a, w.1 :: w.2),
+    swap,
+    cases w,
+    erewrite h',
+    simpa [semigroup.mul],
+end 
+
 
 -- state and prove defining properties...
 
