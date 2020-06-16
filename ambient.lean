@@ -2,6 +2,7 @@ import algebra.lie_algebra
 import algebra.module
 import algebra.free
 import control.functor
+import tactic
 
 class invol (α : Type) := (invol : α → α) (invol_eq : invol ∘ invol = id)
 
@@ -69,6 +70,11 @@ instance [c : semigroup (free_semigroup gen)] : semigroup words := begin unfold 
 
 def of (a : gen) : words := free_semigroup.of a 
 
+lemma invol_of : ∀ (a : gen), invol.invol (of a) = of (gen.τ a) :=
+begin
+    simp [invol.invol, of, functor.map]
+end
+
 -- simple recursor
 def rec {α : Type} (ze : gen → α) (su : gen → α → α) (w : words) : α :=
 prod.fst $ @free_semigroup.rec_on gen 
@@ -98,13 +104,72 @@ begin
     simpa [semigroup.mul],
 end 
 
-
--- state and prove defining properties...
-
 end words
 
 namespace ambient_module
 
--- def interpret {M : Type} [ambient_module k M] (ζ : M) (w : words) : M :=   
+variables (k : Type) [comm_ring k]
+
+def interpret_gen {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] (ζ : M) : gen → M
+| gen.A  := ζ
+| gen.A' := @τ k _ _ _ _ _ ζ
+
+def interpret {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] (ζ : M) : words → M := 
+words.rec (interpret_gen k ζ) (λ a m, ⁅interpret_gen k ζ a, m⁆)  
+
+lemma interpret_of {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] :
+    ∀ (ζ : M) (a : gen), interpret k ζ (words.of a) = interpret_gen k ζ a :=
+begin
+    intros, simp [interpret, words.of, free_semigroup.of, words.rec, free_semigroup.rec_on] 
+end
+
+lemma interpret_su {M :Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] :
+    ∀ (ζ : M) (a : gen) (b : words), interpret k ζ (words.of a * b) = ⁅interpret_gen k ζ a, interpret k ζ b⁆ :=
+begin 
+    intros, simp [interpret, words.rec_su]
+end
+
+lemma interpret_gen_invol {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] : 
+    ∀ (ζ : M) (a : gen), interpret_gen k ζ (gen.τ a) = @τ k _ _ _ _ _ (interpret_gen k ζ a) :=
+begin
+    intros, cases a, simpa [interpret_gen], rw (gen.τ), simp [interpret_gen],
+    have h := @str_invol k M _ _ _ _,
+    simp [function.comp] at h,
+    apply_fun (λ (f : M → M), f ζ) at h,
+    rw h
+end 
+
+lemma interpret_invol  {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] :
+    ∀ (ζ : M) (w : words), interpret k ζ (invol.invol w) = invol.invol (interpret k ζ w)
+:= 
+begin
+    intros,
+    let h :=  λ (b : words), interpret k ζ (invol.invol b) = invol.invol (interpret k ζ b),
+    have hz : ∀ (a : gen), h (words.of a) :=
+        begin
+            intros,
+            simp [h, interpret],
+            erewrite words.invol_of,
+            simp [words.rec_ze],
+            simp [interpret_gen_invol],
+            simp [invol.invol]
+        end,
+    have hs : ∀ (a : gen) (b : words), h (words.of a) → h b → h (words.of a * b) :=
+        begin 
+            intros, 
+            simp [h] at a_2,
+            simp [h],
+            have ht : invol.invol (words.of a * b) = words.of a.τ * invol.invol b := by simpa [invol.invol, words.invol_of],
+            simp [ht],
+            repeat { erw interpret_su },
+            simp [a_2], 
+            rw interpret_gen_invol,
+            simp [invol.invol]
+        end,
+    exact (@free_semigroup.rec_on 
+                gen 
+                (λ (w' : words), interpret k ζ (invol.invol w') = invol.invol (interpret k ζ w')) 
+                w hz hs),
+end
 
 end ambient_module
