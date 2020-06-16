@@ -77,26 +77,21 @@ end
 
 -- simple recursor
 def rec {α : Type} (ze : gen → α) (su : gen → α → α) (w : words) : α :=
-prod.fst $ @free_semigroup.rec_on gen 
-                (λ _,  (α × gen)) w 
-                (λ (a : gen), (ze a, a)) 
-                (λ (_ : gen) (_ : words) (a b : α × gen), (su a.2 b.1, a.2))
-               
+@free_semigroup.rec_on gen 
+        (λ _,  α) w 
+        (λ (a : gen), ze a) 
+        (λ (a : gen) (_ : words) (_ b : α), su a b)
 
 lemma rec_ze { α : Type } : ∀ (ze : gen → α) (su : gen → α → α) (a : gen),
                             rec ze su (of a) = ze a :=
 begin
-    unfold rec, unfold free_semigroup.rec_on, intros, 
-    have h : ∀ (a : α) (a' : gen), (a, a').1 = a  := by simp, 
-    erewrite h
+    unfold rec, unfold free_semigroup.rec_on, intros, simpa [of]
 end 
 
 lemma rec_su { α : Type } : ∀ (ze : gen → α) (su : gen → α → α) (w : words) (a : gen),
                             rec ze su (of a * w) = su a (rec ze su w) :=
 begin
     unfold rec, intros, unfold free_semigroup.rec_on,
-    have h : ∀ (a : gen), (ze a, a).2 = a := by simp,
-    simp [h],
     have h' : of a * w = (a, w.1 :: w.2),
     swap,
     cases w,
@@ -159,7 +154,8 @@ begin
             intros, 
             simp [h] at a_2,
             simp [h],
-            have ht : invol.invol (words.of a * b) = words.of a.τ * invol.invol b := by simpa [invol.invol, words.invol_of],
+            have ht : invol.invol (words.of a * b) = words.of a.τ * invol.invol b 
+                    := by simpa [invol.invol, words.invol_of],
             simp [ht],
             repeat { erw interpret_su },
             simp [a_2], 
@@ -173,3 +169,15 @@ begin
 end
 
 end ambient_module
+
+namespace words
+
+def ell_gen : gen → ℕ := (λ _, 1)
+def wt_gen  : gen → ℤ 
+| gen.A  :=  1
+| gen.A' := -1
+
+def ell : words → ℕ := rec (λ _, 1) (λ _ l, l.succ)
+def wt  : words → ℤ := rec wt_gen   (λ a w, wt_gen a + w) 
+
+end words
