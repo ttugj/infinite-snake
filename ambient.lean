@@ -76,20 +76,20 @@ begin
 end
 
 -- simple recursor
-def rec {α : Type} (ze : gen → α) (su : gen → α → α) (w : words) : α :=
+def rec {α : Type} (ze : gen → α) (su : gen → words → α → α) (w : words) : α :=
 @free_semigroup.rec_on gen 
         (λ _,  α) w 
         (λ (a : gen), ze a) 
-        (λ (a : gen) (_ : words) (_ b : α), su a b)
+        (λ (a : gen) (w : words) (_ r : α), su a w r)
 
-lemma rec_ze { α : Type } : ∀ (ze : gen → α) (su : gen → α → α) (a : gen),
+lemma rec_ze { α : Type } : ∀ (ze : gen → α) (su : gen → words → α → α) (a : gen),
                             rec ze su (of a) = ze a :=
 begin
     unfold rec, unfold free_semigroup.rec_on, intros, simpa [of]
 end 
 
-lemma rec_su { α : Type } : ∀ (ze : gen → α) (su : gen → α → α) (w : words) (a : gen),
-                            rec ze su (of a * w) = su a (rec ze su w) :=
+lemma rec_su { α : Type } : ∀ (ze : gen → α) (su : gen → words → α → α) (w : words) (a : gen),
+                            rec ze su (of a * w) = su a w (rec ze su w) :=
 begin
     unfold rec, intros, unfold free_semigroup.rec_on,
     have h' : of a * w = (a, w.1 :: w.2),
@@ -110,7 +110,7 @@ def interpret_gen {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M]
 | gen.A' := @τ k _ _ _ _ _ ζ
 
 def interpret {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] (ζ : M) : words → M := 
-words.rec (interpret_gen k ζ) (λ a m, ⁅interpret_gen k ζ a, m⁆)  
+words.rec (interpret_gen k ζ) (λ a _ m, ⁅interpret_gen k ζ a, m⁆)  
 
 lemma interpret_of {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] :
     ∀ (ζ : M) (a : gen), interpret k ζ (words.of a) = interpret_gen k ζ a :=
@@ -177,7 +177,10 @@ def wt_gen  : gen → ℤ
 | gen.A  :=  1
 | gen.A' := -1
 
-def ell : words → ℕ := rec (λ _, 1) (λ _ l, l.succ)
-def wt  : words → ℤ := rec wt_gen   (λ a w, wt_gen a + w) 
+def ell : words → ℕ := rec (λ _, 1) (λ _ _ l, l.succ)
+def wt  : words → ℤ := rec wt_gen   (λ a _ k, wt_gen a + k) 
+def μ   : words → ℤ := rec wt_gen   (λ a w m, (1 - wt_gen a * wt w) * m) 
+
+-- involutivity properties of ell, wt, μ...
 
 end words
