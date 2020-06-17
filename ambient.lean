@@ -172,6 +172,38 @@ end ambient_module
 
 namespace words
 
+lemma rec_map : ∀ {α : Type} (ze : gen → α) (su : gen → words → α → α) (f : gen → gen) (w : words),
+                rec ze su (f <$> w) = rec (λ a, ze (f a)) (λ a w, su (f a) (f <$> w)) w :=
+begin
+    intros, simp [rec, free_semigroup.rec_on],
+    have h : ∀ (w' : words), f <$> w' = (f w'.1, f <$> w'.2),
+    swap, erw h, cases w, 
+    simp,
+    induction w_snd generalizing w_fst,
+    simp [list.map],
+    simp [list.map],
+    erw [w_snd_ih],
+    simp [h],
+    intro, 
+    simp [functor.map, function.comp],
+    cases w', simp,
+    induction w'_snd generalizing w'_fst,
+    unfold free_semigroup.lift,
+    unfold free_semigroup.lift',
+    unfold free_semigroup.of,
+    simp,
+    unfold list.map,
+    unfold free_semigroup.lift,
+    unfold free_semigroup.lift',
+    unfold free_semigroup.of,
+    simp,
+    unfold free_semigroup.lift at w'_snd_ih,
+    unfold free_semigroup.of at w'_snd_ih,
+    simp at w'_snd_ih,
+    simp [w'_snd_ih],
+    simpa [free_semigroup.mul]
+end -- this can surely be made simpler!
+
 def ell_gen : gen → ℕ := (λ _, 1)
 def wt_gen  : gen → ℤ 
 | gen.A  :=  1
