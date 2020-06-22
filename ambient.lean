@@ -21,7 +21,7 @@ class ambient_module (k : Type) (M : Type)
 (str_circle : z 0 = linear_map.id ∧ ∀ (i j : ℤ), z i ∘ z j = z (i + j))
 (str_invol : τ ∘ τ = id)
 (invol_sl2 : τ E = -F ∧ τ H = -H ∧ τ F = -E)
-(invol_circle : ∀ (i : ℤ), τ ∘ (z i) = z (-i))
+(invol_circle : ∀ (i : ℤ), τ ∘ (z i) = z (-i) ∘ τ)
 (invol_shift : τ ∘ σ = σ ∘ τ)
 (sl2_shift : ∀ (m : M) (i j : ℤ), 
                ⁅(z i) E, (z j) (σ m)⁆ = 0
@@ -214,5 +214,49 @@ def wt  : words → ℤ := rec wt_gen   (λ a _ k, wt_gen a + k)
 def μ   : words → ℤ := rec wt_gen   (λ a w m, (1 - wt_gen a * wt w) * m) 
 
 -- involutivity properties of ell, wt, μ...
+lemma ell_invol : ∀ (w : words), ell (invol.invol w) = ell w :=
+begin
+    intros, unfold invol.invol, unfold ell, simp [rec_map]
+end
+
+lemma wt_gen_invol : ∀ (a : gen), wt_gen (gen.τ a) = -(wt_gen a) := 
+begin
+    intros, induction a,
+    simp [gen.τ, wt_gen],
+    simp [gen.τ, wt_gen],
+end
+
+lemma wt_invol : ∀ (w : words), wt (invol.invol w) = -(wt w) :=
+begin 
+    intros, unfold invol.invol, unfold wt,
+    simp [rec_map, wt_gen_invol],
+    unfold rec,
+    induction w,
+    unfold free_semigroup.rec_on,
+    induction w_snd generalizing w_fst,
+    simp,
+    simp [w_snd_ih],
+    simp [add_comm]
+end
+
+lemma wt_invol' : ∀ (w : words), wt (gen.τ <$> w) = -(wt w) :=
+begin
+    intros, 
+    have h := wt_invol w,
+    unfold invol.invol at h,
+    exact h
+end
+
+lemma μ_invol : ∀ (w : words), μ (invol.invol w) = -(μ w) :=
+begin
+    intros, unfold μ,
+    unfold invol.invol, simp [rec_map, wt_gen_invol, wt_invol'],
+    unfold rec,
+    induction w,
+    unfold free_semigroup.rec_on,
+    induction w_snd generalizing w_fst,
+    simp,
+    simp [w_snd_ih]
+end
 
 end words
