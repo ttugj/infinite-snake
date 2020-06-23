@@ -45,24 +45,80 @@ def is_serpentine
 (ζ : M) : Prop :=
 (ζ = E k + (@z k _ _ _ _ _ 1) (@σ k _ _ _ _ _ (ζ - H k))) 
 
+def lift {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] (f : gen → M) : words → M := 
+words.rec f (λ a _ m, ⁅f a, m⁆)  
+
+namespace lift
+
+lemma ze {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] :
+    ∀ (f : gen → M) (a : gen), lift k f (words.of a) = f a :=
+begin
+    intros, simp [lift, words.of, free_semigroup.of, words.rec, free_semigroup.rec_on] 
+end
+
+lemma su {M :Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] :
+    ∀ (f : gen → M) (a : gen) (b : words), lift k f (words.of a * b) = ⁅f a, lift k f b⁆ :=
+begin 
+    intros, simp [lift, words.rec_su]
+end
+
+lemma invol  {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] :
+    ∀ (f : gen → M) (w : words)  
+    (f_invol : ∀ (a : gen), f (gen.τ a) = @τ k _ _ _ _ _ (f a)),
+    lift k f (invol.invol w) = @τ k _ _ _ _ _ (lift k f w)
+    :=
+begin
+    intros,
+    let h :=  λ (b : words), lift k f (invol.invol b) = invol.invol (lift k f b),
+    have hz : ∀ (a : gen), h (words.of a) :=
+        begin
+            intros,
+            simp [h, lift],
+            erewrite words.invol_of,
+            simp [words.rec_ze],
+            simp [f_invol],
+            simp [invol.invol]
+        end,
+    have hs : ∀ (a : gen) (b : words), h (words.of a) → h b → h (words.of a * b) :=
+        begin 
+            intros, 
+            simp [h] at a_2,
+            simp [h],
+            have ht : invol.invol (words.of a * b) = words.of a.τ * invol.invol b 
+                    := by simpa [invol.invol, words.invol_of],
+            simp [ht],
+            repeat { erw lift.su },
+            simp [a_2], 
+            rw f_invol,
+            simp [invol.invol]
+        end,
+    exact (@free_semigroup.rec_on  gen h w hz hs)
+end
+
+end lift
+
 def interpret_gen {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] (ζ : M) : gen → M
 | gen.A  := ζ
 | gen.A' := @τ k _ _ _ _ _ ζ
 
-def interpret {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] (ζ : M) : words → M := 
-words.rec (interpret_gen k ζ) (λ a _ m, ⁅interpret_gen k ζ a, m⁆)  
+def interpret_sl2_gen {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] : gen → M
+| gen.A  := @E k _ _ _ _ _
+| gen.A' := -@F k _ _ _ _ _
 
-lemma interpret_of {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] :
+
+def interpret {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] (ζ : M) : words → M :=
+lift k (interpret_gen k ζ)
+
+def interpret_sl2 {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] : words → M :=
+lift k (interpret_sl2_gen k)
+
+lemma interpret_ze {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] :
     ∀ (ζ : M) (a : gen), interpret k ζ (words.of a) = interpret_gen k ζ a :=
-begin
-    intros, simp [interpret, words.of, free_semigroup.of, words.rec, free_semigroup.rec_on] 
-end
+begin intros, unfold interpret, simp [lift.ze] end
 
 lemma interpret_su {M :Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] :
     ∀ (ζ : M) (a : gen) (b : words), interpret k ζ (words.of a * b) = ⁅interpret_gen k ζ a, interpret k ζ b⁆ :=
-begin 
-    intros, simp [interpret, words.rec_su]
-end
+begin intros, unfold interpret, simp [lift.su] end
 
 lemma interpret_gen_invol {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] : 
     ∀ (ζ : M) (a : gen), interpret_gen k ζ (gen.τ a) = @τ k _ _ _ _ _ (interpret_gen k ζ a) :=
@@ -74,38 +130,29 @@ begin
     rw h
 end 
 
-lemma interpret_invol  {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] :
-    ∀ (ζ : M) (w : words), interpret k ζ (invol.invol w) = invol.invol (interpret k ζ w)
-:= 
+lemma interpret_sl2_gen_invol (M : Type) [lie_ring M] [lie_algebra k M] [ambient_module k M] : 
+    ∀ (a : gen), interpret_sl2_gen k (gen.τ a) = @τ k M _ _ _ _ (interpret_sl2_gen k a) :=
 begin
+    intros, cases a, 
+    unfold gen.τ, unfold interpret_sl2_gen, simp [invol_sl2],
+    unfold gen.τ, unfold interpret_sl2_gen, 
+    have h : ∀ (x : M), @τ k M _ _ _ _ (-x) = - @τ k M _ _ _ _ x, swap, rw h, simp [invol_sl2],
     intros,
-    let h :=  λ (b : words), interpret k ζ (invol.invol b) = invol.invol (interpret k ζ b),
-    have hz : ∀ (a : gen), h (words.of a) :=
-        begin
-            intros,
-            simp [h, interpret],
-            erewrite words.invol_of,
-            simp [words.rec_ze],
-            simp [interpret_gen_invol],
-            simp [invol.invol]
-        end,
-    have hs : ∀ (a : gen) (b : words), h (words.of a) → h b → h (words.of a * b) :=
-        begin 
-            intros, 
-            simp [h] at a_2,
-            simp [h],
-            have ht : invol.invol (words.of a * b) = words.of a.τ * invol.invol b 
-                    := by simpa [invol.invol, words.invol_of],
-            simp [ht],
-            repeat { erw interpret_su },
-            simp [a_2], 
-            rw interpret_gen_invol,
-            simp [invol.invol]
-        end,
-    exact (@free_semigroup.rec_on 
-                gen 
-                (λ (w' : words), interpret k ζ (invol.invol w') = invol.invol (interpret k ζ w')) 
-                w hz hs),
+    exact (linear_map.map_neg (@τ k M _ _ _ _).to_linear_map x)
+end 
+
+lemma interpret_invol {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] :
+    ∀ (ζ : M) (w : words), interpret k ζ (invol.invol w) = invol.invol (interpret k ζ w) :=
+begin
+    intros, unfold interpret, unfold invol.invol, 
+    exact (lift.invol k (interpret_gen k ζ) w (interpret_gen_invol k ζ))
+end
+
+lemma interpret_sl2_invol (M : Type) [lie_ring M] [lie_algebra k M] [ambient_module k M] :
+    ∀ (w : words), @interpret_sl2 k _ M _ _ _ (invol.invol w) = invol.invol (@interpret_sl2 k _ M _ _ _ w) :=
+begin
+    intros, unfold interpret_sl2, unfold invol.invol, 
+    exact (lift.invol k (interpret_sl2_gen k) w (interpret_sl2_gen_invol k M))
 end
 
 end ambient_module

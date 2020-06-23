@@ -86,7 +86,7 @@ begin
     simp at w'_snd_ih,
     simp [w'_snd_ih],
     simpa [free_semigroup.mul]
-end -- this can surely be made simpler!
+end 
 
 def ell_gen : gen → ℕ := (λ _, 1)
 def wt_gen  : gen → ℤ 
