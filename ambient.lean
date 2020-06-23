@@ -63,8 +63,7 @@ begin
 end
 
 lemma invol  {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] :
-    ∀ (f : gen → M) (w : words)  
-    (f_invol : ∀ (a : gen), f (gen.τ a) = @τ k _ _ _ _ _ (f a)),
+    ∀ (f : gen → M) (f_invol : ∀ (a : gen), f (gen.τ a) = @τ k _ _ _ _ _ (f a)) (w : words),
     lift k f (invol.invol w) = @τ k _ _ _ _ _ (lift k f w)
     :=
 begin
@@ -92,7 +91,7 @@ begin
             rw f_invol,
             simp [invol.invol]
         end,
-    exact (@free_semigroup.rec_on  gen h w hz hs)
+    exact (@free_semigroup.rec_on gen h w hz hs)
 end
 
 end lift
@@ -145,14 +144,14 @@ lemma interpret_invol {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module 
     ∀ (ζ : M) (w : words), interpret k ζ (invol.invol w) = invol.invol (interpret k ζ w) :=
 begin
     intros, unfold interpret, unfold invol.invol, 
-    exact (lift.invol k (interpret_gen k ζ) w (interpret_gen_invol k ζ))
+    exact (lift.invol k (interpret_gen k ζ) (interpret_gen_invol k ζ) w)
 end
 
 lemma interpret_sl2_invol (M : Type) [lie_ring M] [lie_algebra k M] [ambient_module k M] :
     ∀ (w : words), @interpret_sl2 k _ M _ _ _ (invol.invol w) = invol.invol (@interpret_sl2 k _ M _ _ _ w) :=
 begin
     intros, unfold interpret_sl2, unfold invol.invol, 
-    exact (lift.invol k (interpret_sl2_gen k) w (interpret_sl2_gen_invol k M))
+    exact (lift.invol k (interpret_sl2_gen k) (interpret_sl2_gen_invol k M) w)
 end
 
 end ambient_module
