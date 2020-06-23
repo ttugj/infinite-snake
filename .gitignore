@@ -6,3 +6,5 @@
 *.gz
 *.fls
 *.toc
+*.olean
+
