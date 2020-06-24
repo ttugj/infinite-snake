@@ -40,11 +40,6 @@ variables (k : Type) [comm_ring k]
 instance ambient_invol {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] : invol M :=
 ⟨@τ k _ _ _ _ _, @str_invol k _ _ _ _ _⟩ 
 
-def is_serpentine 
-{M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M]  -- lots of instances here...
-(ζ : M) : Prop :=
-(ζ = E k + (@z k _ _ _ _ _ 1) (@σ k _ _ _ _ _ (ζ - H k))) 
-
 def lift {M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] (f : gen → M) : words → M := 
 words.rec f (λ a _ m, ⁅f a, m⁆)  
 
@@ -154,4 +149,32 @@ begin
     exact (lift.invol k (interpret_sl2_gen k) (interpret_sl2_gen_invol k M) w)
 end
 
+def serpentine 
+{M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M]  
+(ζ : M) : Prop :=
+(ζ = E k + (@z k _ _ _ _ _ 1) (@σ k _ _ _ _ _ (ζ - H k))) 
+
+/-
+def serpentine_str_H 
+{M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M]  
+(ζ : M) (hζ : serpentine k ζ) : ⁅ H k, ζ ⁆ = ζ :=
+begin
+end
+-/
+/-
+lemma interpret_wt 
+{M : Type} [lie_ring M] [lie_algebra k M] [ambient_module k M] 
+(ζ : M) (hζ : serpentine k ζ) : ∀ (w : words), ⁅ H k, interpret k ζ w ⁆ = w.wt • interpret k ζ w :=
+begin
+    intros, unfold interpret, unfold lift, induction w, induction w_snd, 
+    -- base
+    unfold words.rec, unfold words.wt, unfold free_semigroup.rec_on,   
+    unfold words.rec, unfold free_semigroup.rec_on,
+    cases w_fst,
+    unfold interpret_gen, unfold words.wt_gen,
+end
+ -/
+
 end ambient_module
+
+-- ⁅    ⁆
