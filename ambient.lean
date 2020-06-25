@@ -116,7 +116,10 @@ begin
     rw ←(lie_skew x z), rw lie_neg,
     rw ←(lie_skew ⁅x, y⁆ z),
     rw add_comm,
-    have h : ∀ (a b c : M), a + b + c = 0 → a = -b + -c := by sorry,
+    have h : ∀ (a b c : M), a + b + c = 0 → a = -b + -c := 
+        begin
+            intros, rw add_assoc at a_1, rw @eq_neg_of_add_eq_zero M _ a (b + c) a_1, simp [add_comm]  
+        end,
     apply h, exact lie_ring.jacobi x y z,
 end  
 
