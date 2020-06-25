@@ -187,7 +187,7 @@ begin
     let h := λ (b : words), ⁅ H, interpret ζ b ⁆ = b.wt • interpret ζ b,
     have hz : ∀ (a : gen), h (words.of a) := 
         begin
-            intros, simp [h], erw (interpret_ze ζ a), unfold words.wt, simp [words.rec_ze],
+            intros, simp [h], erw (interpret_ze ζ a), simp [words.wt_ze], 
             cases a,
             simp [interpret_gen, words.wt_gen], exact (serpentine_str_H  ζ hζ),
             simp [interpret_gen, words.wt_gen], exact (serpentine_str_H' ζ hζ)
@@ -195,20 +195,15 @@ begin
     have hs : ∀ (a : gen) (b : words), h (words.of a) → h b → h (words.of a * b) := 
         begin
             intros, simp [h], simp [h] at hz, erw (interpret_su ζ a b), 
-            unfold words.wt, simp [words.rec_su],  
-            unfold words.wt at hz, simp [words.rec_ze] at hz,
+            simp [words.wt_su], simp [words.wt_ze] at hz,
             erw (@transposed_jacobi M _ _ _ H _ _),
             simp [interpret_ze ζ] at hz,
             simp [hz],
             simp [h] at a_2,
             simp [a_2],
             cases a,
-            simp [words.wt_gen, interpret_gen], unfold words.wt,
-            conv_rhs { rw add_smul },
-            simp,
-            simp [words.wt_gen, interpret_gen], unfold words.wt,
-            conv_rhs { rw add_smul },
-            simp
+            simp [words.wt_gen, interpret_gen], conv_rhs { rw add_smul }, simp, -- A
+            simp [words.wt_gen, interpret_gen], conv_rhs { rw add_smul }, simp  -- A'
         end,
     exact (free_semigroup.rec_on w hz hs)
 end
