@@ -110,7 +110,7 @@ begin
 end
 
 -- useful in rewriting expressions
-lemma deriv (x : M) : ∀ (y z : M), ⁅x, ⁅y, z⁆⁆ = ⁅⁅x, y⁆, z⁆ + ⁅y, ⁅x, z⁆⁆ :=
+lemma transposed_jacobi (x : M) : ∀ (y z : M), ⁅x, ⁅y, z⁆⁆ = ⁅⁅x, y⁆, z⁆ + ⁅y, ⁅x, z⁆⁆ :=
 begin
     intros,
     rw ←(lie_skew x z), rw lie_neg,
