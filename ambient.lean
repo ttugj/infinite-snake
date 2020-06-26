@@ -3,6 +3,7 @@ import algebra.module
 import algebra.free
 import control.functor
 import tactic
+import data.int.parity
 
 import .words
 
@@ -35,6 +36,8 @@ class ambient_module (M : Type) [lie_ring M] [lie_algebra ℤ M] :=
 namespace ambient_module
 
 variables {M : Type} [lie_ring M] [lie_algebra ℤ M] [ambient_module M]
+
+def neg_z (i : ℤ) : module.End ℤ M := if i.even then z i else -(z i)
 
 instance ambient_invol : invol M := ⟨τ, str_invol⟩ 
 
@@ -109,6 +112,7 @@ begin
     exact (lift.invol interpret_sl2_gen interpret_sl2_gen_invol w)
 end
 
+
 -- useful in rewriting expressions
 lemma transposed_jacobi (x : M) : ∀ (y z : M), ⁅x, ⁅y, z⁆⁆ = ⁅⁅x, y⁆, z⁆ + ⁅y, ⁅x, z⁆⁆ :=
 begin
@@ -155,9 +159,15 @@ begin
     exact (lift.invol (interpret_gen ζ) (interpret_gen_invol ζ) w)
 end
 
-def serpentine : Prop := ζ = E + (z 1) (σ (ζ - H))
+end zeta
 
-lemma serpentine_act_H (hζ : serpentine ζ) : ⁅ H, ζ ⁆ = ζ :=
+def serpentine (ζ : M) : Prop := ζ = E + (z 1) (σ (ζ - H))
+
+namespace serpentine
+
+variable {ζ : M} 
+
+lemma act_H (hζ : serpentine ζ) : ⁅ H, ζ ⁆ = ζ :=
 begin
     intros, 
     unfold serpentine at hζ,
@@ -169,19 +179,19 @@ begin
     simp [(sl2_shift _ 0).2]
 end
 
-lemma serpentine_act_H' (hζ : serpentine ζ) : ⁅ H, τ ζ ⁆ = -(τ ζ) :=
+lemma act_H' (hζ : serpentine ζ) : ⁅ H, τ ζ ⁆ = -(τ ζ) :=
 begin
     intros,
     rw (_ : H = -(-H)),
     rw ←(invol_sl2.2.1),
     rw neg_lie,
     erw ←τ.map_lie,
-    rw serpentine_act_H ζ hζ, 
+    rw act_H hζ, 
     simp [coe_fn, has_coe_to_fun.coe],
     simp
 end
 
-lemma serpentine_act_E (hζ : serpentine ζ) : ⁅ E, ζ ⁆ = z 1 (ζ - E) :=
+lemma act_E (hζ : serpentine ζ) : ⁅ E, ζ ⁆ = z 1 (ζ - E) :=
 begin
     intros,
     unfold serpentine at hζ,
@@ -195,7 +205,7 @@ begin
     simp [str_circle]
 end
 
-lemma serpentine_act_F (hζ : serpentine ζ) : ⁅ F, ζ ⁆ = z (-1) (ζ - E) + 2 • H :=
+lemma act_F (hζ : serpentine ζ) : ⁅ F, ζ ⁆ = z (-1) (ζ - E) + 2 • H :=
 begin
     intros,
     unfold serpentine at hζ,
@@ -218,8 +228,8 @@ begin
         begin
             intros, simp [h], erw (interpret_ze ζ a), simp [words.wt_ze], 
             cases a,
-            simp [interpret_gen, words.wt_gen], exact (serpentine_act_H  ζ hζ),
-            simp [interpret_gen, words.wt_gen], exact (serpentine_act_H' ζ hζ)
+            simp [interpret_gen, words.wt_gen], exact (serpentine.act_H  hζ),
+            simp [interpret_gen, words.wt_gen], exact (serpentine.act_H' hζ)
         end,
     have hs : ∀ (a : gen) (b : words), h (words.of a) → h b → h (words.of a * b) := 
         begin
@@ -237,7 +247,31 @@ begin
     exact (free_semigroup.rec_on w hz hs)
 end
 
-end zeta
+end serpentine 
+
+lemma interpret_sl2_μ (w : words) : 
+∀ (x : M), ⁅ interpret_sl2 w, z 1 x ⁆ - z 1 ⁅ interpret_sl2 w, x ⁆ = w.μ • neg_z (w.wt + 1) x 
+:=
+begin
+    intros,
+    let h := λ (b : words), ⁅ interpret_sl2 b, z 1 x ⁆ - z 1 ⁅ interpret_sl2 b, x ⁆ = b.μ • neg_z (b.wt + 1) x,
+    have hz : ∀ (a : gen), h (words.of a) := 
+        begin
+            intros, simp [h], unfold interpret_sl2, simp [lift.ze, words.μ_ze, words.wt_ze], 
+            have h : (E : M) = (z 0) E := by simp [str_circle.1],
+            have h': (F : M) = (z 0) F := by simp [str_circle.1],
+            cases a,
+            simp [interpret_sl2_gen, words.wt_gen, neg_z], rw h,
+              simp [(sl2_circle 0 1 x).1, int.even_add ], 
+            simp [interpret_sl2_gen, words.wt_gen, neg_z], rw h', rw ←lie_skew,
+              simp [(sl2_circle 0 1 x).2.2], rw ←lie_skew, rw linear_map.map_neg, simp 
+        end,
+    have hs : ∀ (a : gen) (b : words), h (words.of a) → h b → h (words.of a * b) :=
+        begin
+            intros, simp [h], simp [h] at a_1, simp [h] at a_2, 
+        end,
+    exact (free_semigroup.rec_on w hz hs)
+end
 
 end ambient_module
 
