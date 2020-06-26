@@ -37,8 +37,6 @@ namespace ambient_module
 
 variables {M : Type} [lie_ring M] [lie_algebra ℤ M] [ambient_module M]
 
-def neg_z (i : ℤ) : module.End ℤ M := if i.even then z i else -(z i)
-
 instance ambient_invol : invol M := ⟨τ, str_invol⟩ 
 
 def lift (f : gen → M) : words → M := 
@@ -112,6 +110,16 @@ begin
     exact (lift.invol interpret_sl2_gen interpret_sl2_gen_invol w)
 end
 
+lemma interpret_sl2_ze : ∀ (a : gen), interpret_sl2 (words.of a) = (interpret_sl2_gen a : M) :=
+begin
+    intros, unfold interpret_sl2, simp [lift.ze]
+end
+
+lemma interpret_sl2_su : ∀ (a : gen) (w : words)
+                       , interpret_sl2 (words.of a * w) = ⁅ (interpret_sl2_gen a : M), interpret_sl2 w ⁆ :=
+begin
+    intros, unfold interpret_sl2, simp [lift.su]
+end
 
 -- useful in rewriting expressions
 lemma transposed_jacobi (x : M) : ∀ (y z : M), ⁅x, ⁅y, z⁆⁆ = ⁅⁅x, y⁆, z⁆ + ⁅y, ⁅x, z⁆⁆ :=
@@ -248,6 +256,8 @@ begin
 end
 
 end serpentine 
+
+def neg_z (i : ℤ) : module.End ℤ M := if i.even then z i else -(z i)
 
 lemma interpret_sl2_μ (w : words) : 
 ∀ (x : M), ⁅ interpret_sl2 w, z 1 x ⁆ - z 1 ⁅ interpret_sl2 w, x ⁆ = w.μ • neg_z (w.wt + 1) x 
