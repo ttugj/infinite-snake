@@ -64,7 +64,7 @@ begin
         begin
             intros,
             simp [h, lift],
-            erewrite words.invol_of,
+            erw words.invol_of,
             simp [words.rec_ze],
             simp [f_invol],
             simp [invol.invol]
@@ -157,7 +157,7 @@ end
 
 def serpentine : Prop := ζ = E + (z 1) (σ (ζ - H))
 
-def serpentine_str_H (hζ : serpentine ζ) : ⁅ H, ζ ⁆ = ζ :=
+lemma serpentine_act_H (hζ : serpentine ζ) : ⁅ H, ζ ⁆ = ζ :=
 begin
     intros, 
     unfold serpentine at hζ,
@@ -169,16 +169,45 @@ begin
     simp [(sl2_shift _ 0).2]
 end
 
-def serpentine_str_H' (hζ : serpentine ζ) : ⁅ H, τ ζ ⁆ = -(τ ζ) :=
+lemma serpentine_act_H' (hζ : serpentine ζ) : ⁅ H, τ ζ ⁆ = -(τ ζ) :=
 begin
     intros,
     rw (_ : H = -(-H)),
     rw ←(invol_sl2.2.1),
     rw neg_lie,
     erw ←τ.map_lie,
-    rw serpentine_str_H ζ hζ, 
+    rw serpentine_act_H ζ hζ, 
     simp [coe_fn, has_coe_to_fun.coe],
     simp
+end
+
+lemma serpentine_act_E (hζ : serpentine ζ) : ⁅ E, ζ ⁆ = z 1 (ζ - E) :=
+begin
+    intros,
+    unfold serpentine at hζ,
+    rw hζ,
+    simp [lie_add, str_sl2],
+    have h : (E : M) = (z 0) E := by simp [str_circle.1],
+    rw h, 
+    simp [sl2_circle],
+    simp [(sl2_shift _ 0).1],
+    rw (by simp : ∀ (x : M), (z 1) ((z 1) x) = (z 1 ∘ z 1) x),
+    simp [str_circle]
+end
+
+lemma serpentine_act_F (hζ : serpentine ζ) : ⁅ F, ζ ⁆ = z (-1) (ζ - E) + 2 • H :=
+begin
+    intros,
+    unfold serpentine at hζ,
+    rw hζ,
+    simp [lie_add, str_sl2],
+    have h : (F : M) = (z 0) F := by simp [str_circle.1],
+    rw h, 
+    simp [sl2_circle],
+    simp [(sl2_shift _ 0).2.2],
+    rw (by simp : ∀ (x : M), (z (-1)) ((z 1) x) = (z (-1) ∘ z 1) x),
+    simp [str_circle],
+    simp [add_comm]
 end
 
 lemma interpret_wt (hζ : serpentine ζ) : ∀ (w : words), ⁅ H, interpret ζ w ⁆ = w.wt • interpret ζ w :=
@@ -189,8 +218,8 @@ begin
         begin
             intros, simp [h], erw (interpret_ze ζ a), simp [words.wt_ze], 
             cases a,
-            simp [interpret_gen, words.wt_gen], exact (serpentine_str_H  ζ hζ),
-            simp [interpret_gen, words.wt_gen], exact (serpentine_str_H' ζ hζ)
+            simp [interpret_gen, words.wt_gen], exact (serpentine_act_H  ζ hζ),
+            simp [interpret_gen, words.wt_gen], exact (serpentine_act_H' ζ hζ)
         end,
     have hs : ∀ (a : gen) (b : words), h (words.of a) → h b → h (words.of a * b) := 
         begin
@@ -209,9 +238,6 @@ begin
 end
 
 end zeta
-
-
-
 
 end ambient_module
 
