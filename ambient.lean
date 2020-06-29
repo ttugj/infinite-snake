@@ -263,30 +263,35 @@ end
 
 end serpentine 
 
-def neg_z (i : ℤ) : module.End ℤ M := if i.even then z i else -(z i)
+def neg_z (i : ℤ) : module.End ℤ M := ((-1 : units ℤ) ^ i).val • z i 
 
 lemma interpret_sl2_μ (w : words) : 
-∀ (x : M), ⁅ interpret_sl2 w, z 1 x ⁆ - z 1 ⁅ interpret_sl2 w, x ⁆ = w.μ • neg_z (w.wt + 1) x 
+∀ (x : M), ⁅ interpret_sl2 w, z 1 x ⁆ = z 1 ⁅ interpret_sl2 w, x ⁆ + w.μ • neg_z (w.wt + 1) x 
 :=
 begin
-    intros,
-    let h := λ (b : words), ⁅ interpret_sl2 b, z 1 x ⁆ - z 1 ⁅ interpret_sl2 b, x ⁆ = b.μ • neg_z (b.wt + 1) x,
+    let h := λ (b : words), ∀ (x : M),
+             ⁅ interpret_sl2 b, z 1 x ⁆ = z 1 ⁅ interpret_sl2 b, x ⁆ + b.μ • neg_z (b.wt + 1) x, 
     have hz : ∀ (a : gen), h (words.of a) := 
         begin
-            intros, simp [h], unfold interpret_sl2, simp [lift.ze, words.μ_ze, words.wt_ze], 
+            simp [h], unfold neg_z, intros, unfold interpret_sl2, simp [lift.ze, words.μ_ze, words.wt_ze], 
             have h : (E : M) = (z 0) E := by simp [str_circle.1],
             have h': (F : M) = (z 0) F := by simp [str_circle.1],
             cases a,
-            simp [interpret_sl2_gen, words.wt_gen, neg_z], rw h,
-              simp [(sl2_circle 0 1 x).1, int.even_add ], 
-            simp [interpret_sl2_gen, words.wt_gen, neg_z], rw h', rw ←lie_skew,
+            simp [interpret_sl2_gen, words.wt_gen], rw h, erw gpow_add, 
+              simp [(sl2_circle 0 1 x).1, add_comm ], 
+            simp [interpret_sl2_gen, words.wt_gen], rw h', rw ←lie_skew,
               simp [(sl2_circle 0 1 x).2.2], rw ←lie_skew, rw linear_map.map_neg, simp 
         end,
     have hs : ∀ (a : gen) (b : words), h (words.of a) → h b → h (words.of a * b) :=
         begin
-            intros, simp [h], simp [h] at a_1, simp [h] at a_2, 
+            simp [h], unfold neg_z, intros,-- simp [h] at a_1, simp [h] at a_2, 
             simp [interpret_sl2_ze, words.wt_ze, words.μ_ze] at a_1,
             simp [interpret_sl2_su, words.wt_su, words.μ_su],
+            erw transposed_jacobi' (z 1 x),
+            erw transposed_jacobi' x,
+            erw (a_1 x),
+            erw (a_2 x),
+            simp [lie_add],
         end,
     exact (free_semigroup.rec_on w hz hs)
 end
