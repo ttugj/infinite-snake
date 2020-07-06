@@ -291,18 +291,19 @@ begin
     rw ←units.coe_mul, rw ←gpow_add, rw add_comm
 end 
 
-def Φ (y x : M) := ⁅ y, z 1 x ⁆ - z 1 ⁅ y, x ⁆ 
+def Φ (i : ℤ) (y x : M) := ⁅ y, z i x ⁆ - z i ⁅ y, x ⁆ 
 
-lemma Φ_str : ∀ (y y' x : M), Φ ⁅ y, y' ⁆ x = ⁅ y, Φ y' x ⁆ + ⁅ Φ y x, y' ⁆ + Φ y ⁅ y', x ⁆  - Φ y' ⁅ y, x ⁆ :=
+lemma Φ_str : ∀ (i : ℤ) (y y' x : M), 
+              Φ i ⁅ y, y' ⁆ x = ⁅ y, Φ i y' x ⁆ + ⁅ Φ i y x, y' ⁆ + Φ i y ⁅ y', x ⁆  - Φ i y' ⁅ y, x ⁆ :=
 begin
     intros, unfold Φ, 
     conv_lhs { rw transposed_jacobi' },
     conv_lhs { rw transposed_jacobi' x },
-    simp [sub_eq_add_neg, lie_add ],
+    simp [sub_eq_add_neg, lie_add],
     erw ←(lie_skew (⁅ _ , x ⁆)  _),
-    erw ←(lie_skew (⁅ _ , z 1 x ⁆)  _),
-    erw ←(lie_skew (z 1 ⁅ _ , x ⁆)  _),
-    erw ←(lie_skew (z 1 ⁅ y , x ⁆) y'),
+    erw ←(lie_skew (⁅ _ , z i x ⁆)  _),
+    erw ←(lie_skew (z i ⁅ _ , x ⁆)  _),
+    erw ←(lie_skew (z i ⁅ y , x ⁆) y'),
     repeat { rw ←add_assoc },
     rw linear_map.map_neg,
     have h : ∀ (a b c d e f : M), a + -b + -c + d + b + -e + f + -d = -c + a + -e - -f := begin intros, abel end, 
