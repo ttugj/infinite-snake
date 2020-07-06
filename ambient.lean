@@ -310,46 +310,33 @@ begin
     conv_rhs { rw h }, refl,
 end
 
-/-
-lemma interpret_sl2_μ (w : words) : 
-∀ (x : M), ⁅ interpret_sl2 w, z 1 x ⁆ = z 1 ⁅ interpret_sl2 w, x ⁆ + w.μ • neg_z (w.wt + 1) x 
+lemma Φ_gen (a : gen) : ∀ (i : ℤ) (x : M), Φ i (interpret_sl2_gen a) x = (i * words.wt_gen a) • z (words.wt_gen a + i) x
 :=
 begin
-    let h := λ (b : words), ∀ (x : M),
-             ⁅ interpret_sl2 b, z 1 x ⁆ = z 1 ⁅ interpret_sl2 b, x ⁆ + b.μ • neg_z (b.wt + 1) x, 
+    intros, unfold Φ, cases a,
+    unfold interpret_sl2_gen, rw (sl2_circle' x i).1, unfold words.wt_gen, rw add_comm 1 i, simp,
+    unfold interpret_sl2_gen, rw neg_lie, rw (sl2_circle' x i).2.2, unfold words.wt_gen, 
+    rw neg_add_eq_sub, rw neg_add, rw neg_lie, rw linear_map.map_neg, simp
+end
+
+/-
+lemma interpret_sl2_μ (w : words) : 
+∀ (i : ℤ) (x : M) , Φ i (interpret_sl2 w) x = (i * w.μ) • neg_z (w.wt + i) x 
+:=
+begin
+    let h := λ (b : words), ∀ (i : ℤ) (x : M), Φ i (interpret_sl2 b) x = (i * b.μ) • neg_z (b.wt + i) x,
     have hz : ∀ (a : gen), h (words.of a) := 
         begin
-            simp [h], unfold neg_z, intros, unfold interpret_sl2, simp [lift.ze, words.μ_ze, words.wt_ze], 
-            have h : (E : M) = (z 0) E := by simp [str_circle.1],
-            have h': (F : M) = (z 0) F := by simp [str_circle.1],
-            cases a,
-            simp [interpret_sl2_gen, words.wt_gen], rw h, erw gpow_add, 
-              simp [(sl2_circle 0 1 x).1, add_comm ], 
-            simp [interpret_sl2_gen, words.wt_gen], rw h', rw ←lie_skew,
-              simp [(sl2_circle 0 1 x).2.2], rw ←lie_skew, rw linear_map.map_neg, simp 
+            sorry
         end,
     have hs : ∀ (a : gen) (b : words), h (words.of a) → h b → h (words.of a * b) :=
         begin
-            simp [h], unfold neg_z, intros,
-            simp [interpret_sl2_su, words.wt_su, words.μ_su],
-            simp [interpret_sl2_ze, words.wt_ze, words.μ_ze] at a_1,
-            simp [smul_smul],
-            erw (transposed_jacobi' (z 1 x)),
-            erw a_1, simp [lie_add, smul_smul],
-            erw a_2, simp [lie_add, smul_smul],
-            erw a_1, simp [lie_add, smul_smul],
-            rw ←(lie_skew (z 1 _) (interpret_sl2 b)),
-            erw a_2, simp [lie_add, smul_smul],
-            cases a,
-            -- case A
-            simp [words.wt_gen, interpret_sl2_gen], erw transposed_jacobi' x, simp [lie_add, smul_smul],
-            simp [sl2_circle', lie_add, smul_smul, smul_add, smul_smul], 
-            have h' : 1 + 1 = 2 := by simp, simp [h'],
-            have h'': coe ((-1 : units ℤ) ^ 2) = (1 :  ℤ) := by sorry, erw h''
+            sorry
         end,
     exact (free_semigroup.rec_on w hz hs)
 end
 -/
+
 end ambient_module
 
 -- ⁅    ⁆
