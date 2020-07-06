@@ -141,6 +141,23 @@ begin
     erw lie_neg, erw neg_lie, conv_lhs { erw transposed_jacobi x y z }, simp [add_comm]
 end
 
+-- a simplified version of sl2_circle
+lemma sl2_circle' : ∀ (m : M) (j : ℤ),
+                        ⁅E, (z j) m⁆ = j • (z (j+1)) m + (z j) ⁅E, m⁆ 
+                      ∧ ⁅H, (z j) m⁆ = j • (z (j  )) m + (z j) ⁅H, m⁆ 
+                      ∧ ⁅F, (z j) m⁆ = j • (z (j-1)) m + (z j) ⁅F, m⁆
+:= 
+begin 
+    have hE : (E : M) = (z 0) E := by simp [str_circle.1],
+    have hH : (H : M) = (z 0) H := by simp [str_circle.1],
+    have hF : (F : M) = (z 0) F := by simp [str_circle.1],
+    intros, split,
+    erw hE, simp [sl2_circle],
+    split,
+    erw hH, simp [sl2_circle],
+    erw hF, simp [sl2_circle],
+end
+
 section zeta 
 
 variable (ζ : M)
@@ -274,6 +291,24 @@ begin
     rw ←units.coe_mul, rw ←gpow_add, rw add_comm
 end 
 
+def Φ (y x : M) := ⁅ y, z 1 x ⁆ - z 1 ⁅ y, x ⁆ 
+
+lemma Φ_str : ∀ (y y' x : M), Φ ⁅ y, y' ⁆ x = ⁅ y, Φ y' x ⁆ + ⁅ Φ y x, y' ⁆ + Φ y ⁅ y', x ⁆  - Φ y' ⁅ y, x ⁆ :=
+begin
+    intros, unfold Φ, 
+    conv_lhs { rw transposed_jacobi' },
+    conv_lhs { rw transposed_jacobi' x },
+    simp [sub_eq_add_neg, lie_add ],
+    erw ←(lie_skew (⁅ _ , x ⁆)  _),
+    erw ←(lie_skew (⁅ _ , z 1 x ⁆)  _),
+    erw ←(lie_skew (z 1 ⁅ _ , x ⁆)  _),
+    erw ←(lie_skew (z 1 ⁅ y , x ⁆) y'),
+    repeat { rw ←add_assoc },
+    rw linear_map.map_neg,
+    have h : ∀ (a b c d e f : M), a + -b + -c + d + b + -e + f + -d = -c + a + -e - -f := begin intros, abel end, 
+    conv_rhs { rw h }, refl,
+end
+
 /-
 lemma interpret_sl2_μ (w : words) : 
 ∀ (x : M), ⁅ interpret_sl2 w, z 1 x ⁆ = z 1 ⁅ interpret_sl2 w, x ⁆ + w.μ • neg_z (w.wt + 1) x 
@@ -294,19 +329,26 @@ begin
         end,
     have hs : ∀ (a : gen) (b : words), h (words.of a) → h b → h (words.of a * b) :=
         begin
-            simp [h], unfold neg_z, intros,-- simp [h] at a_1, simp [h] at a_2, 
-            simp [interpret_sl2_ze, words.wt_ze, words.μ_ze] at a_1,
+            simp [h], unfold neg_z, intros,
             simp [interpret_sl2_su, words.wt_su, words.μ_su],
-            erw transposed_jacobi' (z 1 x),
-            erw transposed_jacobi' x,
-            erw (a_1 x),
-            erw (a_2 x),
-            simp [lie_add],
+            simp [interpret_sl2_ze, words.wt_ze, words.μ_ze] at a_1,
+            simp [smul_smul],
+            erw (transposed_jacobi' (z 1 x)),
+            erw a_1, simp [lie_add, smul_smul],
+            erw a_2, simp [lie_add, smul_smul],
+            erw a_1, simp [lie_add, smul_smul],
+            rw ←(lie_skew (z 1 _) (interpret_sl2 b)),
+            erw a_2, simp [lie_add, smul_smul],
+            cases a,
+            -- case A
+            simp [words.wt_gen, interpret_sl2_gen], erw transposed_jacobi' x, simp [lie_add, smul_smul],
+            simp [sl2_circle', lie_add, smul_smul, smul_add, smul_smul], 
+            have h' : 1 + 1 = 2 := by simp, simp [h'],
+            have h'': coe ((-1 : units ℤ) ^ 2) = (1 :  ℤ) := by sorry, erw h''
         end,
     exact (free_semigroup.rec_on w hz hs)
 end
 -/
-
 end ambient_module
 
 -- ⁅    ⁆
