@@ -18,7 +18,7 @@ class ambient_module (M : Type) [lie_ring M] [lie_algebra ℤ M] :=
 (τ : lie_algebra.morphism ℤ M M)
 -- structure
 (str_sl2 : ⁅H, E⁆ = E ∧ ⁅F, E⁆ = 2 • H ∧ ⁅H, F⁆ = -F)
-(str_circle : z 0 = linear_map.id ∧ ∀ (i j : ℤ), z i ∘ z j = z (i + j))
+(str_circle : z 0 = linear_map.id ∧ ∀ (i j : ℤ), linear_map.comp (z i) (z j) = z (i + j))
 (str_invol : τ ∘ τ = id)
 (invol_sl2 : τ E = -F ∧ τ H = -H ∧ τ F = -E)
 (invol_circle : ∀ (i : ℤ), τ ∘ (z i) = z (-i) ∘ τ)
@@ -215,7 +215,7 @@ begin
     rw h, 
     simp [sl2_circle],
     simp [(sl2_shift _ 0).1],
-    rw (by simp : ∀ (x : M), (z 1) ((z 1) x) = (z 1 ∘ z 1) x),
+    rw (by simp : ∀ (x : M), (z 1) ((z 1) x) = (linear_map.comp (z 1) (z 1)) x),
     simp [str_circle]
 end
 
@@ -229,7 +229,7 @@ begin
     rw h, 
     simp [sl2_circle],
     simp [(sl2_shift _ 0).2.2],
-    rw (by simp : ∀ (x : M), (z (-1)) ((z 1) x) = (z (-1) ∘ z 1) x),
+    rw (by simp : ∀ (x : M), (z (-1)) ((z 1) x) = (linear_map.comp (z (-1)) (z 1)) x),
     simp [str_circle],
     simp [add_comm]
 end
@@ -263,8 +263,18 @@ end
 
 end serpentine 
 
-def neg_z (i : ℤ) : module.End ℤ M := ((-1 : units ℤ) ^ i).val • z i 
+def neg_z (i : ℤ) : module.End ℤ M := (↑((-1 : units ℤ) ^ i) : ℤ)  • z i 
 
+lemma neg_z_str : neg_z 0 = (linear_map.id : module.End ℤ M) 
+                ∧ ∀ (i j : ℤ), linear_map.comp (neg_z i) (neg_z j) = (neg_z (i+j) : module.End ℤ M) :=
+begin
+    split, 
+    unfold neg_z, simp [str_circle.1],
+    intros, unfold neg_z, simp [linear_map.smul_comp, linear_map.comp_smul, str_circle.2, smul_smul], 
+    rw ←units.coe_mul, rw ←gpow_add, rw add_comm
+end 
+
+/-
 lemma interpret_sl2_μ (w : words) : 
 ∀ (x : M), ⁅ interpret_sl2 w, z 1 x ⁆ = z 1 ⁅ interpret_sl2 w, x ⁆ + w.μ • neg_z (w.wt + 1) x 
 :=
@@ -295,6 +305,7 @@ begin
         end,
     exact (free_semigroup.rec_on w hz hs)
 end
+-/
 
 end ambient_module
 
