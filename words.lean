@@ -93,9 +93,14 @@ def wt_gen  : gen → ℤ
 | gen.A  :=  1
 | gen.A' := -1
 
+-- length
 def ell : words → ℕ := rec (λ _, 1) (λ _ _ l, l.succ)
+-- weight
 def wt  : words → ℤ := rec wt_gen   (λ a _ k, wt_gen a + k) 
+-- sl2-coefficient
 def μ   : words → ℤ := rec wt_gen   (λ a w m, (1 - wt_gen a * wt w) * m) 
+-- (-1) ^ (ell-1), but inductive
+def sgn : words → ℤ := rec (λ _, 1) (λ _ _ s, -s) 
 
 -- recursion lemmas
 lemma wt_ze : ∀ (a : gen), wt (of a) = wt_gen a := begin intros, unfold wt, simp [rec_ze] end
@@ -104,6 +109,8 @@ lemma ell_ze : ∀ (a : gen), ell (of a) = 1 := begin intros, unfold ell, simp [
 lemma ell_su : ∀ (a : gen) (w : words), ell (of a * w) = ell w + 1 := begin intros, unfold ell, simp [rec_su] end
 lemma μ_ze : ∀ (a : gen), μ (of a) = wt_gen a := begin intros, unfold μ, simp [rec_ze] end
 lemma μ_su : ∀ (a : gen) (w : words), μ (of a * w) = (1 - wt_gen a * wt w) * μ w := begin intros, unfold μ, simp [rec_su] end
+lemma sgn_ze : ∀ (a : gen), sgn (of a) = 1 := begin intros, unfold sgn, simp [rec_ze] end
+lemma sgn_su : ∀ (a : gen) (w : words), sgn (of a * w) = -(sgn w) := begin intros, unfold sgn, simp [rec_su] end
 
 -- involutivity properties of ell, wt, μ...
 lemma ell_invol : ∀ (w : words), ell (invol.invol w) = ell w :=
