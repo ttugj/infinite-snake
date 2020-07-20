@@ -166,7 +166,7 @@ def interpret_gen : gen → M
 | gen.A  := ζ
 | gen.A' := τ ζ
 
-def interpret  : words → M := lift (interpret_gen  ζ)
+def interpret  : words → M := lift (interpret_gen ζ)
 
 lemma interpret_ze : ∀  (a : gen), interpret ζ (words.of a) = interpret_gen ζ a :=
 begin intros, unfold interpret, simp [lift.ze] end
@@ -318,7 +318,6 @@ begin
     unfold interpret_sl2_gen, rw neg_lie, rw (sl2_circle' x i).2.2, unfold words.wt_gen, 
     rw neg_add_eq_sub, rw neg_add, rw neg_lie, rw linear_map.map_neg, simp
 end
-
 
 lemma interpret_sl2_μ (w : words) : 
 ∀ (i : ℤ) (x : M) , Φ i (interpret_sl2 w) x = (w.sgn * w.μ * i) • z (w.wt + i) x 
