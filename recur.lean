@@ -37,9 +37,36 @@ instance : module ℤ phrases := words.mod.module
 
 def univ {A : Type} [add_comm_group A] [module ℤ A] (φ : words → A) : phrases →ₗ[ℤ] A := words.mod.univ φ
 
-def gen (c : ℤ) (w : words) : phrases := finsupp.single w c
+def δ (c : ℤ) (w : words) : phrases := finsupp.single w c
 
-def ω : module.End ℤ phrases := univ (λ w, gen w.wt w) 
+lemma univ_id : univ (δ 1) = linear_map.id
+:= begin
+    sorry
+end
+
+lemma univ_comp {A : Type} [add_comm_group A] [module ℤ A] :
+      ∀ (φ : words → A) (g : words → words), univ φ ∘ univ (δ 1 ∘ g) = univ (φ ∘ g)
+:= begin
+    sorry 
+end
+
+def ω : module.End ℤ phrases := univ (λ w, δ w.wt w) 
+
+def α (w : words) : module.End ℤ phrases := univ (λ w', δ 1 (w * w')) 
+
+def τ : module.End ℤ phrases := univ (δ 1 ∘ invol.invol) 
+
+def τ_eq : τ ∘ τ = id := 
+begin
+    unfold τ, simp [univ_comp], rw function.comp.assoc, rw invol.invol_eq, rw function.right_id, 
+    simp [univ_id], refl 
+end
+
+def R_su (a : gen) (b : words) (r : phrases) :=
+α (words.of a) r - words.wt_gen a • (b.wt • r + ω r + δ (2 * b.wt) b - δ (2 * b.μ) (words.of a)) 
+
+def R : words → phrases := words.rec (λ _, 0) R_su
+
 
 end phrases
 
