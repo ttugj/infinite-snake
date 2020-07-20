@@ -62,11 +62,12 @@ begin
     simp [univ_id], refl 
 end
 
+instance : invol phrases := ⟨τ, τ_eq⟩
+
 def R_su (a : gen) (b : words) (r : phrases) :=
 α (words.of a) r - words.wt_gen a • (b.wt • r + ω r + δ (2 * b.wt) b - δ (2 * b.μ) (words.of a)) 
 
 def R : words → phrases := words.rec (λ _, 0) R_su
-
 
 end phrases
 
