@@ -23,6 +23,18 @@ instance : module R (mod R) := @finsupp.module words R _ _ _ _
 def univ {A : Type} [add_comm_group A] [module R A] (φ : words → A) : mod R →ₗ[R] A 
 := finsupp.total words A R φ
 
+def τ : module.End R (mod R) := finsupp.lmap_domain R R invol.invol
+
+def τ_eq : linear_map.comp τ τ = (linear_map.id : module.End R (mod R))
+:= begin unfold τ, rw ←finsupp.lmap_domain_comp, rw invol.invol_eq, rw finsupp.lmap_domain_id end
+
+instance : invol (mod R) := 
+⟨τ, begin 
+    funext, intros, have h := τ_eq, rw linear_map.ext_iff at h, have h' := h x,
+    rw linear_map.comp_apply at h', rw function.comp_apply, exact h' 
+end⟩
+
+
 end mod
 
 end words
@@ -39,30 +51,9 @@ def univ {A : Type} [add_comm_group A] [module ℤ A] (φ : words → A) : phras
 
 def δ (c : ℤ) (w : words) : phrases := finsupp.single w c
 
-lemma univ_id : univ (δ 1) = linear_map.id
-:= begin
-    sorry
-end
-
-lemma univ_comp {A : Type} [add_comm_group A] [module ℤ A] :
-      ∀ (φ : words → A) (g : words → words), univ φ ∘ univ (δ 1 ∘ g) = univ (φ ∘ g)
-:= begin
-    sorry 
-end
-
 def ω : module.End ℤ phrases := univ (λ w, δ w.wt w) 
 
 def α (w : words) : module.End ℤ phrases := univ (λ w', δ 1 (w * w')) 
-
-def τ : module.End ℤ phrases := univ (δ 1 ∘ invol.invol) 
-
-def τ_eq : τ ∘ τ = id := 
-begin
-    unfold τ, simp [univ_comp], rw function.comp.assoc, rw invol.invol_eq, rw function.right_id, 
-    simp [univ_id], refl 
-end
-
-instance : invol phrases := ⟨τ, τ_eq⟩
 
 def R_su (a : gen) (b : words) (r : phrases) :=
 α (words.of a) r - words.wt_gen a • (b.wt • r + ω r + δ (2 * b.wt) b - δ (2 * b.μ) (words.of a)) 
