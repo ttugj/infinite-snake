@@ -34,7 +34,6 @@ instance : invol (mod R) :=
     rw linear_map.comp_apply at h', rw function.comp_apply, exact h' 
 end⟩
 
-
 end mod
 
 end words
@@ -68,5 +67,18 @@ variables {M : Type} [lie_ring M] [lie_algebra ℤ M] [ambient_module M]
 
 def interpret_phrase (ζ : M) : phrases →ₗ[ℤ] M := phrases.univ (interpret ζ) 
 def interpret_sl2_phrase : phrases →ₗ[ℤ] M := phrases.univ interpret_sl2 
+
+/- basic instance of the recurrence relation -/
+def rec_rel' (ζ : M) (w : words) : Prop 
+:= interpret ζ w - (neg_z w.wt ∘ σ) (interpret ζ w) - interpret_sl2 w 
+ = (neg_z w.wt ∘ σ) (interpret_phrase ζ (phrases.R w) - w.μ • H) 
+
+theorem rec_rel {ζ : M} (hζ : serpentine ζ) : ∀ (w : words), rec_rel' ζ w :=
+begin
+    have hz : ∀ (a : gen), rec_rel' ζ (words.of a) := by sorry,
+    have hs : ∀ (a : gen) (b : words), rec_rel' ζ (words.of a) → rec_rel' ζ b → rec_rel' ζ (words.of a * b) := by sorry,
+    intros,
+    exact (free_semigroup.rec_on w hz hs)
+end
 
 end ambient_module
