@@ -198,6 +198,11 @@ namespace serpentine
 
 variable {ζ : M} 
 
+lemma invol (hζ : serpentine ζ) : τ ζ = -F + (z (-1)) (σ (τ ζ + H)) :=
+begin
+    sorry -- TODO
+end
+
 lemma act_H (hζ : serpentine ζ) : ⁅ H, ζ ⁆ = ζ :=
 begin
     intros, 

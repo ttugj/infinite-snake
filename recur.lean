@@ -52,12 +52,17 @@ def δ (c : ℤ) (w : words) : phrases := finsupp.single w c
 
 def ω : module.End ℤ phrases := univ (λ w, δ w.wt w) 
 
+-- left action of words (as a monoid) on phrases (as an abelian group)
 def α (w : words) : module.End ℤ phrases := univ (λ w', δ 1 (w * w')) 
 
-def R_su (a : gen) (b : words) (r : phrases) :=
+def R_su_fun (a : gen) (b : words) (r : phrases) :=
 α (words.of a) r - words.wt_gen a • (b.wt • r + ω r + δ (2 * b.wt) b - δ (2 * b.μ) (words.of a)) 
 
-def R : words → phrases := words.rec (λ _, 0) R_su
+def R : words → phrases := words.rec (λ _, 0) R_su_fun
+
+lemma R_ze (a : gen) : R (words.of a) = 0 := begin
+    intros,  unfold R, simp [words.rec_ze]  
+end
 
 end phrases
 
@@ -70,12 +75,28 @@ def interpret_sl2_phrase : phrases →ₗ[ℤ] M := phrases.univ interpret_sl2
 
 /- basic instance of the recurrence relation -/
 def rec_rel' (ζ : M) (w : words) : Prop 
-:= interpret ζ w - (neg_z w.wt ∘ σ) (interpret ζ w) - interpret_sl2 w 
- = (neg_z w.wt ∘ σ) (interpret_phrase ζ (phrases.R w) - w.μ • H) 
+:= interpret ζ w + (neg_z w.wt ∘ σ) (interpret ζ w) - interpret_sl2 w 
+ = - (neg_z w.wt ∘ σ) (interpret_phrase ζ (phrases.R w) - w.μ • H) 
 
 theorem rec_rel {ζ : M} (hζ : serpentine ζ) : ∀ (w : words), rec_rel' ζ w :=
 begin
-    have hz : ∀ (a : gen), rec_rel' ζ (words.of a) := by sorry,
+    have hz : ∀ (a : gen), rec_rel' ζ (words.of a) := begin
+            intros, unfold rec_rel', simp [words.wt_ze], simp [phrases.R_ze], simp [interpret_ze], cases a,
+            unfold serpentine at hζ,
+            -- case A
+            simp [words.μ_ze], simp [interpret_sl2_ze],  unfold interpret_gen, unfold words.wt_gen, unfold interpret_sl2_gen,
+            unfold neg_z, conv_lhs { congr, congr, rw hζ }, simp,
+            have h  : (z 1) (σ (ζ - H)) = (z 1) (σ ζ) - (z 1) (σ H) := by sorry,    -- TODO
+            have h' : (z 1) (σ (-H : M))= -((z 1) (σ H)) := by sorry,               -- TODO
+            have h'': ∀ (a b c : M), a + (b - c) + (-b) - a = -c := begin intros, abel end,
+            simp [h], simp [h'], simp [h''],
+            -- case A'
+            simp [words.μ_ze], simp [interpret_sl2_ze],  unfold interpret_gen, unfold words.wt_gen, unfold interpret_sl2_gen,
+            unfold neg_z,  conv_lhs { congr, congr, rw (serpentine.invol hζ) }, simp,
+            have h  : (z (-1)) (σ (τ ζ + H)) = (z (-1)) (σ (τ ζ)) + (z (-1)) (σ H) := by sorry,    -- TODO
+            have h': ∀ (a b c : M), -a + (b + c) + (-b) + a = c := begin intros, abel end,
+            simp [h], simp [h']
+        end,
     have hs : ∀ (a : gen) (b : words), rec_rel' ζ (words.of a) → rec_rel' ζ b → rec_rel' ζ (words.of a * b) := by sorry,
     intros,
     exact (free_semigroup.rec_on w hz hs)
