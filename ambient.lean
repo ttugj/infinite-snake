@@ -200,7 +200,32 @@ variable {ζ : M}
 
 lemma invol (hζ : serpentine ζ) : τ ζ = -F + (z (-1)) (σ (τ ζ + H)) :=
 begin
-    sorry -- TODO
+    intros, unfold serpentine at hζ, conv_lhs { rw hζ },
+    have h  : τ (E + ((z 1) (σ (ζ - H)))) = τ E + τ ((z 1) (σ (ζ - H))) := τ.add _ _,
+    have h' : ∀ (x : M), τ ((z 1) (σ x)) = z (-1) (σ (τ x)) := begin
+            intros,
+            have k : ∀ (y : M), τ ((z 1) y) = z (-1) (τ y) := begin
+                    intros,
+                    have g := invol_circle 1,
+                    simp [function.comp] at g,
+                    apply_fun (λ (f : M → M), f y) at g,
+                    rw g
+                end,
+            have k': ∀ (y : M), τ (σ y) = σ (τ y) := begin
+                    intros,
+                    have g := invol_shift,
+                    simp [function.comp] at g,
+                    apply_fun (λ (f : M → M), f y) at g,
+                    rw g
+                end,
+            conv_lhs { rw k, rw k' }, 
+        end, 
+    have h'': τ (ζ - H) = τ ζ + H := begin
+            have k : ∀ (x y : M), τ (x - y) = τ x - τ y := linear_map.map_sub τ.to_linear_map,
+            conv_lhs { rw k },
+            simp [ invol_sl2.2 ] 
+        end, 
+    simp [h], rw invol_sl2.1, simp [h' (ζ - H)], simp [h'']
 end
 
 lemma act_H (hζ : serpentine ζ) : ⁅ H, ζ ⁆ = ζ :=
