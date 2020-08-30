@@ -99,7 +99,10 @@ begin
             -- case A'
             simp [words.μ_ze], simp [interpret_sl2_ze],  unfold interpret_gen, unfold words.wt_gen, unfold interpret_sl2_gen,
             unfold neg_z,  conv_lhs { congr, congr, rw (serpentine.invol hζ) }, simp,
-            have h  : (z (-1)) (σ (τ ζ + H)) = (z (-1)) (σ (τ ζ)) + (z (-1)) (σ H) := by sorry,    -- TODO
+            have h  : (z (-1)) (σ (τ ζ + H)) = (z (-1)) (σ (τ ζ)) + (z (-1)) (σ H) := begin
+                    have k : ∀ (x y : M), σ (x + y) = σ x + σ y := linear_map.map_add σ.to_linear_map, 
+                    simp [k] 
+                end, 
             have h': ∀ (a b c : M), -a + (b + c) + (-b) + a = c := begin intros, abel end,
             simp [h], simp [h']
         end,
