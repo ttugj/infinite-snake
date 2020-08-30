@@ -73,15 +73,17 @@ variables {M : Type} [lie_ring M] [lie_algebra ℤ M] [ambient_module M]
 def interpret_phrase (ζ : M) : phrases →ₗ[ℤ] M := phrases.univ (interpret ζ) 
 def interpret_sl2_phrase : phrases →ₗ[ℤ] M := phrases.univ interpret_sl2 
 
-/- basic instance of the recurrence relation -/
-def rec_rel' (ζ : M) (w : words) : Prop 
+namespace rec_rel
+
+def rel' (ζ : M) (w : words) : Prop 
 := interpret ζ w + (neg_z w.wt ∘ σ) (interpret ζ w) - interpret_sl2 w 
  = - (neg_z w.wt ∘ σ) (interpret_phrase ζ (phrases.R w) - w.μ • H) 
 
-theorem rec_rel {ζ : M} (hζ : serpentine ζ) : ∀ (w : words), rec_rel' ζ w :=
-begin
-    have hz : ∀ (a : gen), rec_rel' ζ (words.of a) := begin
-            intros, unfold rec_rel', simp [words.wt_ze], simp [phrases.R_ze], simp [interpret_ze], cases a,
+variables {ζ : M} 
+    
+def ze (hζ : serpentine ζ) : ∀ (a : gen), rel' ζ (words.of a) 
+:= begin
+            intros, unfold rel', simp [words.wt_ze], simp [phrases.R_ze], simp [interpret_ze], cases a,
             unfold serpentine at hζ,
             -- case A
             simp [words.μ_ze], simp [interpret_sl2_ze],  unfold interpret_gen, unfold words.wt_gen, unfold interpret_sl2_gen,
@@ -105,10 +107,17 @@ begin
                 end, 
             have h': ∀ (a b c : M), -a + (b + c) + (-b) + a = c := begin intros, abel end,
             simp [h], simp [h']
-        end,
-    have hs : ∀ (a : gen) (b : words), rec_rel' ζ (words.of a) → rec_rel' ζ b → rec_rel' ζ (words.of a * b) := by sorry,
-    intros,
-    exact (free_semigroup.rec_on w hz hs)
+end
+    
+def su (hζ : serpentine ζ) : ∀ (a : gen) (b : words), rel' ζ (words.of a) → rel' ζ b → rel' ζ (words.of a * b) := by sorry
+
+theorem rel (hζ : serpentine ζ) : ∀ (w : words), rel' ζ w :=
+begin
+    intros, exact (free_semigroup.rec_on w (ze hζ) (su hζ))
 end
 
+end rec_rel
+
 end ambient_module
+
+#check ambient_module.rec_rel.rel
