@@ -64,6 +64,12 @@ lemma R_ze (a : gen) : R (words.of a) = 0 := begin
     intros,  unfold R, simp [words.rec_ze]  
 end
 
+lemma R_su (a : gen) (b : words) : R (words.of a * b) = R_su_fun a b (R b) 
+:= begin
+    intros, unfold R, simp [words.rec_su]
+end
+
+
 end phrases
 
 namespace ambient_module
@@ -109,7 +115,11 @@ def ze (hζ : serpentine ζ) : ∀ (a : gen), rel' ζ (words.of a)
             simp [h], simp [h']
 end
     
-def su (hζ : serpentine ζ) : ∀ (a : gen) (b : words), rel' ζ (words.of a) → rel' ζ b → rel' ζ (words.of a * b) := by sorry
+def su (hζ : serpentine ζ) : ∀ (a : gen) (b : words), rel' ζ (words.of a) → rel' ζ b → rel' ζ (words.of a * b) 
+:= begin
+    intros, unfold rel', unfold rel' at a_2, unfold rel' at a_1,
+    simp [words.wt_su], simp [words.μ_su], simp [interpret_su], simp [interpret_sl2_su], simp [phrases.R_su],
+end
 
 theorem rel (hζ : serpentine ζ) : ∀ (w : words), rel' ζ w :=
 begin
@@ -120,4 +130,3 @@ end rec_rel
 
 end ambient_module
 
-#check ambient_module.rec_rel.rel
