@@ -321,6 +321,11 @@ begin
     rw ←units.coe_mul, rw ←gpow_add, rw add_comm
 end 
 
+lemma neg_z_shift_both : ∀ (i j : ℤ) (x y : M), ⁅ (neg_z i) (σ x), (neg_z j) (σ y) ⁆ = neg_z (i+j) (σ ⁅ x, y ⁆) :=
+begin
+    sorry   -- TODO
+end
+
 def Φ (i : ℤ) (y x : M) := ⁅ y, z i x ⁆ - z i ⁅ y, x ⁆ 
 
 lemma Φ_str : ∀ (i : ℤ) (y y' x : M), 

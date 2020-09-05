@@ -119,6 +119,21 @@ def su (hζ : serpentine ζ) : ∀ (a : gen) (b : words), rel' ζ (words.of a) �
     intros, unfold rel', unfold rel' at a_2, unfold rel' at a_1,
     simp [words.wt_su], simp [words.μ_su], simp [interpret_su], simp [interpret_sl2_su], simp [phrases.R_su],
     simp [interpret_ze, words.wt_ze, phrases.R_ze, words.μ_ze, interpret_sl2_ze] at a_1,
+    conv_lhs { rw a_1, rw a_2 }, 
+    have h : ∀ (a b c d e f : M)
+             , ⁅ a - b - c, d - e - f ⁆ 
+             = ⁅a, d⁆ + ⁅b, e⁆ + ⁅c, f⁆ 
+             - ⁅a, e⁆ - ⁅a, f⁆ 
+             - ⁅b, d⁆ - ⁅c, d⁆ 
+             + ⁅b, f⁆ + ⁅c, e⁆
+             := by sorry, -- TODO
+    simp [h],
+    simp [neg_z_shift_both],
+  /- Now we need to use:
+        * [H, interpret _]                  - that's interpret_wt 
+        * [interpret_sl2 _, neg_z _ (σ _)]  - that's interpet_sl2_μ, up to neg_z
+     to simplify lhs terms not referring to interpret_phrase.
+   -/
 end
 
 theorem rel (hζ : serpentine ζ) : ∀ (w : words), rel' ζ w :=
@@ -130,3 +145,4 @@ end rec_rel
 
 end ambient_module
 
+-- ⁅    ⁆
