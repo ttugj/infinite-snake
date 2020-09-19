@@ -82,7 +82,7 @@ def interpret_sl2_phrase : phrases →ₗ[ℤ] M := phrases.univ interpret_sl2
 namespace rec_rel
 
 def rel' (ζ : M) (w : words) : Prop 
-:= interpret ζ w = interpret_sl2 w - (neg_z w.wt ∘ σ) (interpret ζ w) - (neg_z w.wt ∘ σ) (interpret_phrase ζ (phrases.R w) - w.μ • H) 
+:= interpret ζ w = interpret_sl2 w + (z w.wt ∘ σ) (interpret ζ w - w.μ • H + interpret_phrase ζ (phrases.R w)) 
 
 variables {ζ : M} 
     
@@ -92,8 +92,8 @@ def ze (hζ : serpentine ζ) : ∀ (a : gen), rel' ζ (words.of a)
             unfold serpentine at hζ,
             -- case A
             simp [words.μ_ze], simp [interpret_sl2_ze],  unfold interpret_gen, unfold words.wt_gen, unfold interpret_sl2_gen,
-            unfold neg_z, conv_lhs { rw hζ }, simp,   
-            have h  : (z 1) (σ (ζ - H)) = (z 1) (σ ζ) - (z 1) (σ H) := begin
+            conv_lhs { rw hζ }, simp, admit,  
+/-          have h  : (z 1) (σ (ζ - H)) = (z 1) (σ ζ) - (z 1) (σ H) := begin
                     have k : ∀ (x y : M), σ (x - y) = σ x - σ y := linear_map.map_sub σ.to_linear_map,
                     simp [k] 
                 end,   
@@ -103,15 +103,16 @@ def ze (hζ : serpentine ζ) : ∀ (a : gen), rel' ζ (words.of a)
                 end,  
             have h'': ∀ (a b c : M), a + (b - c) = a + b + (-c) := begin intros, abel end,   
             simp [h],  simp [h'], simp [h''],
-            -- case A'
+-/          -- case A'
             simp [words.μ_ze], simp [interpret_sl2_ze],  unfold interpret_gen, unfold words.wt_gen, unfold interpret_sl2_gen,
-            unfold neg_z,  conv_lhs { rw (serpentine.invol hζ) }, simp,
-            have h  : (z (-1)) (σ (τ ζ + H)) = (z (-1)) (σ (τ ζ)) + (z (-1)) (σ H) := begin
+            conv_lhs { rw (serpentine.invol hζ) }, simp, admit
+/-          have h  : (z (-1)) (σ (τ ζ + H)) = (z (-1)) (σ (τ ζ)) + (z (-1)) (σ H) := begin
                     have k : ∀ (x y : M), σ (x + y) = σ x + σ y := linear_map.map_add σ.to_linear_map, 
                     simp [k] 
                 end, 
             have h': ∀ (a b c : M), -a + (b + c) = b - a + c := begin intros, abel end,
             simp [h], simp [h']
+-/
 end
     
 def su (hζ : serpentine ζ) : ∀ (a : gen) (b : words), rel' ζ (words.of a) → rel' ζ b → rel' ζ (words.of a * b) 
@@ -119,8 +120,8 @@ def su (hζ : serpentine ζ) : ∀ (a : gen) (b : words), rel' ζ (words.of a) �
     intros, unfold rel', unfold rel' at a_2, unfold rel' at a_1,
     simp [words.wt_su], simp [words.μ_su], simp [interpret_su], simp [interpret_sl2_su], simp [phrases.R_su],
     simp [interpret_ze, words.wt_ze, phrases.R_ze, words.μ_ze, interpret_sl2_ze] at a_1,
-    conv_lhs { rw a_1, rw a_2 }, 
-    have h : ∀ (a b c d e f : M)
+    conv_lhs { rw a_1, rw a_2 }, admit
+/-    have h : ∀ (a b c d e f : M)
              , ⁅ a - b - c, d - e - f ⁆ 
              = ⁅a, d⁆ + ⁅b, e⁆ + ⁅c, f⁆ 
              - ⁅a, e⁆ - ⁅a, f⁆ 
@@ -129,11 +130,9 @@ def su (hζ : serpentine ζ) : ∀ (a : gen) (b : words), rel' ζ (words.of a) �
              := by sorry, -- TODO
     simp [h],
     simp [neg_z_shift_both],
-  /- Now we need to use:
-        * [H, interpret _]                  - that's interpret_wt 
-        * [interpret_sl2 _, neg_z _ (σ _)]  - that's interpet_sl2_μ, up to neg_z
-     to simplify lhs terms not referring to interpret_phrase.
-   -/
+    simp [sub_eq_add_neg],
+    simp [linear_map.map_add σ.to_linear_map],
+    simp [add_lie,lie_add], -/
 end
 
 theorem rel (hζ : serpentine ζ) : ∀ (w : words), rel' ζ w :=

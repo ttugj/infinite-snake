@@ -310,22 +310,6 @@ end
 
 end serpentine 
 
-def neg_z (i : ℤ) : module.End ℤ M := (↑((-1 : units ℤ) ^ i) : ℤ)  • z i 
-
-lemma neg_z_str : neg_z 0 = (linear_map.id : module.End ℤ M) 
-                ∧ ∀ (i j : ℤ), linear_map.comp (neg_z i) (neg_z j) = (neg_z (i+j) : module.End ℤ M) :=
-begin
-    split, 
-    unfold neg_z, simp [str_circle.1],
-    intros, unfold neg_z, simp [linear_map.smul_comp, linear_map.comp_smul, str_circle.2, smul_smul], 
-    rw ←units.coe_mul, rw ←gpow_add, rw add_comm
-end 
-
-lemma neg_z_shift_both : ∀ (i j : ℤ) (x y : M), ⁅ (neg_z i) (σ x), (neg_z j) (σ y) ⁆ = neg_z (i+j) (σ ⁅ x, y ⁆) :=
-begin
-    sorry   -- TODO
-end
-
 def Φ (i : ℤ) (y x : M) := ⁅ y, z i x ⁆ - z i ⁅ y, x ⁆ 
 
 lemma Φ_str : ∀ (i : ℤ) (y y' x : M), 
@@ -355,14 +339,14 @@ begin
 end
 
 lemma interpret_sl2_μ (w : words) : 
-∀ (i : ℤ) (x : M) , Φ i (interpret_sl2 w) x = (w.sgn * w.μ * i) • z (w.wt + i) x 
-:=
+∀ (i : ℤ) (x : M) , Φ i (interpret_sl2 w) x = (w.μ * i) • z (w.wt + i) x 
+:= /- note: the definition of μ had been simplified, so the proof is suboptimal -/
 begin
-    let h := λ (b : words), ∀ (i : ℤ) (x : M), Φ i (interpret_sl2 b) x = (b.sgn * b.μ * i) • z (b.wt + i) x,
+    let h := λ (b : words), ∀ (i : ℤ) (x : M), Φ i (interpret_sl2 b) x = (b.μ * i) • z (b.wt + i) x,
     have hz : ∀ (a : gen), h (words.of a) := 
         begin
             simp [h], intros, rw interpret_sl2_ze, rw (Φ_gen a i x),
-            rw words.wt_ze, rw words.sgn_ze, rw words.μ_ze, simp [mul_comm]
+            rw words.wt_ze, rw words.μ_ze, simp [mul_comm]
         end,
     have hs : ∀ (a : gen) (b : words), h (words.of a) → h b → h (words.of a * b) :=
         begin
@@ -370,8 +354,8 @@ begin
             rw interpret_sl2_su, rw interpret_sl2_ze at a_1, 
             rw (Φ_str i),
             simp [a_2, a_1], 
-            simp [words.sgn_ze, words.μ_ze, words.wt_ze],
-            simp [words.sgn_su, words.μ_su, words.wt_su],
+            simp [words.μ_ze],
+            simp [words.μ_su],
             have h' : ∀ (p q r s : M), p + q + r - s = (p - s) - (-q - r) := begin intros, abel end,
             have h'' : ∀ (c : ℤ) (p q : M), c • p - c • q = c • (p - q) := begin intros, rw ←smul_sub  end, 
             have fold_Φ : ∀ (j : ℤ) (y : M), ⁅ y, z j x ⁆ - z j ⁅ y, x ⁆ = Φ j y x := begin intros, unfold Φ end,
@@ -381,11 +365,10 @@ begin
                 rw fold_Φ, rw fold_Φ
             },
             simp [a_2, a_1],
-            simp [words.wt_ze, words.sgn_ze, words.μ_ze],
+            simp [words.wt_su, words.wt_ze, words.μ_ze],
             rw ←mul_smul, rw ←mul_smul,
             conv_lhs { congr, congr, skip, rw ←add_assoc },
             conv_lhs { congr, skip, congr, skip, rw ←add_assoc, rw (add_comm b.wt _) },
-            conv_rhs { rw ←neg_smul },
             have h3 : ∀ (c d : ℤ) (y : M), c • y -  d • y = (c - d) • y := begin intros, rw ←sub_smul  end, 
             have h4 : ∀ (c d : ℤ) (y : M), c = d → c • y = d • y := begin intros, rw a_3 end, 
             rw h3,
