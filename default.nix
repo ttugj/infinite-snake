@@ -53,6 +53,6 @@ mathlib = stdenv.mkDerivation rec {
 };
 
 in pkgs.mkShell {
-    buildInputs = [ texlive.combined.scheme-full lean mathlib ];
+    buildInputs = [ texlive.combined.scheme-full lean mathlib ghc ];
     LEAN_PATH = "${lean}/lib/lean/library:${mathlib}/src";
 }
