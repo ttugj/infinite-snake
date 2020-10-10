@@ -12,7 +12,7 @@ module Snake.Ambient ( -- * Generators
                      , W(..), rec, word, alpha
                      , ell, wt, mu
                        -- * Expressions 
-                     , E(..), bkt, genG, genW 
+                     , E(..), (><), genG, genW 
                        -- * Involution
                      , Inv(..)
                      ) where
@@ -75,23 +75,24 @@ wt  = rec wtG $ \g _ n ->  wtG g             + n
 mu  = rec wtG $ \g w n -> (wtG g * wt w - 1) * n
 
 -- | lie bracket
-bkt :: FA E -> FA E -> FA E
-bkt x y = join $ liftA2 bkt' x y where
-            bkt' (EW (WZ g)) (EW w) = gen (EW $ WS g w)
-            bkt' EH (EW w)          =   wt w  *^ gen (EW w) 
-            bkt' (EW w) EH          = (-wt w) *^ gen (EW w)
-            bkt' EH EH              = zero
-            bkt' (EW w) (ES i e)    = ( mu w * i) *^ gen (ES (i + wt w) e)
-            bkt' (ES i e) (EW w)    = (-mu w * i) *^ gen (ES (i + wt w) e)
-            bkt' EH (ES i e)        =   i  *^ gen (ES i e)
-            bkt' (ES i e) EH        = (-i) *^ gen (ES i e)
-            bkt' (ES i e) (ES j f)  = ES (i+j) <$> bkt' e f
-            bkt' (EL (WZ g)) (EL w) = gen (EL $ WS g w)
-            bkt' EH (EL w)          =   wt w  *^ gen (EL w) 
-            bkt' (EL w) EH          = (-wt w) *^ gen (EL w)
-            bkt' (EL w) (ES i e)    = ( mu w * i) *^ gen (ES (i + wt w) e)
-            bkt' (ES i e) (EL w)    = (-mu w * i) *^ gen (ES (i + wt w) e)
-            bkt' e f                = error $ "this bracket should never occur: [" <> show e <> ", " <> show f <> "]"
+infixr 5 ><
+(><)    :: FA E -> FA E -> FA E
+x >< y  = join $ liftA2 bkt x y where
+            bkt (EW (WZ g)) (EW w) = gen (EW $ WS g w)
+            bkt EH (EW w)          =   wt w  *^ gen (EW w) 
+            bkt (EW w) EH          = (-wt w) *^ gen (EW w)
+            bkt EH EH              = zero
+            bkt (EW w) (ES i e)    = ( mu w * i) *^ gen (ES (i + wt w) e)
+            bkt (ES i e) (EW w)    = (-mu w * i) *^ gen (ES (i + wt w) e)
+            bkt EH (ES i e)        =   i  *^ gen (ES i e)
+            bkt (ES i e) EH        = (-i) *^ gen (ES i e)
+            bkt (ES i e) (ES j f)  = ES (i+j) <$> bkt e f
+            bkt (EL (WZ g)) (EL w) = gen (EL $ WS g w)
+            bkt EH (EL w)          =   wt w  *^ gen (EL w) 
+            bkt (EL w) EH          = (-wt w) *^ gen (EL w)
+            bkt (EL w) (ES i e)    = ( mu w * i) *^ gen (ES (i + wt w) e)
+            bkt (ES i e) (EL w)    = (-mu w * i) *^ gen (ES (i + wt w) e)
+            bkt e f                = error $ "this bracket should never occur: [" <> show e <> ", " <> show f <> "]"
 
 -- | involution
 class Inv a where

@@ -32,7 +32,7 @@ rrG g   = gen (EL (WZ g)) ^+^ (ES (wtG g) <$> (gen (EW (WZ g)) ^+^ wtG g *^ gen 
 -- | recurrence relation on words
 rrW             :: W -> FA E
 rrW (WZ g)      = rrG g
-rrW (WS g w)    = rrG g `bkt` rrW w
+rrW (WS g w)    = rrG g >< rrW w
 
 -- | rests (recursively defined)
 rest    :: W -> FA W
