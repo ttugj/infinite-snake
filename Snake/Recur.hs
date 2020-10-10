@@ -6,12 +6,12 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE ConstrainedClassMethods #-}
 
-module Snake.Recur ( -- * elementary recurrence relations
+module Snake.Recur ( -- * recurrence relations: right hand sides
                      rrG, rrW
                      -- * recursively defined rests
-                   , rest, checkRest
-                     -- * special recurrence forms
-                   , rr, rr', rrId, rrId'
+                   , rest, testRest
+                     -- * explicit rests 
+                   , alphaRest, testAlphaRest
                    ) where
 
 import Data.Monoid
@@ -48,29 +48,16 @@ rest    = rec (const zero) su
                                           ]
                                in foldr (^+^) zero $ uncurry (*^) <$> terms
 
--- | check validity of rests
-checkRest     :: W -> FA E
-checkRest w   = let r = gen (EL w) ^+^ (ES (wt w) <$> (gen (EW w) ^+^ mu w *^ gen EH ^+^ (EW <$> rest w)))
-                 in normalise $ rrW w ^-^ r    
+testRest    :: W -> FA E
+testRest w  = let r = gen (EL w) ^+^ (ES (wt w) <$> (gen (EW w) ^+^ mu w *^ gen EH ^+^ (EW <$> rest w)))
+               in normalise $ rrW w ^-^ r    
 
--- | basic recurrence forms
-rr  :: Int -> FA E
-rr  = normalise . rrW . alpha
+alphaRest   :: Int -> FA E
+alphaRest k = foldr (^+^) zero $ f <$> [1..k-1]
+                where  
+                    f i = let a = gen . EW . alpha $ i
+                              e = k `div` 2 - i `div` 2
+                           in ((-1) ^ (k-i) * 2 ^ e) *^ (a ^-^ inv a)   
 
-rr' :: Int -> FA E
-rr' = normalise . rrW . inv . alpha
-
--- | hypothesised recurrence identities
-rrId    :: Int -> FA E
-rrId k  = normalise $ gen (EL w) ^+^ (ES (wt w) <$> (gen (EW w) ^+^ rest ^+^ mu w *^ gen EH))
-          where
-            w       = alpha k
-            rest    = foldr (^+^) zero $ f <$> [1..k-1]
-            f i     = let a = gen . EW . alpha $ i
-                          e = k `div` 2 - i `div` 2
-                       in ((-1) ^ (k-i) * 2 ^ e) *^ (a ^-^ inv a)   
-
-rrId'   :: Int -> FA E
-rrId'   = normalise . inv . rrId
-
-
+testAlphaRest   :: Int -> FA E
+testAlphaRest k = normalise $ (EW <$> rest (alpha k)) ^-^ alphaRest k
