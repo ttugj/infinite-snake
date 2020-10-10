@@ -1,5 +1,3 @@
--- Basic recursive relation:   ζ = e + z σ (ζ + h/2)
-
 {-# LANGUAGE GADTs #-}
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE StandaloneDeriving #-}
@@ -27,22 +25,28 @@ import Snake.FA
 
 -- | recurrence relation on generators
 rrG     :: G -> FA E
-rrG g   = gen (EL (WZ g)) ^+^ (ES (wtG g) <$> (gen (EW (WZ g)) ^+^ wtG g *^ gen EH))
+rrG g   = gen (EL (WZ g)) ^+^ (ES (wtG g) <$> (genW (WZ g) ^+^ wtG g *^ gen EH))
 
 -- | recurrence relation on words
 rrW             :: W -> FA E
 rrW (WZ g)      = rrG g
 rrW (WS g w)    = rrG g >< rrW w
 
--- | rests (recursively defined)
+-- | rests 
 rest    :: W -> FA W
 rest    = rec (const zero) su
             where
-                su g w x    = let gx    = WS g <$> x
+                su g w r    = let gr    = WS g <$> r
                                   g'    = gen (WZ g)
                                   w'    = gen w 
-                                  x'    = x >>= \u -> wt u *^ gen u
-                               in gx ^+^ x' ^+^ g' ^+^ w'   -- TODO: coefficients
+                                  r'    = r >>= \u -> wt u *^ gen u
+                                  terms = [ (1                , gr)
+                                          , (wtG g            , r')
+                                          , (wtG g * wt w     , r)
+                                          , ( 2 * wtG g * wt w, gen w)
+                                          , (-2 * wtG g * mu w, gen (WZ g))
+                                          ]
+                               in foldr (^+^) zero $ uncurry (*^) <$> terms
 
 -- | check validity of rests
 checkRest     :: W -> FA E

@@ -37,6 +37,7 @@ data W where
     WZ  :: G -> W
     WS  :: G -> W -> W
 
+-- | recursor over words
 rec     :: forall a. (G -> a) -> (G -> W -> a -> a) -> W -> a
 rec z s = \case { WZ g -> z g; WS g w -> s g w (rec z s w) } 
 
