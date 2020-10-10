@@ -6,13 +6,24 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE ConstrainedClassMethods #-}
 
+module Snake.Ambient ( -- * Generators
+                       G(..), wtG 
+                       -- * Words
+                     , W(..), rec, word, alpha
+                     , ell, wt, mu
+                       -- * Expressions 
+                     , E(..), bkt, genG, genW 
+                       -- * Involution
+                     , Inv(..)
+                     ) where
+
 import Data.Monoid
 import Data.Functor
 import Data.Maybe
 import Control.Applicative
 import Control.Monad
 
-import qualified Data.Map.Strict    as M
+import Snake.FA
 
 -- | generator
 data G = A | A' deriving (Eq, Ord, Show)
@@ -65,7 +76,7 @@ mu  = rec wtG $ \g w n -> (wtG g * wt w - 1) * n
 
 -- | lie bracket
 bkt :: FA E -> FA E -> FA E
-bkt x y = muFA $ liftA2 bkt' x y where
+bkt x y = join $ liftA2 bkt' x y where
             bkt' (EW (WZ g)) (EW w) = gen (EW $ WS g w)
             bkt' EH (EW w)          =   wt w  *^ gen (EW w) 
             bkt' (EW w) EH          = (-wt w) *^ gen (EW w)
@@ -106,24 +117,9 @@ genW :: W -> FA E
 genG = genW . WZ
 genW = gen . EW
 
--- | recurrence relation on generators
-rrG     :: G -> FA E
-rrG g   = gen (EL (WZ g)) ^+^ (ES (wtG g) <$> (gen (EW (WZ g)) ^+^ wtG g *^ gen EH))
-
--- | recurrence relation on words
-rrW             :: W -> FA E
-rrW (WZ g)      = rrG g
-rrW (WS g w)    = rrG g `bkt` rrW w
-
 -- | basic words
 alpha   :: Int -> W
 alpha n = word . reverse . take n . cycle $ [A',A]
-
--- | normalisation
-class Normalise a where
-    normalise'  :: a -> FA a
-    normalise   :: Ord a => FA a -> FA a
-    normalise x = reduce $ x >>= normalise'
 
 instance Normalise W where
     normalise' w@(WZ _)       =       gen w
@@ -142,26 +138,6 @@ instance Normalise E where
     normalise' EH       = gen EH
     normalise' (ES i e) = ES i <$> normalise' e
 
--- | basic recurrence forms
-rr  :: Int -> FA E
-rr  = normalise . rrW . alpha
-
-rr' :: Int -> FA E
-rr' = normalise . rrW . inv . alpha
-
--- | hypothesised forms
-rrHyp   :: Int -> FA E
-rrHyp k = normalise $ gen (EL w) ^+^ (ES (wt w) <$> (gen (EW w) ^+^ rest ^+^ mu w *^ gen EH))
-          where
-            w       = alpha k
-            rest    = foldr (^+^) zero $ f <$> [1..k-1]
-            f i     = let a = gen . EW . alpha $ i
-                          e = k `div` 2 - i `div` 2
-                       in ((-1) ^ (k-i) * 2 ^ e) *^ (a ^-^ inv a)   
-
-rrHyp'  :: Int -> FA E
-rrHyp'  = normalise . inv . rrHyp
-
 -- | lawless instance, for the sake of defining Eq (FA E)
 instance Ab Bool where
     zero    = True
@@ -171,86 +147,3 @@ instance Ab Bool where
 instance Eq (FA E) where
     x == y  = runFA (normalise $ x ^-^ y) (const False)
 
--- free abelian groups...
-
-infixl 6 ^+^
-infixl 6 ^-^
-infixl 7 *^
-
-class Ab a where
-    zero    :: a
-    (^+^)   :: a -> a -> a
-    neg     :: a -> a
-    (^-^)   :: a -> a -> a
-    a ^-^ b = a ^+^ neg b
-    (*^)    :: Int -> a -> a
-    n *^ a | n > 0  = a ^+^ (n-1) *^ a
-           | n < 0  = n *^ (neg a)
-           | True   = zero 
-
-newtype FA t = FA { runFA :: forall a. Ab a => (t -> a) -> a }
-
-instance Ab (FA t) where
-    zero    = FA $ const zero
-    x ^+^ y = FA $ \f -> runFA x f ^+^ runFA y f
-    neg x   = FA $ \f -> neg (runFA x f)
-    x ^-^ y = FA $ \f -> runFA x f ^-^ runFA y f
-    n *^ x  = FA $ \f -> n *^ runFA x f
-
-gen :: t -> FA t
-gen t = FA $ \f -> f t
-
-instance Functor FA where
-    fmap h x    = FA $ \f -> runFA x (f . h)
-
-instance Applicative FA where
-    pure    = gen
-    h <*> x = FA $ \f -> runFA h (\h' -> runFA x (\x' -> f (h' x')))
-
-muFA   :: FA (FA t) -> FA t
-muFA x = FA $ \f -> runFA x (\y -> runFA y f) 
-
-instance Monad FA where
-    x >>= h = muFA (h <$> x)
-
-par :: String -> String
-par s | any (==' ') s = "(" <> s <> ")"
-      | True          = s
-
-instance Ab String where
-    zero    = ""
-    "" ^+^ t= t
-    s ^+^ t = s <> " + " <> t
-    neg s   = "-" <> par s
-    s ^-^ t = s <> " - " <> t
-    n *^ s  = show n <> par s
-
-instance Show t => Show (FA t) where
-    show x  = runFA x show
-
-instance Ord t => Ab (M.Map t Int) where
-    zero    = M.empty
-    x ^+^ y = M.filter (/= 0) $ M.unionWithKey (const (+)) x y
-    neg     = M.map negate
-    0 *^ _  = M.empty
-    n *^ x  = M.map (n *) x
-
-reduce   :: Ord t => FA t -> FA t
-reduce x = M.foldlWithKey f zero $ runFA x (\t -> M.singleton t 1)
-            where
-                f x t 1     = x ^+^ gen t
-                f x t (-1)  = x ^-^ gen t
-                f x t i     = x ^+^ i *^ gen t
-
-main    :: IO ()
-main    = forM_ [2..] $ \i -> do
-            let w = alpha i
-                k = wt w
-                g | k > 0 = Just A
-                  | k < 0 = Just A'
-                  | True  = Nothing
-                w' = flip WS w <$> g
-            putStrLn $ unwords $ catMaybes [ Just $ f w, (h . f) <$> w' ]
-            where
-                f w = show w <> " = " <> show (normalise . rrW $ w) <> " and μ = " <> show (mu w)
-                h s = ";\t killed " <> s
