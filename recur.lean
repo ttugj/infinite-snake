@@ -1,4 +1,6 @@
-/- General recurrence relations in ambient modules. -/
+/- General recurrence relations in ambient modules. 
+   Main theorem: rec_rel.rel.
+-/
 
 import algebra.lie_algebra
 import algebra.module
@@ -72,7 +74,6 @@ lemma R_su (a : gen) (b : words) : R (words.of a * b) = R_su_fun a b (R b)
     intros, unfold R, simp [words.rec_su]
 end
 
-
 end phrases
 
 namespace ambient_module
@@ -81,6 +82,12 @@ variables {M : Type} [lie_ring M] [lie_algebra ℤ M] [ambient_module M]
 
 def interpret_phrase (ζ : M) : phrases →ₗ[ℤ] M := phrases.univ (interpret ζ) 
 def interpret_sl2_phrase : phrases →ₗ[ℤ] M := phrases.univ interpret_sl2 
+
+lemma interpret_phrase_ω {ζ : M} (hζ : serpentine ζ) : ∀ (r : phrases), ⁅ H,  interpret_phrase ζ r ⁆ = interpret_phrase ζ r.ω
+:= by sorry -- TODO
+
+lemma interpret_phrase_α (ζ : M) : ∀ (a : gen) (r : phrases), ⁅ interpret_gen ζ a,  interpret_phrase ζ r ⁆ = interpret_phrase ζ (phrases.α (words.of a) r)
+:= by sorry -- TODO
 
 namespace rec_rel
 
@@ -106,7 +113,17 @@ def su (hζ : serpentine ζ) : ∀ (a : gen) (b : words), rel' ζ (words.of a) �
     intros, unfold rel', unfold rel' at a_2, unfold rel' at a_1,
     simp [words.wt_su], simp [words.μ_su], simp [interpret_su], simp [interpret_sl2_su], simp [phrases.R_su],
     simp [interpret_ze, words.wt_ze, phrases.R_ze, words.μ_ze, interpret_sl2_ze] at a_1,
-    conv_lhs { rw a_1, rw a_2 }, --admit
+    conv_lhs { rw a_1, rw a_2 }, 
+    rw lie_add, rw add_lie, rw add_lie,
+    have h1 : ∀ (i : int) (x : M), ⁅ interpret_sl2_gen a, z i (σ x) ⁆ = i • z (words.wt_gen a + i) (σ x) := by admit, -- TODO
+    have h2 : ∀ (i j : int) (x y : M),  ⁅ z i (σ x), z j (σ y) ⁆ = z (i+j) (σ ⁅x,y⁆) := by admit, -- TODO
+    simp [h1,h2],
+    simp [serpentine.interpret_wt hζ],
+    simp [interpret_phrase_ω hζ],
+    simp [interpret_phrase_α ζ],
+    have h3: ∀ (a : gen), ⁅ interpret_gen ζ a, H ⁆ = -(words.wt_gen a) • interpret_gen ζ a := by admit, -- TODO
+    simp [h3],
+-- now take care of commutators with H and commutator with interpret_sl2 b
 end
 
 theorem rel (hζ : serpentine ζ) : ∀ (w : words), rel' ζ w :=
