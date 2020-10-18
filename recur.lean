@@ -127,7 +127,7 @@ def su (hζ : serpentine ζ) : ∀ (a : gen) (b : words), rel' ζ (words.of a) �
     rw ←interpret_su,
     erw ←interpret_sl2_su,
     -- no brackets left at this point
-    unfold phrases.R_su_fun, 
+    unfold phrases.R_su_fun,
 end
 
 theorem rel (hζ : serpentine ζ) : ∀ (w : words), rel' ζ w :=
