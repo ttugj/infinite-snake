@@ -108,6 +108,7 @@ def ze (hζ : serpentine ζ) : ∀ (a : gen), rel' ζ (words.of a)
             conv_lhs { rw (serpentine.invol hζ) }, simp, erw (sub_eq_add_neg (τ ζ) H)
 end
     
+/- this is the real deal -/
 def su (hζ : serpentine ζ) : ∀ (a : gen) (b : words), rel' ζ (words.of a) → rel' ζ b → rel' ζ (words.of a * b) 
 := begin
     intros, unfold rel', unfold rel' at a_2, unfold rel' at a_1,
@@ -139,7 +140,13 @@ def su (hζ : serpentine ζ) : ∀ (a : gen) (b : words), rel' ζ (words.of a) �
     repeat { rw h5 }, 
     repeat { rw h6 },
     repeat { rw h7 },
-    congr, -- kill z
+    congr' 1, -- kill z
+    have h8: ∀ (c : int) (x : M), c • σ x = σ (c • x) := by admit, -- TODO
+    have h9: ∀ (x y : M), σ x + σ y = σ (x + y) := by admit, -- TODO
+    repeat { rw h8 },
+    repeat { rw h9 },
+    congr' 1, -- kill σ
+    -- it's easy from now on
 end
 
 theorem rel (hζ : serpentine ζ) : ∀ (w : words), rel' ζ w :=
