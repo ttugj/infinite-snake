@@ -5,6 +5,7 @@ import linear_algebra.finsupp
 
 import .words
 import .ambient
+import .base
 
 noncomputable theory
 
