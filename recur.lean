@@ -114,6 +114,7 @@ def su (hζ : serpentine ζ) : ∀ (a : gen) (b : words), rel' ζ (words.of a) �
     simp [words.wt_su], simp [words.μ_su], simp [interpret_su], simp [interpret_sl2_su], simp [phrases.R_su],
     simp [interpret_ze, words.wt_ze, phrases.R_ze, words.μ_ze, interpret_sl2_ze] at a_1,
     conv_lhs { rw a_1, rw a_2 }, 
+    -- first deal with brackets
     rw lie_add, rw add_lie, rw add_lie,
     have h1 : ∀ (i : int) (x : M), ⁅ interpret_sl2_gen a, z i (σ x) ⁆ = i • z (words.wt_gen a + i) (σ x) := by admit, -- TODO
     have h2 : ∀ (i j : int) (x y : M),  ⁅ z i (σ x), z j (σ y) ⁆ = z (i+j) (σ ⁅x,y⁆) := by admit, -- TODO
@@ -128,6 +129,17 @@ def su (hζ : serpentine ζ) : ∀ (a : gen) (b : words), rel' ζ (words.of a) �
     erw ←interpret_sl2_su,
     -- no brackets left at this point
     unfold phrases.R_su_fun,
+    conv_lhs { rw add_assoc }, congr,
+    -- both sides are z _ (σ _): rhs explicitly, lhs implicitly 
+    -- now we massage lhs into desired form
+    have h5: ∀ (c : int) (x : M), -(c • x) = (-c) • x := begin intros, rw ←(neg_smul c x) end,
+    have h6: ∀ (c i : int) (x : M), c • z i x = z i (c • x) := begin intros, rw ←(linear_map.map_smul (z i) c x) end, 
+    have h7: ∀ (i : int) (x y : M), z i x + z i y = z i (x + y) := begin intros, rw ←(linear_map.map_add (z i) x y) end,
+    repeat { rw (add_comm b.wt (words.wt_gen a)) }, 
+    repeat { rw h5 }, 
+    repeat { rw h6 },
+    repeat { rw h7 },
+    congr, -- kill z
 end
 
 theorem rel (hζ : serpentine ζ) : ∀ (w : words), rel' ζ w :=
