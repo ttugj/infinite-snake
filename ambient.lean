@@ -270,7 +270,6 @@ begin
     exact (free_semigroup.rec_on w hz hs)
 end
 
-
 end ambient_module
 
 -- ⁅    ⁆

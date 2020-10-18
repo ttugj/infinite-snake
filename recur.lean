@@ -121,9 +121,10 @@ def su (hζ : serpentine ζ) : ∀ (a : gen) (b : words), rel' ζ (words.of a) �
     simp [serpentine.interpret_wt hζ],
     simp [interpret_phrase_ω hζ],
     simp [interpret_phrase_α ζ],
-    have h3: ∀ (a : gen), ⁅ interpret_gen ζ a, H ⁆ = -(words.wt_gen a) • interpret_gen ζ a := by admit, -- TODO
-    simp [h3],
--- now take care of commutators with H and commutator with interpret_sl2 b
+    have h3: /-∀ (a : gen),-/ ⁅ interpret_gen ζ a, H ⁆ = -(words.wt_gen a) • interpret_gen ζ a := by admit, -- TODO
+    have h4: ∀ /-(b : words)-/ (i : int) (x : M), ⁅ z i (σ x), interpret_sl2 b ⁆ = -b.μ • z (b.wt + i) (σ x) := by admit, -- TODO
+    simp [h3,h4],
+    unfold phrases.R_su_fun, 
 end
 
 theorem rel (hζ : serpentine ζ) : ∀ (w : words), rel' ζ w :=
