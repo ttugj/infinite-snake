@@ -57,7 +57,7 @@ def ω : module.End ℤ phrases := univ (λ w, δ w.wt w)
 def α (w : words) : module.End ℤ phrases := univ (λ w', δ 1 (w * w')) 
 
 def R_su_fun (a : gen) (b : words) (r : phrases) :=
-α (words.of a) r - words.wt_gen a • (b.wt • r + ω r + δ (2 * b.wt) b - δ (2 * b.μ) (words.of a)) 
+α (words.of a) r + words.wt_gen a • (b.wt • r + ω r + δ (2 * b.wt) b - δ (2 * b.μ) (words.of a)) 
 
 def R : words → phrases := words.rec (λ _, 0) R_su_fun
 
