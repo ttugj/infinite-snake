@@ -1,3 +1,5 @@
+/- General recurrence relations in ambient modules. -/
+
 import algebra.lie_algebra
 import algebra.module
 import data.finsupp
@@ -104,7 +106,7 @@ def su (hζ : serpentine ζ) : ∀ (a : gen) (b : words), rel' ζ (words.of a) �
     intros, unfold rel', unfold rel' at a_2, unfold rel' at a_1,
     simp [words.wt_su], simp [words.μ_su], simp [interpret_su], simp [interpret_sl2_su], simp [phrases.R_su],
     simp [interpret_ze, words.wt_ze, phrases.R_ze, words.μ_ze, interpret_sl2_ze] at a_1,
-    conv_lhs { rw a_1, rw a_2 }, admit
+    conv_lhs { rw a_1, rw a_2 }, --admit
 end
 
 theorem rel (hζ : serpentine ζ) : ∀ (w : words), rel' ζ w :=

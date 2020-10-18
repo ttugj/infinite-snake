@@ -1,3 +1,5 @@
+/- Basic combinatorial objects: generators, words and their numerical characteristics -/
+
 import algebra.free
 import control.functor
 import tactic
@@ -17,7 +19,6 @@ begin rw function.comp, funext, cases x, unfold τ, simp, unfold τ, simp, end
 instance : invol gen := ⟨τ, τ_eq⟩
 
 end gen
-
 
 namespace words 
 

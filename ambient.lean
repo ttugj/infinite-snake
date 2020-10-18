@@ -1,3 +1,5 @@
+/- Definition and general properties of ambient modules. -/
+
 import algebra.lie_algebra
 import algebra.module
 import algebra.free

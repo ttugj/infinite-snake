@@ -1,3 +1,5 @@
+/- Base recurrence relation for serpentine elements in ambient modules. -/
+
 import algebra.lie_algebra
 import algebra.module
 
