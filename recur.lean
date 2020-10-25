@@ -89,6 +89,19 @@ lemma interpret_phrase_ω {ζ : M} (hζ : serpentine ζ) : ∀ (r : phrases), �
 lemma interpret_phrase_α (ζ : M) : ∀ (a : gen) (r : phrases), ⁅ interpret_gen ζ a,  interpret_phrase ζ r ⁆ = interpret_phrase ζ (phrases.α (words.of a) r)
 := by sorry -- TODO
 
+lemma interpret_phrase_δ (ζ : M) : ∀ (c : int) (w : words), interpret_phrase ζ (phrases.δ c w) = c • interpret ζ w
+:= by sorry -- TODO
+
+lemma interpret_phrase_add (ζ : M) : ∀  (r r' : phrases), interpret_phrase ζ (r + r') = interpret_phrase ζ r + interpret_phrase ζ r'
+:= by sorry -- TODO
+
+lemma interpret_phrase_sub (ζ : M) : ∀ (r r' : phrases), interpret_phrase ζ (r - r') = interpret_phrase ζ r - interpret_phrase ζ r'
+:= by sorry -- TODO
+
+lemma interpret_phrase_smul (ζ : M) : ∀ (c : int) (r : phrases), interpret_phrase ζ (c • r) = c • interpret_phrase ζ r
+:= by sorry -- TODO
+
+
 namespace rec_rel
 
 def rel' (ζ : M) (w : words) : Prop 
@@ -117,7 +130,7 @@ def su (hζ : serpentine ζ) : ∀ (a : gen) (b : words), rel' ζ (words.of a) �
     conv_lhs { rw a_1, rw a_2 }, 
     -- first deal with brackets
     rw lie_add, rw add_lie, rw add_lie,
-    have h1 : ∀ (i : int) (x : M), ⁅ interpret_sl2_gen a, z i (σ x) ⁆ = i • z (words.wt_gen a + i) (σ x) := by admit, -- TODO
+    have h1 : ∀ (i : int) (x : M), ⁅ interpret_sl2_gen a, z i (σ x) ⁆ = (words.wt_gen a * i) • z (words.wt_gen a + i) (σ x) := by admit, -- TODO
     have h2 : ∀ (i j : int) (x y : M),  ⁅ z i (σ x), z j (σ y) ⁆ = z (i+j) (σ ⁅x,y⁆) := by admit, -- TODO
     simp [h1,h2],
     simp [serpentine.interpret_wt hζ],
@@ -127,7 +140,7 @@ def su (hζ : serpentine ζ) : ∀ (a : gen) (b : words), rel' ζ (words.of a) �
     have h4: ∀ /-(b : words)-/ (i : int) (x : M), ⁅ z i (σ x), interpret_sl2 b ⁆ = -b.μ • z (b.wt + i) (σ x) := by admit, -- TODO
     simp [h3,h4],
     rw ←interpret_su,
-    erw ←interpret_sl2_su,
+    erw ←interpret_sl2_su, trace_state,
     -- no brackets left at this point
     unfold phrases.R_su_fun,
     conv_lhs { rw add_assoc }, congr,
@@ -146,7 +159,15 @@ def su (hζ : serpentine ζ) : ∀ (a : gen) (b : words), rel' ζ (words.of a) �
     repeat { rw h8 },
     repeat { rw h9 },
     congr' 1, -- kill σ
-    -- it's easy from now on
+    -- it should be easy from now on
+    simp [ interpret_phrase_δ ζ, interpret_ze ζ ],
+    simp [ sub_eq_add_neg, smul_add ],
+    repeat { rw (interpret_phrase_add ζ) },
+    repeat { rw (interpret_phrase_smul ζ) },
+    repeat { rw smul_smul },
+    repeat { rw ←neg_smul },
+    simp [ mul_assoc, add_assoc ],
+    abel,
 end
 
 theorem rel (hζ : serpentine ζ) : ∀ (w : words), rel' ζ w :=
