@@ -21,8 +21,27 @@ namespace rec_rel
 def rel' (ζ : M) (w : words) : Prop 
 := interpret ζ w = interpret_sl2 w + (z w.wt ∘ σ) (interpret ζ w + w.μ • H + interpret_phrase ζ (phrases.R w)) 
 
+lemma rel_invol (ζ : M) : ∀ (w : words), rel' ζ w → rel' ζ (invol.invol w) :=
+begin
+    intros, unfold rel' at a, unfold rel',
+    rw interpret_invol,
+    rw interpret_sl2_invol,
+    rw words.μ_invol,
+    rw words.wt_invol,
+    rw phrases.R_invol,
+    rw interpret_phrase_invol,
+    conv_lhs { rw a },
+    unfold invol.invol,
+    have h1 : ∀ (x y : M), τ (x + y) = τ x + τ y := linear_map.map_add τ.to_linear_map,
+    have h2 : ∀ (i : int) (x : M), τ (z i x) = z (-i) (τ x) := by sorry, -- TODO
+    have h3 : ∀ (x : M), τ (σ x) = σ (τ x) := by sorry, -- TODO
+    have h4 : ∀ (c : int), τ (c • H) = -(c • H : M) := by sorry, -- TODO
+    simp [h1,h2,h3,h4]
+end 
+
+/-
 variables {ζ : M} 
-    
+
 def ze (hζ : serpentine ζ) : ∀ (a : gen), rel' ζ (words.of a) 
 := begin
             intros, unfold rel', simp [words.wt_ze], simp [phrases.R_ze], simp [interpret_ze], cases a,
@@ -90,6 +109,8 @@ theorem rel (hζ : serpentine ζ) : ∀ (w : words), rel' ζ w :=
 begin
     intros, exact (free_semigroup.rec_on w (ze hζ) (su hζ))
 end
+
+-/
 
 end rec_rel
 

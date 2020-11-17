@@ -115,7 +115,7 @@ end
 
 end R_invol
 
-lemma R_invol : ∀ (w : words), R (invol.invol w) = invol.invol (R w)
+theorem R_invol : ∀ (w : words), R (invol.invol w) = invol.invol (R w)
 := begin
     intros, exact (free_semigroup.rec_on w R_invol.ze R_invol.su) 
 end
@@ -145,6 +145,9 @@ lemma interpret_phrase_sub (ζ : M) : ∀ (r r' : phrases), interpret_phrase ζ 
 := by sorry -- TODO
 
 lemma interpret_phrase_smul (ζ : M) : ∀ (c : int) (r : phrases), interpret_phrase ζ (c • r) = c • interpret_phrase ζ r
+:= by sorry -- TODO
+
+lemma interpret_phrase_invol (ζ : M): ∀ (r : phrases), interpret_phrase ζ (invol.invol r) = invol.invol (interpret_phrase ζ r)
 := by sorry -- TODO
 
 end ambient_module
