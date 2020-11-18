@@ -53,15 +53,63 @@ def ze (hζ : serpentine ζ) : ∀ (a : gen), rel' ζ (words.of a)
             conv_lhs { rw (serpentine.invol hζ) }, simp, erw (sub_eq_add_neg (τ ζ) H)
 end
 
-def su_A (hζ : serpentine ζ) : ∀ (b : words), rel' ζ b → rel' ζ (words.of gen.A * b)
+def su_A (hζ : serpentine ζ) {b : words} : rel' ζ b → rel' ζ (words.of gen.A * b)
 := begin
-    sorry
+    intros, unfold rel', unfold rel' at a,
+    simp [words.wt_su], simp [words.μ_su], simp [interpret_su], simp [interpret_sl2_su], simp [phrases.R_su],
+    unfold interpret_gen, unfold interpret_sl2_gen,
+    have hζ' := hζ, unfold serpentine at hζ', conv_lhs { congr, rw hζ' }, conv_lhs { rw a },
+    repeat { rw [lie_add, add_lie] },
+    have h1 : ∀ (i : int) (x : M), ⁅ E, z i (σ x) ⁆ = i • z (i+1) (σ x) := by admit, -- TODO
+    have h2 : ∀ (i j : int) (x y : M),  ⁅ z i (σ x), z j (σ y) ⁆ = z (i+j) (σ ⁅x,y⁆) := by admit, -- TODO
+    simp [h1, h2],
+    unfold words.wt_gen,
+    simp [serpentine.interpret_wt hζ],
+    simp [interpret_phrase_ω hζ],
+    have hα := interpret_phrase_α ζ (gen.A), unfold interpret_gen at hα, simp [hα],
+    rw ←(lie_skew ζ H), rw (serpentine.act_H hζ),
+    have hμ := interpret_sl2_μ b 1 (σ (ζ + H : M)), unfold Φ at hμ, rw ←lie_skew at hμ,
+    have h3 : ∀ (x y z : M), -x-y=z → x=-y-z := by sorry, -- TODO
+    simp [h3 _ _ _ hμ],
+    have h4 : ∀ (x : M), ⁅interpret_sl2 b, σ x⁆ = 0 := by sorry, -- TODO
+    simp [h4],
+    unfold phrases.R_su_fun,
+    unfold words.wt_gen,
+    conv_lhs { rw add_assoc }, congr,
+    -- both sides are z _ (σ _): rhs explicitly, lhs implicitly 
+    -- now we massage lhs into desired form
+    have h5: ∀ (c : int) (x : M), -(c • x) = (-c) • x := begin intros, rw ←(neg_smul c x) end,
+    have h6: ∀ (c i : int) (x : M), c • z i x = z i (c • x) := begin intros, rw ←(linear_map.map_smul (z i) c x) end, 
+    have h7: ∀ (i : int) (x y : M), z i x + z i y = z i (x + y) := begin intros, rw ←(linear_map.map_add (z i) x y) end,
+    repeat { rw (add_comm b.wt 1) }, 
+    repeat { rw h5 }, 
+    repeat { rw h6 },
+    repeat { rw h7 },
+    congr' 1, -- kill z
+    have h8: ∀ (c : int) (x : M), c • σ x = σ (c • x) := by admit, -- TODO
+    have h9: ∀ (x y : M), σ x + σ y = σ (x + y) := begin intros, symmetry, exact (linear_map.map_add σ.to_linear_map x y) end,
+    repeat { rw h8 },
+    repeat { rw h9 },
+    congr' 1, -- kill σ
+    repeat { rw smul_add },
+    erw smul_sub,
+    erw sub_mul,
+    repeat { rw ←add_assoc },
+    erw sub_smul,
+    repeat { rw smul_add },
+    erw add_sub,
+    repeat { erw ←add_assoc },  
+    simp [one_smul, mul_smul],
+    simp [interpret_phrase_δ, interpret_ze, interpret_gen],
+    repeat { erw ←mul_smul },
+    repeat { erw ←neg_smul },
+    abel
 end
 
-def su_A' (hζ : serpentine ζ) : ∀ (b : words), rel' ζ b → rel' ζ (words.of gen.A' * b)
+def su_A' (hζ : serpentine ζ) {b : words} : rel' ζ b → rel' ζ (words.of gen.A' * b)
 := begin
     intros,
-    have h := rel_invol (su_A hζ (invol.invol b) (rel_invol a)),
+    have h := rel_invol (su_A hζ (rel_invol a)),
     rw words.invol_mul at h,
     rw words.invol_of at h,
     unfold gen.τ at h,
@@ -74,8 +122,8 @@ end
 def su (hζ : serpentine ζ) : ∀ (a : gen) (b : words), rel' ζ (words.of a) → rel' ζ b → rel' ζ (words.of a * b) 
 := begin
     intros, cases a,
-    exact (su_A  hζ b a_2),
-    exact (su_A' hζ b a_2)
+    exact (su_A  hζ a_2),
+    exact (su_A' hζ a_2)
 end
 
 
