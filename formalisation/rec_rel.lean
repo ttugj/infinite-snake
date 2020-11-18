@@ -132,54 +132,6 @@ def su (hζ : serpentine ζ) : ∀ (a : gen) (b : words), rel' ζ (words.of a) �
     exact (su_A' hζ a_2)
 end
 
-
-/-
-:= begin
-    intros, unfold rel', unfold rel' at a_2, unfold rel' at a_1, 
-    simp [words.wt_su], simp [words.μ_su], simp [interpret_su], simp [interpret_sl2_su], simp [phrases.R_su],
-    simp [interpret_ze, words.wt_ze, phrases.R_ze, words.μ_ze, interpret_sl2_ze] at a_1,
-    conv_lhs { rw a_1, rw a_2 }, 
-    -- first deal with brackets
-    rw lie_add, rw add_lie, rw add_lie,
-    have h1 : ∀ (i : int) (x : M), ⁅ interpret_sl2_gen a, z i (σ x) ⁆ = (words.wt_gen a * i) • z (words.wt_gen a + i) (σ x) := by admit, -- TODO
-    have h2 : ∀ (i j : int) (x y : M),  ⁅ z i (σ x), z j (σ y) ⁆ = z (i+j) (σ ⁅x,y⁆) := by admit, -- TODO
-    simp [h1,h2],
-    simp [serpentine.interpret_wt hζ],
-    simp [interpret_phrase_ω hζ],
-    simp [interpret_phrase_α ζ],
-    have h3: /-∀ (a : gen),-/ ⁅ interpret_gen ζ a, H ⁆ = -(words.wt_gen a) • interpret_gen ζ a := by admit, -- TODO
-    have h4: ∀ /-(b : words)-/ (i : int) (x : M), ⁅ z i (σ x), interpret_sl2 b ⁆ = -b.μ • z (b.wt + i) (σ x) := by admit, -- TODO
-    simp [h3,h4],
-    rw ←interpret_su,
-    erw ←interpret_sl2_su, 
-    -- no brackets left at this point
-    unfold phrases.R_su_fun,
-    conv_lhs { rw add_assoc }, congr,
-    -- both sides are z _ (σ _): rhs explicitly, lhs implicitly 
-    -- now we massage lhs into desired form
-    have h5: ∀ (c : int) (x : M), -(c • x) = (-c) • x := begin intros, rw ←(neg_smul c x) end,
-    have h6: ∀ (c i : int) (x : M), c • z i x = z i (c • x) := begin intros, rw ←(linear_map.map_smul (z i) c x) end, 
-    have h7: ∀ (i : int) (x y : M), z i x + z i y = z i (x + y) := begin intros, rw ←(linear_map.map_add (z i) x y) end,
-    repeat { rw (add_comm b.wt (words.wt_gen a)) }, 
-    repeat { rw h5 }, 
-    repeat { rw h6 },
-    repeat { rw h7 },
-    congr' 1, -- kill z
-    have h8: ∀ (c : int) (x : M), c • σ x = σ (c • x) := by admit, -- TODO
-    have h9: ∀ (x y : M), σ x + σ y = σ (x + y) := begin intros, symmetry, exact (linear_map.map_add σ.to_linear_map x y) end,
-    repeat { rw h8 },
-    repeat { rw h9 },
-    congr' 1, -- kill σ
-    -- it should be easy from now on
-    simp [ interpret_phrase_δ ζ, interpret_ze ζ ],
-    simp [ sub_eq_add_neg, smul_add ],
-    repeat { rw (interpret_phrase_add ζ) },
-    repeat { rw (interpret_phrase_smul ζ) },
-    repeat { rw smul_smul },
-    simp [ ←mul_assoc, ←add_assoc, ←neg_smul ],
-end
--/
-
 theorem rel (hζ : serpentine ζ) : ∀ (w : words), rel' ζ w :=
 begin
     intros, exact (free_semigroup.rec_on w (ze hζ) (su hζ))
