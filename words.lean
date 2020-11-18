@@ -33,6 +33,11 @@ begin
     simp [invol.invol, of, functor.map]
 end
 
+lemma invol_mul : ∀ (w w' : words), invol.invol (w * w') = invol.invol w * invol.invol w' :=
+begin
+    simp [invol.invol]
+end
+
 -- simple recursor
 def rec {α : Type} (ze : gen → α) (su : gen → words → α → α) (w : words) : α :=
 @free_semigroup.rec_on gen 
