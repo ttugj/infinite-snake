@@ -75,9 +75,7 @@ def su_A (hζ : serpentine ζ) {b : words} : rel' ζ b → rel' ζ (words.of gen
     simp [h4],
     unfold phrases.R_su_fun,
     unfold words.wt_gen,
-    conv_lhs { rw add_assoc }, congr,
-    -- both sides are z _ (σ _): rhs explicitly, lhs implicitly 
-    -- now we massage lhs into desired form
+    conv_lhs { rw add_assoc }, congr, -- kill initial term
     have h5: ∀ (c : int) (x : M), -(c • x) = (-c) • x := begin intros, rw ←(neg_smul c x) end,
     have h6: ∀ (c i : int) (x : M), c • z i x = z i (c • x) := begin intros, rw ←(linear_map.map_smul (z i) c x) end, 
     have h7: ∀ (i : int) (x y : M), z i x + z i y = z i (x + y) := begin intros, rw ←(linear_map.map_add (z i) x y) end,
@@ -103,7 +101,15 @@ def su_A (hζ : serpentine ζ) {b : words} : rel' ζ b → rel' ζ (words.of gen
     simp [interpret_phrase_δ, interpret_ze, interpret_gen],
     repeat { erw ←mul_smul },
     repeat { erw ←neg_smul },
-    abel
+    -- pretty much ready, now just some massaging
+    have h10 : ∀ (a1 a1' a2 a2' a3 a3' a4 a5 a6 a7 : M), a1 + a2 + a3 + a2' + a4 + a5 + a3' + a1' + a6 + a7 = 
+                                                         a5 + a2' - (-a2) + a6 + a4 + a7 + (a3 + a3') + (a1 + a1') :=
+                                                         begin intros, abel end,
+    conv_lhs { rw h10 }, simp,
+    have h11 : ∀ (c : int) (x : M), c • x + c • x = (2 * c) • x := begin intros, rw ←add_smul, congr, admit end, -- TODO
+    have h12 : ∀ (c : int) (x : M), -(c • x) + -(c • x) = -((2 * c) • x) := begin intros, rw ←neg_smul, rw h11, rw ←neg_mul_eq_mul_neg, rw neg_smul end,
+    conv_lhs { rw h11, rw h12 }, 
+    abel -- overkill, just need to reassociate
 end
 
 def su_A' (hζ : serpentine ζ) {b : words} : rel' ζ b → rel' ζ (words.of gen.A' * b)
