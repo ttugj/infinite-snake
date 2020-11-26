@@ -1,6 +1,8 @@
 \documentclass{amsart}
-\usepackage{amsmath,amsfonts,amssymb,amscd,amsthm,pb-diagram,stmaryrd,mathrsfs}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,pb-diagram,stmaryrd,mathrsfs}
+\usepackage{tikz-cd}
 \usepackage[osf]{baskervillef}
+\def\MC{\mathrm{MC}}
 \def\ZZ{\mathbb{Z}}
 \def\NN{\mathbb{N}}
 \def\RR{\mathbb{R}}
@@ -15,17 +17,23 @@
 \def\sT{\mathscr{T}}
 \def\sM{\mathscr{M}}
 \def\sR{\mathscr{R}}
+\def\sS{\mathscr{S}}
 \def\fu{\mathfrak{u}}
 \def\inv{\tau} % THE involution
+\def\comma{,}
 \DeclareMathOperator{\Isom}{\mathrm{Isom}}
+\DeclareMathOperator{\Aut}{\mathrm{Aut}}
 \DeclareMathOperator{\trans}{\mathfrak{trans}}
 \DeclareMathOperator{\pr}{\mathrm{pr}}
 \DeclareMathOperator{\id}{\mathrm{id}}
 \def\O{\mathsf{O}}
 \def\SO{\mathsf{SO}}
-\DeclareMathOperator{\tail}{\mathsf{tl}}
-\DeclareMathOperator{\head}{\mathsf{hd}}
+\DeclareMathOperator{\tail}{{\mathsf{tl}}}
+\DeclareMathOperator{\head}{{\mathsf{hd}}}
+\DeclareMathOperator{\stail}{{\mathrm{tail}}}
+\DeclareMathOperator{\shead}{{\mathrm{head}}}
 \DeclareMathOperator{\hor}{\mathsf{hor}}
+\DeclareMathOperator{\ver}{\mathsf{ver}}
 \DeclareMathOperator{\Hor}{\mathsf{Hor}}
 \DeclareMathOperator{\red}{\mathsf{red}}
 \def\kin{\mathrm{kin}}
@@ -63,125 +71,280 @@ Involution:
 $$ \sigma^\inv=\sigma,\qquad z^\inv = z^{-1},\quad \e^\inv=-\f,\quad \h^\inv=-\h,\quad \f^\inv=-\e,
 \qquad
 \left(\zeta^{\pm}\right)^\inv=\zeta^\mp $$
- 
-\section{Configuration space}
-\subsection{}
-$M$ is the configuration space of infinite snakes in $\RR^2$,
-with head at $0$. $\sM$ is the configuration space of infinite snakes in $\EE^2$.
-$\sF = \Isom(\RR^2,\EE^2)$ is the orthonormal frame bundle, with each $e\in\sF$ viewed as an isometry 
-$\RR^2\to\EE^2$. The structure map sending $e$ to $e(0)$ turns
-$\sF\to\EE^2$ into a right $\O(2)$-principal bundle. Furthermore $\sF$
-admits a free and transitive left action of $\Isom(\EE^2,\EE^2)$. There is a natural identification
-$$ \sM = \sF \times^{\O(2)} M,  $$
-and we let $\pi:\sM \to \EE^2$ be the structure map.
+
+
+\section{Setup}
 
 \subsection{}
-There is an obvious $\Isom(\EE^2,\EE^2)$-equivariant \emph{tail map} $$\widetilde{\tail} : \sM \to \sM,$$ sending
-an infinite snake to what remains after cutting off its head segment.
-There is also an obvious $\O(2)$-equivariant \emph{head map} $$\head : M \to \TT,$$
-sending a snake with head at $0\in\RR^2$ to the other endpoint of its head segment (an element
-of the unit circle $\TT \subset \RR^2$). 
+Let $\EE^2$ be the Euclidean plane, $\sT \subset \EE^2 \times \EE^2$
+the subspace parameterising pairs of points at distance $1$, viewed
+as a double fibration via the two projections $p_1,p_2 : \sT \to \EE^2$.
+Given an element
+$(p,p') \in \sT$, let $S_{(p,p')} : T_p\EE^2 \to T_{p'}\EE^2$
+be the linear map sending a tangent vector at $p$ to
+its reflection about the line $\overline{pp'}$, translated
+to $p'$. These induce a homomorphism 
+$$ \sS : p_1^* T\EE^2 \to p_2^* T\EE^2  $$
+of vector bundles over $\sT$.
 
 \subsection{}
-Let $p_i : M \to \RR^2$ send a snake configuration to the position of its $i$-th point,
-with $p_0 = 0$ being the snake's nose. We have the induced maps
-$$ \widetilde p_i : \sM = \sF\times^{\O(2)} M \to \sF\times^{\O(2)} \RR^2 \simeq \EE^2 \times \EE^2.
+The configuration space of the infinite snake in $\EE^2$ is
+$$ \sM = \sT \times_{\EE^2} \sT \times_{\EE^2} \sT \times \cdots $$
+where the fibred products involve $p_2$ from the left factor and $p_1$ from the right factor.
+Projection onto the leftmost factor, denoted $$ \shead : \sM \to \sT,$$ 
+maps a snake to its \emph{head}.
+Composing it with $p_1$ defines the structure map $$\pi : \sM \to \EE^2,$$ mapping
+a snake to its \emph{nose}. Finally, projection onto all but the leftmost factor,
+defines a map
+$$ \stail:\sM \to \sM $$
+sending a snake to its \emph{tail}.
+Note that we have $p_1\circ\shead\circ\stail = p_2\circ\shead$.
+
+\subsection{}
+The kinematics of the snake are encoded in a connection $\nabla^\sM_\kin$
+in the fibre bundle $\pi : \sM \to \EE^2$, uniquely defined by the following properties:
+\begin{enumerate}
+        \item $\stail : \sM \to \sM$ preserves the horizontal distribution $\Hor_\kin^\sM \subset T\sM$,
+        \item the following diagram of morphisms of vector bundles over $\sM$ is commutative:
+                $$\begin{tikzcd}
+                        \Hor_\kin^\sM \arrow[rrr,"\stail_*"] \arrow[d,"\pi_*"] & & & \stail^*\Hor^\sM_\kin 
+                                                                               \arrow[d,"\stail^*\pi_*"] \\
+                        \shead^* p_1^* T\EE^2 \arrow[rr,"\shead^*\sS"] & & \shead^* p_2^* T\EE^2
+                        \arrow[r,equal] & \stail^*\shead^*p_1^*T\EE^2.
+                \end{tikzcd}$$
+\end{enumerate}
+The latter condition means simply that, for an infinitesimal motion
+of the snake described by a vector in $\Hor^\sM_\kin$, the infinitesimal
+motion of the \emph{nose} and that of the \emph{nose of the tail} are
+related by the operation $\sS$ evaluated at the \emph{head}.
+
+\subsection{}
+Let $\sF = \Isom(\RR^2,\EE^2)$ be the orthonormal frame bundle of $\EE^2$.
+Each $e \in \sF$ is an isometry $\RR^2 \to \EE^2$, and sending $e$ to $e(0)$
+defines a structure map $\sF \to \EE^2$. Then $\sF$ beomes a right $\O(2)$-principal bundle,
+as well as a left principal homogeneous space for the isometry group $\Aut\EE^2$.
+Let $\TT \subset \RR^2$ be the unit circle. The following identifications are immediate:
 $$
-In particular, $\widetilde p_0 = \Delta_{\EE^2}\circ\pi$.
+ \sF \times^{\O(2)} \RR^2 \simeq T\EE^2,\quad
+ \sF \times^{\O(2)} \RR^2 \simeq \EE^2 \times \EE^2,\quad
+ \sF \times^{\O(2)} \TT \simeq \sT.
+$$
+\subsection{}
+We also introduce the \emph{model} configuration space $M$ of infinite stakes in $\RR^2$ with nose at $0$,
+so that we may identify
+$$
+ \sF \times^{\O(2)} M \simeq \sM.
+$$
+There is an obvious head map $\head:M \to \TT$ such that
+$\sF \times^{\O(2)}\head = \shead$ under the above identifications.
 
 \subsection{}
-Let $\epsilon_1,\epsilon_2 \in \RR^2$
-be the standard oriented orthonormal basis.
-For each $u \in \TT$, let $R_u, S_u \in \O(2)$
-denote, respectively, the rotation sending $\epsilon_1$ to $u$, and the reflection abouti
-the line spanned by $u$. 
-Let $$\red : \O(2) \to \O(2)$$ be the
-unique group endomorphism of $\O(2)$ with image 
-generated by $S_{\epsilon_1}$. Explicitly,
-$\red g$ is $\id$ if $\det g = 1$ and $S_{\epsilon_1}$ if $\det g = -1$.
-Given an action $\rho$ of $\O(2)$ on 
-some object, the corresponding \emph{reduced} action
-is the composite $\rho\circ\red$.
+The flat Euclidean connection $\nabla^\sF_\euc$ in $\sF$
+defines a connection $\nabla^\sM_\euc$ on $\sM=\sF\times^{\O(2)}M$.
+Given a vector $v \in T_p\EE^2$, the difference between its horizontal
+lifts by $\nabla^\sM_\kin$ and $\nabla^\sM_\euc$ is a vector field
+on the fibre $\sM_p$. In terms of associated bundles, this defines a map
+$$ \widetilde\xi : T\EE^2 \simeq \sF\times^{\O(2)}\RR^2 \to \sF \times^{\O(2)}\XX(M). $$
+\begin{lem}\label{lem:recur-tildes-cd}
+There is a commutative diargam
+$$\begin{tikzcd}
+        &T\sM \arrow[r,"\ver^\sM_\euc\circ T\stail"] & T\sM 
+        \\ 
+        T\EE^2\times_{\EE^2}\sM 
+        \arrow[ur,"\widetilde\xi"]
+        \arrow[dr,"\id\times\shead"]
+        \arrow[rrr,dashed,"\textrm{ind. by}\ \sS\comma\ \stail"]
+        & & & T\EE^2\times_{\EE^2}\sM 
+        \arrow[ul,"\widetilde\xi"]
+        \arrow[dl,"\pr"]
+        \\
+                  &T{\EE^2}\times_{\EE^2}\sT \arrow[r,"\pr\circ\sS"]  & T\EE^2 
+\end{tikzcd}$$
+where $\pr$ denotes a canonical projection, 
+and $\ver^\sM_\euc : T\sM \to T\sM$ is the vertical projection
+defined by $\nabla^\sM_\euc$.
+\end{lem}
+\begin{proof}
+        This follows from the defining properties of $\nabla^\sM_\kin$.
+\end{proof}
 
 \subsection{}
-Consider the map
-$$\alpha:\sF \times M \to \sF,\quad (e,m) \mapsto e S_{\head m}R_{\head m} + e(\head m).$$
-Note that $\alpha$ is $\O(2)$-equivariant,
-with the antidiagonal action on the left hand side, and
-the reduced right action on the right hand side.  
-It is also $\Isom(\EE^2,\EE^2)$-equivariant (via left action on $\sF$).
-Since $\O(2)$ acts freely on $M$, there is a unique lift of $\alpha$
-to a map $$ \widetilde\alpha : \sF \times M \to \sF \times M $$
-descending to $\widetilde\tail : \sM \to \sM$.
-Furthermore, since $\widetilde \alpha$ inherits equivariance under
-$\Isom(\EE^2,\EE^2)$ from $\alpha$, and since the latter group acts transitively on $\sF$ (and trivially on $M$),
-it follows that $\widetilde \alpha$ descends to a map
-$$\tail:M \to M$$
-such that $\pr_M \circ \widetilde\alpha = \tail\circ\pr_M$. 
-Furthermore, $\tail$ is $\O(2)$-equivariant with the
-standard action on the left hand side, and the reduced action on the right hand side.
+Since $\widetilde\xi$ is by construction invariant under the left action of $\Aut\EE^2$,
+it necessarily arises as $\widetilde\xi = \sF\times^{\O(2)}\xi$ from an $\O(2)$-equivariant map
+$$ \xi : \RR^2 \to \XX(M). $$
+Our aim is to study $\xi$ and the Lie algebra generated by its image.
+Since $\nabla^\sM_\kin$ is determined corecursively by its relation to $\stail : \sM \to \sM$,
+it is natural to seek a corecursive expression for $\xi$ in relation to an analogous map $\tail:M \to M$.
+There are many ways to define the latter. 
+The one distinguished by the flat Euclidean structure of $\EE^2$
+does not lead to the simplest recursion relations; it pays off to introduce an appropriate gauge twist in $\sF$.
 
 \subsection{}
-The map
+To define the tail of a model configuration  $m \in M$, 
+we use some frame $e \in \sF$ to map $m$ into $\EE^2$,
+apply $\stail$ there, and use another frame $e' \in \sF$ at
+the new nose to read off $\tail m\in M$. This implies a map 
+\begin{equation}\label{eq:eme'}\sF \times M \to \sF,\quad (e,m) \mapsto e'.\end{equation}
+The result, $\tail m$, should not depend on the choice of $e$,
+whence the above map is required to be equivariant under the
+left action of $\Aut\EE^2$. Furthermore, we will only use $\head m \in \TT$
+to define $e'$. 
+That is, we construct a diagram of the form:
+$$\begin{tikzcd}
+        \sF\times^{\O(2)}M \arrow[d,"\stail" left] & \sF\times M \arrow[l] \arrow[r,"\pr_2"]
+        \arrow[d,"\langle\Phi\circ(\id\times\head)\comma" left,"\tail\circ\pr_2\rangle" right]
+                                              & M \arrow[d,"\tail"] \\
+        \sF\times^{\O(2)}M & \sF\times M \arrow[l] \arrow[r,"\pr_2"] & M
+\end{tikzcd}$$
+with a suitable $\Aut\EE^2$-equivariant map $$\Phi : \sF\times \TT \to \sF.$$
+It then follows that $\Phi$ is given by $\Phi(e,u)=e\varphi(u) + e(u)$ for
+some $\varphi : \TT \to \O(2)$. We choose
+$$ \varphi(u) = S_uR_u = R_u S_{\epsilon_1}$$
+where $\epsilon_1,\epsilon_2 \in \RR^2$ is the standard orthonormal basis,
+$S_u$ is the reflection abount the line spanned by $u$, and $R_u$ the rotation
+mapping $\epsilon_1$ to $u$. Thus $\varphi$ is an $\SO(2)$-equivariant 
+map of the circle onto the odd component of $\O(2)$.   
+
+
+\subsection{}
+The above choice of $\varphi$ defines $\Phi$ and thus in turn $\tail : M \to M$.
+Now, the map
 $$ \langle \head,\tail\rangle : M \to \TT \times M $$
 is an isomorphism, expressing $M$ coinductively as an infinite-dimensional torus (of course there are as many such presentations, as cofiltration preserving automorphisms of $\TT^\infty$).
-We consider the associated Lie algebra homomorphisms
+
+\subsection{}
+Let us extend $\Phi$ to a map
+$$ \widetilde\Phi : \sF \times \RR^2\times \TT \to \sF \times \RR^2 $$
+such that 
+$\widetilde\Phi(e,v,u) = (e',v')$ with $e'=\Phi(e,u)$ 
+and $$e'(v') = T_{e(u)*} e(S_u v),$$ where $T_{e(u)} : \EE^2 \to \EE^2$
+denotes Euclidean translation by $e(u)$. Explicitly:
+$$ v' = (e \varphi(u))^{-1} e(S_u v) = R_u^{-1}v $$
+so that 
+$$ \widetilde\Phi(e,v,u) = (e\varphi(u)+e(u), R_u^{-1}v). $$
+Now, by construction, $\widetilde\Phi$ descends to a map
+$$ 
+p_1^*T\EE^2
+\simeq  
+\sF\times^{\O(2)} (\RR^2\times\TT) 
+\to 
+\sF\times^{\O(2)}\RR^2 
+\simeq 
+T\EE^2 
+$$ 
+coinciding with $$p_1^*T\EE^2 \xrightarrow{\sS}p_2^*T\EE^2 \xrightarrow{\pr} T\EE^2$$
+where $p_1,p_2:\sT \to \EE^2$ are the two projections.
+
+\subsection{}
+We have defined frame analogues of the tail map, namely $\tail$,
+and of $\sS$, namely $\widetilde\Phi$.  Thus, we should be able to
+express the map $\xi : \RR^2 \to \XX(M)$, a `connection form' of $\nabla^\sM_\kin$.
+That is, we seek the frame version of Lemma \ref{lem:recur-tildes-cd} and its commutative diagram.
+A straightforward interpretation is:
+$$\begin{tikzcd}
+        &\sF\times TM \arrow[r,"\langle\Phi\circ\pr\comma T\tail\rangle"] & \sF\times TM
+        \\ 
+        \sF \times \RR^2 \times M
+        \arrow[ur,"\id\times \xi"]
+        \arrow[dr,"\id\times\shead"]
+        \arrow[rrr,"\langle\widetilde\Phi\circ\pr\comma\tail\rangle"]
+        & & & \sF\times \RR^2\times M
+        \arrow[ul,"\id\times\xi"]
+        \arrow[dl,"\pr"]
+        \\
+                  &\sF\times\RR^2\times\TT \arrow[r,"\widetilde\Phi"]  & \sF\times\RR^2
+\end{tikzcd}$$
+where $\pr$ denotes generically a canonical projection, where we view $\head :M\to\TT$ as canonical as well.
+Now, the above diagram \emph{does not} commute as is. This is due to the map
+$$ \sF\times_{\EE^2}\sT \simeq \sF \times \TT \xrightarrow{\Phi} \sF,  $$
+viewed as an `action' of $\sT\rightrightarrows \EE^2$ on $\sF\to\EE^2$, being incompatible
+with $\nabla^\sF_\euc$. This incompatibility is measured precisely by the map
+$$ \varphi : \TT \to \O(2) $$
+such that $\Phi(e,u)=e\varphi(u)+e(u)$. Consider the composite
+$$ \delta : TM \xrightarrow{T\head} T\TT \xrightarrow{\omega^\MC_{\O(2)} \circ T\varphi} \mathfrak{so}(2) 
+\xrightarrow{\textrm{action}} \XX(M)$$
+where $\omega^\MC_{\O(2)}$ denotes the (bi-invariant) Maurer-Cartan form on $\O(2)$.
+Define the map
+$$ \Psi : TM \to TM,\quad \Psi(v) = \delta(v)_{\tail(\pr_M v)}, $$ 
+so that $\pr_M \circ \Psi = \tail\circ\pr_M$.
+\begin{lem}\label{lem:recur-cd}
+The following diargam is commutative:
+$$\begin{tikzcd}
+        &\sF\times TM \arrow[r,"\langle\Phi\circ\pr\comma T\tail\rangle - \id\times\Psi"] & \sF\times TM
+        \\ 
+        \sF \times \RR^2 \times M
+        \arrow[ur,"\id\times \xi"]
+        \arrow[dr,"\id\times\shead"]
+        \arrow[rrr,"\langle\widetilde\Phi\circ\pr\comma\tail\rangle"]
+        & & & \sF\times \RR^2\times M
+        \arrow[ul,"\id\times\xi"]
+        \arrow[dl,"\pr"]
+        \\
+                  &\sF\times\RR^2\times\TT \arrow[r,"\widetilde\Phi"]  & \sF\times\RR^2.
+\end{tikzcd}$$
+\end{lem}
+\begin{proof}
+        We use Lemma \ref{lem:recur-tildes-cd}.
+\end{proof}
+%Let $$\alpha_\TT : \mathfrak{so}(2) \to \XX(\TT),\quad \alpha_M : \mathfrak{so}(2) \to \XX(M)$$
+%denote the maps induced by the action of $\O(2)$ on $\TT$ and $M$.
+%Consider the following diagram,
+%where we abuse the notation by omitting $\head : M \to \TT$ and
+%other canonical projections, as well as $(\id\times-)$ factors:
+%$$
+%\begin{tikzcd}[column sep=tiny]
+%        \sF \times\RR^2 \times TM  \arrow[dd] \arrow[rrrr,"\langle\widetilde\Phi\comma T\tail\rangle"]
+%        \arrow[rd,"\head_*"] & & & &
+%        \sF \times \RR^2\times TM \arrow[dd] \\
+%                             & \sF\times\RR^2\times M\times_\TT T\TT \arrow[rr,"\langle\widetilde\Phi\comma \tail\comma \alpha_\TT^*\rangle" above]\arrow[dl] & & \sF\times\RR^2\times M\times \mathfrak{so}(2) \arrow[dr] \arrow[ur,dashed,"\alpha_M"]
+%\\
+%        \sF \times\RR^2 \times M \arrow[rd] \arrow[rrrr,"\langle\widetilde\Phi\comma \tail\rangle"]
+%        \arrow[uu,bend left,dashed,"\xi" left] & & & &
+%        \sF \times \RR^2 \times M \arrow[ld] 
+%        \arrow[uu,bend right,dashed,"\xi" right] \\
+%                                               & \sF \times\RR^2 \times\TT \arrow[rr,"\widetilde\Phi"] & &  \sF \times \RR^2 &.
+%\end{tikzcd}
+%$$
+%\begin{lem}\label{lem:recur-cd}
+%The subdiagram formed by the solid arrows is commutative. Furthermore,
+%the three distinct left-to-right paths 
+%$$ \sF\times\RR^2\times M \to \sF \times \RR^2\times TM $$
+%satisfy
+%$$
+%\langle \widetilde\Phi, T\tail\rangle\circ\xi
+%\ =\  \alpha_M\circ\langle\widetilde\Phi,\tail,\alpha_\TT^*\rangle\circ\head_*\circ \xi \ +\ \xi\circ\langle\widetilde\Phi,\tail\rangle
+%$$
+%where we used notational conventions employed in the diagram.
+%\end{lem}
+%\begin{proof}...\end{proof}
+
+\subsection{}Let $\omega \in \SO(2)$ be the rotation taking $\epsilon_1$ to $\epsilon_2$.
+Consider the vector field 
+$$ r \in \XX(\TT),\quad r_u = \omega u $$
+and the map
+$$ f : \RR^2 \to C^\infty(\TT),\quad f_v(u)= \langle u, \omega v\rangle.$$
+Introduce Lie algebra homomorphisms 
 $$
 \iota_{\head} : \XX(\TT) \to \XX(M),\quad \iota_{\tail} : \XX(M) \to \XX(M)
 $$
-such that the image of $\iota_{\head}$ annihilates that of $\tail^* :C^\infty(M) \to C^\infty(M)$,
+associated with the isomorphism
+$$ \langle \head,\tail \rangle : M \xrightarrow{\sim} \TT \times M. $$
+The image of $\iota_{\head}$ annihilates that of $\tail^* :C^\infty(M) \to C^\infty(M)$,
 and the image of $\iota_{\tail}$ annihilates that of $\head^* : C^\infty(\TT) \to C^\infty(M)$.
-
-\section{Vector fields}
-\subsection{}
-The non-holonomic constraints induce a connection $\nabla^\sM_\kin$ in the fibre bundle
-$\sM \to \EE^2$. On the other hand, the flat Euclidean structure of $\EE^2$ induces
-a principal connection $\nabla^\sF_\euc$ in $\sF \to \EE^2$. That in turn descends
-to another connection $\nabla^\sM_\euc$ in $\sM \to \EE^2$. 
-Given a vector $v \in T_p\EE^2$, the difference between the horizontal lifts
-defines a vector field on the fibre:
-$$ \hor^\sM_\kin v - \hor^\sM_\euc v \in \XX(\sM_p). $$
-In terms of associated bundles, this becomes a map:
-$$ \widetilde\xi: T\EE^2 \simeq \sF\times^{\O(2)}\RR^2 \to \sF \times^{\O(2)} \XX(M) $$
-By construction, $\widetilde\xi$ is invariant under the left action
-of $\Isom(\EE^2,\EE^2)$, whence it arises from an $\O(2)$-equivariant map
-$$ \xi : \RR^2 \to \XX(M). $$
-
-\subsection{}
-Given a pair $(p,p') \in \EE^2\times\EE^2$,
-let $\widetilde S_{(p,p')}:T_p\EE^2\to T_{p'}\EE^2$
-be the linear map sending a vector $v \in T_p\EE^2$
-to its reflection about the line spanned by $(p,p')$,
-translated to $p'$.
-The connection $\nabla^\sM_\kin$ is uniquely
-determined by the following properties:
-\begin{enumerate}
-        \item $\Hor^\sM_\kin \subset T\sM$  is preserved by 
-                $T\widetilde\tail$,
-        \item $(T\pi \circ T_m\widetilde\tail) (\hor^\sM_\kin v) = \widetilde S_{\widetilde p_1(m)} v$ for $v\in T_p\EE^2$, $m \in \sM_p$.
-\end{enumerate}
-
-
-\subsection{}
-Let $\omega \in\Lambda^2\RR^{2*}$
-denote the unit positive volume form.
-Consider the vector field 
-$$ r \in \XX(\TT),\quad r_u = \omega(u)^\sharp $$
-and the map
-$$ f : \RR^2 \to C^\infty(\TT),\quad f_v(u)= \omega(v,u).$$
-Explicitly, $\omega=\epsilon_1^*\wedge\epsilon_2^*$,
-$r(u) = u_1 \epsilon_2 - u_2\epsilon_1$,
-and $f_v(u) = v_1u_2-v_2u_1$.  Consider also the usual map
-$$ \sR : \TT \to \SO(2),\quad \sR(u) = R_u  $$
-identifying the torus with the circle group.
-
-\subsection{Claim}
+Let us also use the notation
+$$ R : \TT \to \SO(2),\quad u\mapsto R_u $$
+with matrix elements ${R^i}_{j} \in C^\infty(\TT)$.
+\begin{prop}
+The map $\xi : \RR^2 \to \XX(M)$ satisfies the following relation:
 $$
 \xi(v) = \iota_{\head} (f_v r) + (\head^* f_v) \iota_{\tail} (\iota_{\head} r)
-+ \underbrace{(\head^* \otimes \iota_{\tail}\xi) (\sR^{-1}\otimes v)}_{
-\sum v^j (\head^*{\sR_j}^i) \iota_{\tail} \xi(\epsilon_i)}.
-$$
-
-
-
++ (\head^* \otimes \iota_{\tail}\xi) (R^{-1}\otimes v)
+ $$
+ where notation used in the last term stands for
+$\sum v^j (\head^*{R_j}^i) \iota_{\tail} \xi(\epsilon_i)$
+when written in indices.
+\end{prop}
+\begin{proof}
+        We use Lemma \ref{lem:recur-cd}.
+\end{proof}
 \end{document}
