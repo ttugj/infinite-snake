@@ -40,6 +40,7 @@
 \def\euc{\mathrm{euc}}
 \newtheorem{lem}{Lemma}
 \newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
 \theoremstyle{definition}
 \newtheorem{defn}{Definition}
 \begin{document}
@@ -311,7 +312,7 @@ for the function $u \mapsto \omega(v,u)$.
 Let us also use the notation
 $R : \TT \to \SO(2)$ for the map $u\mapsto R_u$,
 with matrix elements ${R^i}_{j} \in C^\infty(\TT)$.
-\begin{prop}
+\begin{prop}\label{prop:recur-orig}
 The map $\xi : \RR^2 \to \XX(M)$ satisfies the following relation:
 $$
 \xi(v) = (\head^*\omega_v) \cdot \left(\iota_{\head} \omega^\TT + \iota_{\tail} \iota_{\head} \omega^\TT\right)
@@ -325,33 +326,63 @@ when written in indices.
         We use Lemma \ref{lem:recur-cd} along with Lemmas \ref{lem:xibar}, \ref{lem:psi}, \ref{lem:head-equiv}.
 \end{proof}
 
-\newpage
-\section{OLD}
 \subsection{}
-Head frame $e$, neck frame $e'$. Head drag $ev$, neck drag $e'v'$:
-$$ e'v'= e S_\phi v,\quad e^{-1}e' = S_\phi R_\phi \implies v' = R_{\phi}^{-1}v. $$
-Drag-to-motion map $\xi$ (head in frame $e$, neck in frame $e'$):
-$$ \xi(v) = f_v(\phi)\partial_\phi + f_v(\phi)\sigma\partial_\phi + \sigma \xi(v') $$
-$$ \xi(v) = f_v(\phi)\partial_\phi + f_v(\phi)\sigma\partial_\phi + (1\otimes\sigma\xi)(R_\phi^{-1}\otimes v) $$
-where
-$$ f_v(\phi) = v_x\sin\phi - v_y\cos\phi.$$
-\subsection{}
-Complexification and variable change:
-$$ z = e^{i\phi},\quad \partial_\phi = iz\partial_z,\quad v^\pm = \epsilon_x \pm i\epsilon_y $$
-$$ f_{v^\pm} = \mp i z^{\pm 1},\quad
-R_\phi^{-1} \otimes v^{\pm} = z^{\pm 1} \otimes v^{\pm}.$$
-Motion basis:
-$$ \zeta^+ = \xi(v^+) = z^2\partial_z + z \sigma (z\partial_z) + (1\otimes \sigma\xi)(z\otimes v^+)
-= z^2\partial_z + z\sigma(z\partial_z + \zeta^+) $$
-$$ \zeta^- = \xi(v^-) =- \partial_z + z^{-1}\sigma(-z\partial z) + (1\otimes\sigma\xi)(z^{-1}\otimes v^-)
-= -\partial_z + z^{-1}\sigma(-z\partial_z + \zeta^-). $$
-\subsection{}
-With $\mathfrak{sl}_2$ notation ($\h$ being half the usual one):
-$$ \e = z^2\partial_z,\quad \h = z\partial z,\quad \f = \partial_z $$
-$$\zeta^+ = \e + z\sigma(\h + \zeta^+),\quad \zeta^- = -\f + z^{-1}\sigma(-\h + \zeta^-)$$
-Involution:
-$$ \sigma^\inv=\sigma,\qquad z^\inv = z^{-1},\quad \e^\inv=-\f,\quad \h^\inv=-\h,\quad \f^\inv=-\e,
-\qquad
-\left(\zeta^{\pm}\right)^\inv=\zeta^\mp $$
+Let us now complexify so that $\XX_\CC(M)$ is a $C^\infty_\CC(M)$-module, 
+$\XX_\CC(\TT)$ is a $C^\infty_\CC(\TT)$-module, and the maps $\iota_\head$, $\iota_\tail$
+are extended by $\CC$-linearity. Furthermore, consider the $\CC$-linear extension
+$$ \xi : \CC^2 \to \XX_\CC(M). $$
+Using the identification $\RR^2\simeq\RR^{2*}$ to view $\epsilon_1,\epsilon_2$ as functions on $\TT \subset \RR^2$,
+let
+$$ z = \head^* (\epsilon_1 + i\epsilon_2) \in C^\infty_\CC(M),\qquad
+\partial_z = -iz^{-1} \iota_{\head} \omega^\TT \in \XX_\CC(M)$$
+so that indeed $[\partial_z,z]=1$ as linear operators on $C^\infty_\CC(M)$.
+Set $$ v^\pm = \epsilon_1 \pm i \epsilon_2,\quad \zeta^\pm = \xi(v^\pm). $$
+\begin{lem}\label{lem:recur-z}
+        The vector fields $\zeta^\pm \in \XX_\CC(M)$ satisfy the following relations:
+        $$ \zeta^+ = z^2\partial_z + z \iota_{\tail} (z\partial_z + \zeta^+),\quad
+        \zeta^- =   -\partial_z + z^{-1} \iota_{\tail} (-z\partial_z + \zeta^-).
+        $$
+\end{lem}
+\begin{proof}
+        Note that $$(\head^*\otimes\id)(R^{-1}\otimes v^\pm) = z^{\pm1}\otimes v^\pm\ \in\ 
+        C^\infty_\CC(M) \otimes \CC^2$$
+        with notation as in Prop.~\ref{prop:recur-orig}. The formulae then follow from the
+        latter Proposition and the above definitions.
+\end{proof}
+
+\begin{thm}
+        $\XX_\CC(M)$ carries the structure of a serpentine ambient module,
+        such that $\zeta^+$ is a serpentine element, mapped by the serpentine involution to $\zeta^-$.
+        In particular, the image of $\xi$ generates a serpentine Lie algebra in $\XX_\CC(M)$.
+\end{thm}
+
+%\newpage
+%\section{OLD}
+%\subsection{}
+%Head frame $e$, neck frame $e'$. Head drag $ev$, neck drag $e'v'$:
+%$$ e'v'= e S_\phi v,\quad e^{-1}e' = S_\phi R_\phi \implies v' = R_{\phi}^{-1}v. $$
+%Drag-to-motion map $\xi$ (head in frame $e$, neck in frame $e'$):
+%$$ \xi(v) = f_v(\phi)\partial_\phi + f_v(\phi)\sigma\partial_\phi + \sigma \xi(v') $$
+%$$ \xi(v) = f_v(\phi)\partial_\phi + f_v(\phi)\sigma\partial_\phi + (1\otimes\sigma\xi)(R_\phi^{-1}\otimes v) $$
+%where
+%$$ f_v(\phi) = v_x\sin\phi - v_y\cos\phi.$$
+%\subsection{}
+%Complexification and variable change:
+%$$ z = e^{i\phi},\quad \partial_\phi = iz\partial_z,\quad v^\pm = \epsilon_x \pm i\epsilon_y $$
+%$$ f_{v^\pm} = \mp i z^{\pm 1},\quad
+%R_\phi^{-1} \otimes v^{\pm} = z^{\pm 1} \otimes v^{\pm}.$$
+%Motion basis:
+%$$ \zeta^+ = \xi(v^+) = z^2\partial_z + z \sigma (z\partial_z) + (1\otimes \sigma\xi)(z\otimes v^+)
+%= z^2\partial_z + z\sigma(z\partial_z + \zeta^+) $$
+%$$ \zeta^- = \xi(v^-) =- \partial_z + z^{-1}\sigma(-z\partial z) + (1\otimes\sigma\xi)(z^{-1}\otimes v^-)
+%= -\partial_z + z^{-1}\sigma(-z\partial_z + \zeta^-). $$
+%\subsection{}
+%With $\mathfrak{sl}_2$ notation ($\h$ being half the usual one):
+%$$ \e = z^2\partial_z,\quad \h = z\partial z,\quad \f = \partial_z $$
+%$$\zeta^+ = \e + z\sigma(\h + \zeta^+),\quad \zeta^- = -\f + z^{-1}\sigma(-\h + \zeta^-)$$
+%Involution:
+%$$ \sigma^\inv=\sigma,\qquad z^\inv = z^{-1},\quad \e^\inv=-\f,\quad \h^\inv=-\h,\quad \f^\inv=-\e,
+%\qquad
+%\left(\zeta^{\pm}\right)^\inv=\zeta^\mp $$
 
 \end{document}
