@@ -44,34 +44,6 @@
 \newtheorem{defn}{Definition}
 \begin{document}
 
-\section{Recursion relation}
-\subsection{}
-Head frame $e$, neck frame $e'$. Head drag $ev$, neck drag $e'v'$:
-$$ e'v'= e S_\phi v,\quad e^{-1}e' = S_\phi R_\phi \implies v' = R_{\phi}^{-1}v. $$
-Drag-to-motion map $\xi$ (head in frame $e$, neck in frame $e'$):
-$$ \xi(v) = f_v(\phi)\partial_\phi + f_v(\phi)\sigma\partial_\phi + \sigma \xi(v') $$
-$$ \xi(v) = f_v(\phi)\partial_\phi + f_v(\phi)\sigma\partial_\phi + (1\otimes\sigma\xi)(R_\phi^{-1}\otimes v) $$
-where
-$$ f_v(\phi) = v_x\sin\phi - v_y\cos\phi.$$
-\subsection{}
-Complexification and variable change:
-$$ z = e^{i\phi},\quad \partial_\phi = iz\partial_z,\quad v^\pm = \epsilon_x \pm i\epsilon_y $$
-$$ f_{v^\pm} = \mp i z^{\pm 1},\quad
-R_\phi^{-1} \otimes v^{\pm} = z^{\pm 1} \otimes v^{\pm}.$$
-Motion basis:
-$$ \zeta^+ = \xi(v^+) = z^2\partial_z + z \sigma (z\partial_z) + (1\otimes \sigma\xi)(z\otimes v^+)
-= z^2\partial_z + z\sigma(z\partial_z + \zeta^+) $$
-$$ \zeta^- = \xi(v^-) =- \partial_z + z^{-1}\sigma(-z\partial z) + (1\otimes\sigma\xi)(z^{-1}\otimes v^-)
-= -\partial_z + z^{-1}\sigma(-z\partial_z + \zeta^-). $$
-\subsection{}
-With $\mathfrak{sl}_2$ notation ($\h$ being half the usual one):
-$$ \e = z^2\partial_z,\quad \h = z\partial z,\quad \f = \partial_z $$
-$$\zeta^+ = \e + z\sigma(\h + \zeta^+),\quad \zeta^- = -\f + z^{-1}\sigma(-\h + \zeta^-)$$
-Involution:
-$$ \sigma^\inv=\sigma,\qquad z^\inv = z^{-1},\quad \e^\inv=-\f,\quad \h^\inv=-\h,\quad \f^\inv=-\e,
-\qquad
-\left(\zeta^{\pm}\right)^\inv=\zeta^\mp $$
-
 
 \section{Setup}
 
@@ -145,10 +117,12 @@ Given a vector $v \in T_p\EE^2$, the difference between its horizontal
 lifts by $\nabla^\sM_\kin$ and $\nabla^\sM_\euc$ is a vector field
 on the fibre $\sM_p$. In terms of associated bundles, this defines a map
 $$ \widetilde\xi : T\EE^2 \simeq \sF\times^{\O(2)}\RR^2 \to \sF \times^{\O(2)}\XX(M). $$
+We will use the same symbol to denote the associated evaluation map $T\EE^2\times_{\EE^2}\sM
+\to V\sM$, where $V\sM = \ker \pi_*  \subset T\sM$.
 \begin{lem}\label{lem:recur-tildes-cd}
 There is a commutative diargam
 $$\begin{tikzcd}
-        &T\sM \arrow[r,"\ver^\sM_\euc\circ T\stail"] & T\sM 
+        &V\sM \arrow[r,"\ver^\sM_\euc\circ T\stail"] & V\sM 
         \\ 
         T\EE^2\times_{\EE^2}\sM 
         \arrow[ur,"\widetilde\xi"]
@@ -161,7 +135,7 @@ $$\begin{tikzcd}
                   &T{\EE^2}\times_{\EE^2}\sT \arrow[r,"\pr\circ\sS"]  & T\EE^2 
 \end{tikzcd}$$
 where $\pr$ denotes a canonical projection, 
-and $\ver^\sM_\euc : T\sM \to T\sM$ is the vertical projection
+and $\ver^\sM_\euc : T\sM \to V\sM$ is the vertical projection
 defined by $\nabla^\sM_\euc$.
 \end{lem}
 \begin{proof}
@@ -212,6 +186,26 @@ Now, the map
 $$ \langle \head,\tail\rangle : M \to \TT \times M $$
 is an isomorphism, expressing $M$ coinductively as an infinite-dimensional torus (of course there are as many such presentations, as cofiltration preserving automorphisms of $\TT^\infty$).
 
+
+\subsection{}
+Let us write $\Phi^M : \sF\times M \to \sF$ for
+the composite of $\Phi$ with $\id_\sF \times\head$.
+Similarly, write $\Phi^{TM} : \sF \times TM \to \sF$ for
+the composite of $\Phi^M$ with $\pr_M:TM\to M$.
+Consider the maps 
+$$ \delta : \sF \times TM \xrightarrow{\ver^\sF_\euc\circ T\Phi^M} V\sF \simeq \sF \times \mathfrak{so}(2) $$
+and 
+$$ \Psi : \sF \times TM \xrightarrow{\langle \delta, \pr_M\rangle} \sF \times \mathfrak{so}(2) \times M
+\xrightarrow{\id_\sF \times \alpha} \sF \times TM $$
+where $\alpha : \mathfrak{so}(2) \to \XX(M)$ is the infinitesimal action of $\O(2)$ on $M$.
+\begin{lem}\label{lem:ttail}
+The following diagram commutes:
+$$\begin{tikzcd}
+ \sF\times TM \arrow[d] \arrow[rrrr, "\langle\Phi^{TM}\comma T\tail\rangle - \Psi"] 
+ & & & & \sF\times TM \arrow[d]\\
+        \sF \times^{\O(2)}TM \arrow[r,equal] & V\sM \arrow[rr,"\ver^\sM_\euc\circ T\stail"] & & V\sM
+        \arrow[r,equal] & \sF\times^{\O(2)}TM.
+\end{tikzcd}$$\end{lem}
 \subsection{}
 Let us extend $\Phi$ to a map
 $$ \widetilde\Phi : \sF \times \RR^2\times \TT \to \sF \times \RR^2 $$
@@ -234,89 +228,31 @@ T\EE^2
 $$ 
 coinciding with $$p_1^*T\EE^2 \xrightarrow{\sS}p_2^*T\EE^2 \xrightarrow{\pr} T\EE^2$$
 where $p_1,p_2:\sT \to \EE^2$ are the two projections.
-
+We'll use the notation $$\widetilde\Phi^M : \sF\times\RR^2\times M \to \sF\times\RR^2$$
+for the composite of $\widetilde\Phi$ with $\id\times\head$.
 \subsection{}
 We have defined frame analogues of the tail map, namely $\tail$,
 and of $\sS$, namely $\widetilde\Phi$.  Thus, we should be able to
 express the map $\xi : \RR^2 \to \XX(M)$, a `connection form' of $\nabla^\sM_\kin$.
-That is, we seek the frame version of Lemma \ref{lem:recur-tildes-cd} and its commutative diagram.
-A straightforward interpretation is:
-$$\begin{tikzcd}
-        &\sF\times TM \arrow[r,"\langle\Phi\circ\pr\comma T\tail\rangle"] & \sF\times TM
-        \\ 
-        \sF \times \RR^2 \times M
-        \arrow[ur,"\id\times \xi"]
-        \arrow[dr,"\id\times\shead"]
-        \arrow[rrr,"\langle\widetilde\Phi\circ\pr\comma\tail\rangle"]
-        & & & \sF\times \RR^2\times M
-        \arrow[ul,"\id\times\xi"]
-        \arrow[dl,"\pr"]
-        \\
-                  &\sF\times\RR^2\times\TT \arrow[r,"\widetilde\Phi"]  & \sF\times\RR^2
-\end{tikzcd}$$
-where $\pr$ denotes generically a canonical projection, where we view $\head :M\to\TT$ as canonical as well.
-Now, the above diagram \emph{does not} commute as is. This is due to the map
-$$ \sF\times_{\EE^2}\sT \simeq \sF \times \TT \xrightarrow{\Phi} \sF,  $$
-viewed as an `action' of $\sT\rightrightarrows \EE^2$ on $\sF\to\EE^2$, being incompatible
-with $\nabla^\sF_\euc$. This incompatibility is measured precisely by the map
-$$ \varphi : \TT \to \O(2) $$
-such that $\Phi(e,u)=e\varphi(u)+e(u)$. Consider the composite
-$$ \delta : TM \xrightarrow{T\head} T\TT \xrightarrow{\omega^\MC_{\O(2)} \circ T\varphi} \mathfrak{so}(2) 
-\xrightarrow{\textrm{action}} \XX(M)$$
-where $\omega^\MC_{\O(2)}$ denotes the (bi-invariant) Maurer-Cartan form on $\O(2)$.
-Define the map
-$$ \Psi : TM \to TM,\quad \Psi(v) = \delta(v)_{\tail(\pr_M v)}, $$ 
-so that $\pr_M \circ \Psi = \tail\circ\pr_M$.
+That is, we seek the frame analogue of Lemma \ref{lem:recur-tildes-cd} and its commutative diagram.
 \begin{lem}\label{lem:recur-cd}
-The following diargam is commutative:
+        The following diagram commutes and descends to to that of Lemma \ref{lem:recur-tildes-cd}:
 $$\begin{tikzcd}
-        &\sF\times TM \arrow[r,"\langle\Phi\circ\pr\comma T\tail\rangle - \id\times\Psi"] & \sF\times TM
+        &\sF\times TM \arrow[r,"\langle\Phi^{TM}\comma T\tail\rangle - \Psi"] & \sF\times TM
         \\ 
         \sF \times \RR^2 \times M
         \arrow[ur,"\id\times \xi"]
         \arrow[dr,"\id\times\shead"]
-        \arrow[rrr,"\langle\widetilde\Phi\circ\pr\comma\tail\rangle"]
+        \arrow[rrr,"\langle\widetilde\Phi^M\comma\tail\rangle"]
         & & & \sF\times \RR^2\times M
         \arrow[ul,"\id\times\xi"]
         \arrow[dl,"\pr"]
         \\
                   &\sF\times\RR^2\times\TT \arrow[r,"\widetilde\Phi"]  & \sF\times\RR^2.
-\end{tikzcd}$$
-\end{lem}
+\end{tikzcd}$$\end{lem}
 \begin{proof}
-        We use Lemma \ref{lem:recur-tildes-cd}.
+        We use Lemmas \ref{lem:recur-tildes-cd} and \ref{lem:ttail}.
 \end{proof}
-%Let $$\alpha_\TT : \mathfrak{so}(2) \to \XX(\TT),\quad \alpha_M : \mathfrak{so}(2) \to \XX(M)$$
-%denote the maps induced by the action of $\O(2)$ on $\TT$ and $M$.
-%Consider the following diagram,
-%where we abuse the notation by omitting $\head : M \to \TT$ and
-%other canonical projections, as well as $(\id\times-)$ factors:
-%$$
-%\begin{tikzcd}[column sep=tiny]
-%        \sF \times\RR^2 \times TM  \arrow[dd] \arrow[rrrr,"\langle\widetilde\Phi\comma T\tail\rangle"]
-%        \arrow[rd,"\head_*"] & & & &
-%        \sF \times \RR^2\times TM \arrow[dd] \\
-%                             & \sF\times\RR^2\times M\times_\TT T\TT \arrow[rr,"\langle\widetilde\Phi\comma \tail\comma \alpha_\TT^*\rangle" above]\arrow[dl] & & \sF\times\RR^2\times M\times \mathfrak{so}(2) \arrow[dr] \arrow[ur,dashed,"\alpha_M"]
-%\\
-%        \sF \times\RR^2 \times M \arrow[rd] \arrow[rrrr,"\langle\widetilde\Phi\comma \tail\rangle"]
-%        \arrow[uu,bend left,dashed,"\xi" left] & & & &
-%        \sF \times \RR^2 \times M \arrow[ld] 
-%        \arrow[uu,bend right,dashed,"\xi" right] \\
-%                                               & \sF \times\RR^2 \times\TT \arrow[rr,"\widetilde\Phi"] & &  \sF \times \RR^2 &.
-%\end{tikzcd}
-%$$
-%\begin{lem}\label{lem:recur-cd}
-%The subdiagram formed by the solid arrows is commutative. Furthermore,
-%the three distinct left-to-right paths 
-%$$ \sF\times\RR^2\times M \to \sF \times \RR^2\times TM $$
-%satisfy
-%$$
-%\langle \widetilde\Phi, T\tail\rangle\circ\xi
-%\ =\  \alpha_M\circ\langle\widetilde\Phi,\tail,\alpha_\TT^*\rangle\circ\head_*\circ \xi \ +\ \xi\circ\langle\widetilde\Phi,\tail\rangle
-%$$
-%where we used notational conventions employed in the diagram.
-%\end{lem}
-%\begin{proof}...\end{proof}
 
 \subsection{}Let $\omega \in \SO(2)$ be the rotation taking $\epsilon_1$ to $\epsilon_2$.
 Consider the vector field 
@@ -347,4 +283,33 @@ when written in indices.
 \begin{proof}
         We use Lemma \ref{lem:recur-cd}.
 \end{proof}
+
+\section{Recursion relation}
+\subsection{}
+Head frame $e$, neck frame $e'$. Head drag $ev$, neck drag $e'v'$:
+$$ e'v'= e S_\phi v,\quad e^{-1}e' = S_\phi R_\phi \implies v' = R_{\phi}^{-1}v. $$
+Drag-to-motion map $\xi$ (head in frame $e$, neck in frame $e'$):
+$$ \xi(v) = f_v(\phi)\partial_\phi + f_v(\phi)\sigma\partial_\phi + \sigma \xi(v') $$
+$$ \xi(v) = f_v(\phi)\partial_\phi + f_v(\phi)\sigma\partial_\phi + (1\otimes\sigma\xi)(R_\phi^{-1}\otimes v) $$
+where
+$$ f_v(\phi) = v_x\sin\phi - v_y\cos\phi.$$
+\subsection{}
+Complexification and variable change:
+$$ z = e^{i\phi},\quad \partial_\phi = iz\partial_z,\quad v^\pm = \epsilon_x \pm i\epsilon_y $$
+$$ f_{v^\pm} = \mp i z^{\pm 1},\quad
+R_\phi^{-1} \otimes v^{\pm} = z^{\pm 1} \otimes v^{\pm}.$$
+Motion basis:
+$$ \zeta^+ = \xi(v^+) = z^2\partial_z + z \sigma (z\partial_z) + (1\otimes \sigma\xi)(z\otimes v^+)
+= z^2\partial_z + z\sigma(z\partial_z + \zeta^+) $$
+$$ \zeta^- = \xi(v^-) =- \partial_z + z^{-1}\sigma(-z\partial z) + (1\otimes\sigma\xi)(z^{-1}\otimes v^-)
+= -\partial_z + z^{-1}\sigma(-z\partial_z + \zeta^-). $$
+\subsection{}
+With $\mathfrak{sl}_2$ notation ($\h$ being half the usual one):
+$$ \e = z^2\partial_z,\quad \h = z\partial z,\quad \f = \partial_z $$
+$$\zeta^+ = \e + z\sigma(\h + \zeta^+),\quad \zeta^- = -\f + z^{-1}\sigma(-\h + \zeta^-)$$
+Involution:
+$$ \sigma^\inv=\sigma,\qquad z^\inv = z^{-1},\quad \e^\inv=-\f,\quad \h^\inv=-\h,\quad \f^\inv=-\e,
+\qquad
+\left(\zeta^{\pm}\right)^\inv=\zeta^\mp $$
+
 \end{document}
