@@ -1,0 +1,112 @@
+\documentclass{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[p,osf]{Baskervaldx}
+\usepackage[scale=.875,type1]{cabin}
+\usepackage[baskervaldx,vvarbb]{newtxmath}
+\usepackage[scr=boondoxo]{mathalfa}
+\usepackage{amsmath,amsthm,amsaddr,booktabs}
+%\usepackage{amssymb,amsfonts,mathrsfs,stmaryrd}
+\usepackage{tikz,tikz-cd}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\newtheorem{lem}{Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem*{lem*}{Lemma}
+\newtheorem*{prop*}{Proposition}
+\newtheorem*{thm*}{Theorem}
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+\def\ZZ{{\mathbb{Z}}}
+\def\NN{{\mathbb{N}}}
+\def\CC{{\mathbb{C}}}
+\def\RR{{\mathbb{R}}}
+\def\TT{{\mathbb{T}}}
+\def\sT{\mathscr{T}}
+\def\sM{\mathscr{M}}
+\def\XX{\mathfrak{X}}
+\def\XC{\XX_{\CC}}
+\def\fL{\mathfrak{L}}
+\def\fg{\mathfrak{g}}
+\def\gC{\fg_{\CC}}
+\def\fh{\mathfrak{h}}
+\def\so{\mathfrak{so}}
+\def\sl{\mathfrak{sl}}
+\def\O{\mathsf{O}}
+\def\SO{\mathsf{SO}}
+\def\Cinf{C^\infty}
+\def\e{\mathsf{e}}
+\def\f{\mathsf{f}}
+\def\h{\mathsf{h}}
+\def\a{\mathsf{a}}
+\def\b{\mathsf{b}}
+\def\txi{\widetilde{\xi}}
+\def\E{E}               % Euclidean plane
+\def\S{\mathscr{T}}     % circle double fibration
+\def\D{D}               % rank 2 distribution
+\def\M{\mathscr{M}}     % configuration space
+\def\Mr{M}              % reduced configuration space
+\def\L{\mathfrak{L}}    % loop algebra 
+\def\Om{\Omega}         % ambient module
+\def\R{\mathsf{R}}      % rest map
+\def\fS{\mathfrak{S}}   % serpentine Lie algebra
+\def\act{\mathrm{act}}
+\def\tom{\widetilde{\omega}}
+\def\sE{\mathscr{E}}
+\def\Rt{\widetilde{\R}}
+\def\fk{\mathfrak{k}}
+\DeclareMathOperator{\Hom}{\mathrm{Hom}}
+\DeclareMathOperator{\End}{\mathrm{End}}
+\DeclareMathOperator{\Aut}{\mathsf{Aut}}
+\DeclareMathOperator{\id}{\mathrm{id}}
+\DeclareMathOperator{\ad}{\mathrm{ad}}
+\DeclareMathOperator{\pr}{\mathrm{pr}}
+\DeclareMathOperator{\rk}{\mathrm{rk}}
+\DeclareMathOperator{\head}{\mathrm{head}}
+\DeclareMathOperator{\tail}{\mathrm{tail}}
+\DeclareMathOperator{\nose}{\mathrm{nose}}
+\DeclareMathOperator{\neck}{\mathrm{neck}}
+\DeclareMathOperator{\hd}{\mathsf{hd}}
+\DeclareMathOperator{\tl}{\mathsf{tl}}
+\DeclareMathOperator{\ttl}{\widetilde{\tl}}
+\DeclareMathOperator{\FL}{\mathsf{FL}}
+\DeclareMathOperator{\seg}{\mathsf{seg}}
+\DeclareMathOperator{\tseg}{\widetilde{\seg}}
+\DeclareMathOperator{\wt}{\mathrm{wt}}
+\DeclareMathOperator{\modulo}{\mathrm{mod}}
+\DeclareMathOperator{\Symb}{\mathrm{symb}}
+\DeclareMathOperator{\gr}{\mathrm{gr}}
+\DeclareMathOperator{\res}{\mathrm{res}}
+\DeclareMathOperator{\ev}{\mathrm{ev}}
+\def\tF{\widetilde{F}}
+\def\sltwo{\textit{sl\textsubscript{2}}}
+\def\flip{\textit{flip}}
+\def\shift{\textit{shift}}
+\def\twist{\textit{twist}}
+\def\CW{{\CC{}W}}
+\def\CE{{\CC{}E}}
+\def\l{\ell}
+\def\claimA{(\textsc{a})}
+\def\claimB{(\textsc{b})}
+\def\even{\mathrm{even}}
+\def\odd{\mathrm{odd}}
+\newcommand{\bkt}[1]{\llbracket{#1}\rrbracket}
+\title{Taming the infinite snake}
+\author{Jan Gutt}\address{Instytut Klary Weber \\ Milanówek, Poland}\email{jgutt@protonmail.com}
+\setcounter{tocdepth}{1}
+\begin{document}
+\sloppy
+\maketitle
+\begin{center}
+        \vfill
+        \includegraphics[width=0.4\textwidth]{Ouroboros.png}
+        \vfill
+\end{center}
+
+\tableofcontents
+
+\include{intro}
+\include{source}
+\section{Conclusions}
+
+\end{document}

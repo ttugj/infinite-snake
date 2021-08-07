@@ -1,0 +1,262 @@
+
+\subsection{}
+Let $\sM_n$ be the configuration space of the $n$-segment snake,
+and $D_n \subset T\sM_n$ its constraint distribution. Designating
+an initial segment as the snake's `head', and chopping off the terminal segment
+of the snake's `tail', we obtain a projection $p : \sM_n \to \sM_{n-1}$.
+Dually, we think of the $(n-1)$-segment snake as a subsystem of the $n$-segment snake.
+
+It is not difficult to see that the tangent map $Tp : T\sM_n \to T\sM_{n-1}$ sends
+$D_n(m)$ isomorphically to $D_{n-1}(p(m))$ for each $m \in \sM_n$. Indeed,
+every admissible infinitesimal motion of the $n$-segment snake remains admissible
+with the terminal segment removed. Furthermore, every admissible infinitesimal
+motion of the $(n-1)$-segment subsnake extends uniquely to the entire $n$-snake
+(see Section~\ref{sec:deriving} for a formal treatment).
+
+We may of course compose the different projections, giving rise to
+$\sM_n \to \sM_{n'}$ whenever $n' \le n$, with a tangent map inducing
+isomorphisms between corresponding fibres of $D_n$ and $D_{n'}$.
+In particular, we have $\sM_0 \simeq \RR^2$, $D_0 = T\RR^2$ (a zero-segment snake is
+a single unconstrained point), and thus for each $n$ a projection
+$$ \pi : \sM_n \to \RR^2 $$
+such that $T\pi : D_n(m) \to \RR^2$ is an isomorphism for each $m \in \sM_n$.
+That means that to each $v \in \RR^2$ we may associate the unique
+vector field $\widetilde v \in \XX(\sM_n)$ such that
+$\widetilde v_m \in D_n(m)$ and
+$T\pi (\widetilde v_m) = v$ for all $m \in \sM_n$. We thus have a `horizontal lift' map 
+$$ \RR^2 \to \XX(\sM_n),\quad v \mapsto \widetilde v $$
+whose image spans $D_n$. 
+
+\subsection{}
+To see how these horizontal lift maps interact for different values of $n$,
+we first need to recall the notion of a \emph{projectable} vector field.
+Namely, given a submersion $\pi : M \to B$, a vector field $v \in \XX(M)$
+is \emph{projectable} with respect to $\pi$ if $T\pi (v_m) = T\pi (v_{m'})$ whenever
+$\pi(m)=\pi(m')$. This condition is equivalent to $v$ preserving the
+image of $\pi^* : C^\infty(B) \hookrightarrow C^\infty(M)$ in its action as a derivation.
+For such a projectable $v$, we write $\pi_* v$ for the unique vector field on $B$
+satisfying $T\pi(v_m) = (\pi_* v)_{\pi(m)}$ for all $m \in M$. Equivalently,
+$\pi^* ((\pi_* v) \cdot f) = v \cdot \pi^*f$ for all $f \in C^\infty(B)$. 
+It is clear from the latter description that, for projectable $u,v \in \XX(M)$,
+we have that $[u,v]$ is projectable, and $\pi_* [u,v] = [\pi_*u, \pi_*v]$. That is,
+projectable vector fields form a Lie subalgebra  $\XX^\pi(M) \subset \XX(M)$, and $\pi_* : \XX^\pi(M)\to\XX(B)$ 
+is a Lie algebra homomorphism.
+
+\subsection{}
+Now, letting $p : \sM_n \to \sM_{n'}$ denote one of the composite projections with $n' \le n$,
+we find that the horizontal lift map
+$\RR^2 \to \XX(\sM_n)$ factors through $\XX^p(\sM_n)$, and the following diagram commutes:
+\[\begin{tikzcd}
+        \RR^2 \arrow[r] \arrow[rd] & \XX^p(\sM_n) \arrow[d, "p_*"]  \\
+                        & \XX(\sM_{n'}).
+\end{tikzcd}\]
+In fact, using a more verbose notation \[\pi^n_{n'} : \sM_n \to \sM_{n'},\quad n'\le n\] 
+for said projections, we may consider the Lie subalgebra of vector fields projectable
+with respect to the entire system:
+\[ \XX^{\pr}(\sM_n) = \bigcap_{n'\le n} \XX^{\pi^n_{n'}}(\sM_n). \]
+Accordingly, we have an induced system of Lie algebra homomorphisms:
+\[ \pi^n_{n'*} : \XX^{\pr}(\sM_n) \to \XX^{\pr}(\sM_{n'}). \]
+and the horizontal lift maps then fit into commutative diagrams
+\[\begin{tikzcd}
+        \RR^2 \arrow[r] \arrow[rd] & \XX^{\pr}(\sM_n) \arrow[d, "\pi^n_{n'*}"]  \\
+                                   & \XX^{\pr}(\sM_{n'}).
+\end{tikzcd}\]
+Now, \emph{defining} $\XX^{\pr}(\sM_\infty)$ to be the limit
+\[ \XX^{\pr}(\sM_\infty) = \varprojlim \XX^{\pr}(\sM_n) \]
+with respect to the above system of Lie algebra homomorphisms,
+we have an induced map
+\[ \RR^2 \to \XX^{\pr}(\sM_\infty). \]
+There are canonical projections \[\pi^\infty_{n*} : \XX^{\pr}(\sM_\infty) \to \XX^{\pr}(\sM_n)\]
+and commutative diagrams
+\[\begin{tikzcd}
+        \RR^2 \arrow[r] \arrow[rd] & \XX^{\pr}(\sM_\infty) \arrow[d, "\pi^\infty_{n*}"]  \\
+                                   & \XX^{\pr}(\sM_{n}).
+\end{tikzcd}\]
+While this construction is merely algebraic, one does intuitively think of
+$\XX^{\pr}(\sM_\infty)$ as the algebra of projectable vector fields over
+the infinite-dimensional manifold \[\sM_\infty = \varprojlim \sM_n,\]
+the configuration space of an \emph{infinite snake}. Indeed, in Section~\ref{sec:deriving},
+we will find it convenient to work in a category of spaces where such $\sM_\infty$ exists
+(as the reader will have noticed, keeping track of all the finite-snake projections
+and indices becomes tedious).
+
+\subsection{}
+At this point, we have a `horizontal lift' map \[\RR^2 \to \XX^{\pr}(\sM_\infty)\]
+whose image under $\pi^\infty_{n*}$ spans the rank $2$ distribution $D_n$,
+for all $n \ge 0$. The distinguished pair of vector fields
+$X, Y \in \XX^{\pr}(\sM_\infty)$ introduced in the very first paragraphs of this introduction 
+are the horizontal lifts of
+$e_1, e_2 \in \RR^2$. Iterated Lie brackets of $X$ and $Y$ in $\XX^{\pr}(\sM_\infty)$
+should encode information about the symbol of $D_n$ for all $n\ge0$; and, in some formal sense,
+about the symbol of the `limit' $D_\infty \subset T\sM_\infty$ (whose growth vector increments,
+as seen from the table, should be an infinite sequence $2,1,2,1,2,1,2,\dots$).
+
+To see how this plays out, let $\FL(\RR^2)$ denote the free Lie algebra on the vector space
+$\RR^2$ (equivalently, the free Lie algebra on two generators $e_1,e_2$). 
+It is naturally graded: \[ \FL(\RR^2) = \bigoplus_{\ell>0} \FL^\ell(\RR^2), \] 
+with generators in degree $1$. It will also be convenient to consider the filtration
+$\FL^{\le\bullet}(\RR^2)$ with $\FL^{\le\ell}(\RR^2) = \bigoplus_{j\le \ell} \FL^j(\RR^2)$,
+whose associated graded object is \emph{canonically identified} with $\FL(\RR^2)$ itself.
+
+By the universal property, the horizontal lift maps
+\[ \RR^2 \to \XX^{\pr}(\sM_n),\quad n \in \NN \cup \{\infty\} \]
+lift to Lie algebra homomorphisms
+\[ \phi_n : \FL(\RR^2) \to \XX^{\pr}(\sM_n) \]
+compatible with the projections $\pi^n_{n'*} : \XX^{\pr}(\sM_n) \to \XX^{\pr}(\sM_{n'})$ for $n'\le n$.
+For finite $n$, the homomorphism $\phi_n$ maps $\RR^2 = \FL^1(\RR^2)$
+into a subspace of $\XX^{\pr}(\sM_n)$ globally spanning $D_n$. It then follows that
+$\FL^{\le\ell}(\RR^2)$
+is mapped into a subspace of $\XX^{\pr}(\sM_n)$
+generating the $C^\infty(\sM_n)$-submodule generated by at most $\ell$-fold iterated Lie brackets of sections of $D_n$.
+Recall that these submodules correspond to the filtration of the tangent bundle of $\sM_n$
+induced by $D_n$ away from a singular locus.
+
+If we let $m \in \sM_n$ be general, so that over some open neighbourood $U \ni m$
+the restriction $D_n|_U$ induces a 
+induces a filtration $F^\bullet TU$ by vector sub-bundles, we have a filtered map
+\[ \FL^{\le\bullet}(\RR^2) \xrightarrow{\res_U \circ \phi_n} \Gamma(F^\bullet TU) \]
+descending to  associated graded objects:
+\[ 
+\FL(\RR^2) 
+\xrightarrow{\gr(\res_U\circ \phi_n)}
+\Gamma(\gr F^\bullet TU_n). 
+\]
+Composing with evaluation at $m$, we get a \emph{surjective homomorphism}
+of \emph{graded Lie algebras},
+\[ 
+        \phi^{\Symb}_{n,m} : \FL(\RR^2) 
+\xrightarrow{\ev_m \circ \gr(\res_U\circ\phi_n)}
+\gr F^\bullet T_m\sM_n 
+\]
+onto the \emph{symbol} of $D_n$ at $m$.
+
+Recalling that $\phi_n = \pi^\infty_{n*}\circ\phi_\infty$
+we now have the following inclusions:
+\[ \ker \phi_\infty \subset \ker \phi_n \subset \ker \phi^{\Symb}_{n,m}, \]
+allowing us to conclude that \emph{the symbol of $D_n$ at a general point $m \in \sM_n$ is
+a quotient of the Lie algebra generated by $X,Y \in \XX(\sM_\infty)$}.
+
+\subsection{}
+As I've stated in the first introductory paragraphs, the main result of this paper is
+an identification of that latter algebra. In fact, Theorem~\ref{thm:main} describes
+the Lie algebra generated by the images of $X,Y$ under the quotient map $q$
+for the translation action of $\RR^2$ on $\sM_\infty$:
+\begin{equation}\label{eq:ses-q} 0 \to \RR^2 \to \XX(\sM_\infty)^{\RR^2} \xrightarrow{q} \XX(\sM_\infty/\RR^2) \to 0.
+\end{equation}
+Note that $\RR^2$ acts on the entire system of $\sM_n$'s, with the projections
+$\pi^n_{n'}$ being equivariant, whence it follows that $X,Y$ are indeed invariant.
+Now, Theorem~\ref{thm:main} states that the image of $q \circ \phi_\infty$ is isomorphic to
+the graded Lie algebra
+\[ \fL_+ = \bigoplus_{i>0} \fL_i,\quad \fL_{2i} \simeq \so(2),\quad \fL_{2i+1} \simeq \RR^2 \]
+with Lie brackets induced by the Cartan decomposition 
+\[ \so(1,2) = \so(2) \oplus \RR^2. \]
+We may restate it as follows.
+\begin{thm*}
+There is a commutative diagram of Lie algebra homomorphisms
+\[\begin{tikzcd}
+        \FL(\RR^2) \arrow[d, "\psi", two heads] \arrow[r,"\phi_\infty"] & \XX(\sM_\infty)^{\RR^2} \arrow[d,"q",two heads] \\
+        \fL_+ \arrow[r,"\iota",rightarrowtail] & \XX(\sM_\infty/\RR^2) 
+\end{tikzcd}\]
+where $\psi$ is a graded surjection induced by the identification $\fL_1=\RR^2$ and the universal property of $\FL$,
+while $\iota$ is an injection. 
+\end{thm*}
+
+\begin{lem*}
+        $\ker\psi = \ker\phi_\infty$
+\end{lem*}
+\begin{proof}
+        Clearly $\ker\phi_\infty \subset \ker\psi$, so we only need
+        to show the opposite inclusion. Since $\psi$ is graded, $\ker\psi$ is homogeneous,
+        and it is enough to check $\ker\psi \cap \FL^\ell(\RR^2) \subset \ker\phi_\infty$ for all $\ell>0$.
+
+Let us use the $\RR^2$-equivariant `nose map' $\pi^\infty_0 : \sM_\infty \to \RR^2$ to split the quotient
+ $\sM_\infty \to \sM_\infty/\RR^2$:
+\[ \langle \pi^\infty_0,q\rangle : \sM_\infty \xrightarrow{\simeq} \RR^2 \times (\sM_\infty/\RR^2) \]
+as well as the  short exact sequence of Lie algebras~\eqref{eq:ses-q}:
+\[ \XX(\sM_\infty)^{\RR^2} \simeq \RR^2 \oplus \XX(\sM_\infty/\RR^2). \]
+Now $q$ is simply a projection onto the second summand.
+Since $\RR^2$ is abelian, it follows that
+the restriction of $\phi_\infty$ to $\FL^\ell(\RR^2)$ factor through $q$ 
+for all $\ell \ge 2$.
+
+Now, suppose $x \in \ker\psi$, so that $\phi_\infty(x) \in \ker q$, with $x \in \FL^\ell(\RR^2)$.
+If $\ell=1$, $\phi_\infty(x)$ is a horizontal lift of an element of $\RR^2$ -- clearly, no such lift
+acts as a mere translation (except for the trivial one), so that $\ker\phi_\infty(x)=0$. If $\ell\ge2$, 
+$\phi_\infty(x)$ is in the image of the projection $q$, whence $\phi_\infty(x)=0$ again. Thus
+$\FL^\ell(\RR^2) \cap \ker\psi \subset \ker\phi_\infty$ for all $\ell>0$.
+\end{proof}
+
+As a consequence, the incusion $\iota$ in the above commutative diagram
+lifts to an inclusion $\widetilde\iota : \fL_+ \to \XX(\sM_\infty)^{\RR^2}$  such that
+$\phi_\infty = \widetilde\iota \circ \psi$. In particular, the Lie algebra generated
+by $X$, $Y$ is isomorphic to $\fL_+$.
+Hence, we find
+that \emph{the symbol of $D_n$ at a general point $m \in \sM_n$ is a graded quotient Lie algebra of 
+$\fL_+$}. Now, the puzzle almost reduces to the following observation.
+
+\begin{lem*} For each $n \in \NN$, there is, up to isomorphism, precisely one $(n+2)$-dimensional graded quotient 
+        Lie algebra of $\fL_+$ generated in degree $1$. The ranks of its graded components follow the
+        pattern of the table in Subsection~\ref{subsec:table}.
+\end{lem*}
+\begin{proof}
+It will be enough to classify graded Lie algebra epimorphisms $\fL_+ \to \fg$,
+with $\fg$ generated in degree $1$, up to equivalence given by diagrams
+\[\begin{tikzcd}
+        \fL_+ \arrow[d] \arrow[r,"g"] & \fL_+ \arrow[d] \\
+        \fg \arrow[r,"\simeq"] & \fg'
+\end{tikzcd}\]
+with $g \in \O(2)$ acting on $\fL_+$ by automorphisms.
+These are in one-to-one correspondence with graded ideals $I \subset \fL_+$ such that $I_1 = 0$,
+up to the action of $\O(2)$.
+
+Suppose $I$ is such an ideal. Then:
+\begin{enumerate}
+        \item if $I_{2i}\neq0$ for some $i>0$, then $I_\ell = \fL_\ell$ for all $\ell \ge 2i$;
+        \item if $I_{2i+1}\neq0$ for some $i>0$, then $I_\ell = \fL_\ell$ for all $\ell \ge 2i+2$.
+\end{enumerate}
+Indeed, if $I_{2i} \neq 0$ then $I_{2i} = \fL_{2i}$ and
+$I_{2i+1}=[\fL_1,I_{2i}]=\fL_{2i+1}$. If $I_{2i+1} \neq 0$, then
+$I_{2i+2}=[\fL_1,I_{2i+1}]=\fL_{2i+2}$. The claims then follow by induction. 
+
+Ultimately thus, letting $e_1^{(2k+1)}$ denote the image of 
+$e_1$ under the identification $\fL_{2k}\simeq \RR^2$,
+we have the following classes of ideals $I$ up to $\O(2)$-conjugacy:
+\begin{center}\begin{tabular}{@{}ll@{}}
+        \toprule
+        $I$ & $\dim\fL_+/I$ \\
+        \midrule
+        $\sum_{\ell \ge 2k} \fL_\ell$ & $3k-1$ \\
+        $\sum_{\ell \ge 2k+1} \fL_\ell$ & $3k$ \\
+        $\RR e_1^{(2k+1)} + \sum_{\ell > 2k+1} \fL_\ell$ & $3k+1$. \\ \bottomrule
+\end{tabular}\end{center}
+The main claim then follows by inspection.
+\end{proof}
+
+\subsection{}
+There is one missing piece: I haven't really demonstrated that our distributions
+are bracket-generating, i.e. that 
+the rank of the symbol, $r_n = \rk\Symb_m D_n$ at a general point $m \in \sM_n$,
+equals the dimension of the configuration space $\dim\sM_n=n+2$. 
+Suppose thus this is not the case, and let $n^* \in \NN$ be the least $n$
+such that $D_n$ is not bracket generating. It is easy to see that 
+then $r_n = r_{n^*} = n^*+2$ for all $n \ge n^*$, i.e. the symbol stabilises at $n=n^*$.
+It follows that, \emph{locally,} the integrable distribution generated by $D_n$
+induces a foliation of $\sM_n$ whose leaves map diffeomorphically to $\sM_{n^*}$.
+Let $U \subset \sM_n$ be an open neighbourhood of a general point $m \in \sM_n$,
+trivialising the foliation so that there is an identification
+\[ U \simeq \overline U \times W,\quad \overline U = \pi^n_{n^*}(U) \]
+such that $\pr_2 : U \to W$ is the projection onto the leaf space,
+while $\pr_1 : U \to \overline U$ is a restriction of $\pi^n_{n^*}$.
+Vector fields in the image of $\phi_n$ are parallel to the leaves,
+and by virtue of projectability we have
+\[ \res_U \circ \phi_n = \iota_1 \circ \res_{\overline U} \circ \phi_{n^*} \]
+where $\iota_1 : \XX(\overline U) \to \XX(\overline U \times W) \simeq \XX(U)$
+is the trivial horizontal lift along $\pr_1 :U \to \overline U$.
+As a consequence (using analyticity of vector fields in the image of $\phi_n$,
+or the fact that $U$ can be taken to be dense in $\sM_n$, both easy to establish),
+we then have
+\[ \ker \phi_n = \ker \phi_{n^*}. \]
+Since $\XX^{\pr}(\sM_\infty) = \varprojlim_n \XX^{\pr}(\sM_n)$, we then get
+\[ \ker \phi_\infty = \ker\phi_{n^*} \]
+and thus an isomorphism of $\fL_+$ with the image of $\phi_{n^*}$ in $\XX(\sM_{n^*})$.
+
