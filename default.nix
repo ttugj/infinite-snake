@@ -1,4 +1,4 @@
-with import ~/nixpkgs {};
+with import <nixpkgs> {};
 let lean = stdenv.mkDerivation rec {
   pname = "lean";
   version = "3.15.0";
@@ -18,7 +18,7 @@ let lean = stdenv.mkDerivation rec {
     cd src
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Automatic and interactive theorem prover";
     homepage    = "https://leanprover.github.io/";
     changelog   = "https://github.com/leanprover-community/lean/blob/v${version}/doc/changes.md";

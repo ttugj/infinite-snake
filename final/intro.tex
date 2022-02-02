@@ -239,13 +239,13 @@ along with the head map $\hd : M \to \TT$: these define an isomorphism
 \[ \langle \hd,\ttl\rangle : M \xrightarrow{\simeq} \TT \times M. \]
 Using its inverse, we consider the pair of injective homomorphisms
 \[ \XX_\CC(\TT) \xrightarrow{\iota} \XX_\CC(M) \xleftarrow{\sigma} \XX_\CC(M) \]
-of Lie algebras. In particular, the `shift map'
+of Lie algebras. In particular, the `shift operator'
 $\sigma$ sends an infinitesimal motion of the infinte snake,
 now viewed as the tail of another infinite snake, to
 an infinitesimal motion of the latter, keeping the head immobile. 
 Now, we have the relation:
 \begin{equation}\label{eq:rec-rel-first}
-        \fbox{\zeta^+ = z^2\partial_z + z\sigma\left(\zeta^+ + z\partial_z \right) }
+        \zeta^+ = z^2\partial_z + z\sigma\left(\zeta^+ + z\partial_z \right) 
 \end{equation}
 where $z \in C^\infty(\TT, \CC)$ is the standard complex coordinate
 on the torus, and we've omitted the maps $\hd^* : C^\infty(\TT,\CC) \to C^\infty(M,\CC)$
@@ -259,7 +259,8 @@ Here's a number of observations regarding \eqref{eq:rec-rel-first}.
         \item 
                 There is a reflection in $\O(2)$ inducing involutions
                 on $\XX_\CC(M)$ and related spaces, denoted by $\tau$,
-                such that $\tau\sigma=\sigma\tau$, $\tau z = z^{-1}\tau$, and
+                such that $\tau\sigma=\sigma\tau$, $\tau z = z^{-1}\tau$
+                as operators on $\XX_\CC(M)$, and
                 $\zeta^- = \tau\zeta^+$. Hence \eqref{eq:rec-rel-first} determines $\zeta^-$ as well.
         \item 
                 The vector fields $z^2\partial_z$, $z\partial_z$ and $\tau(z^2\partial_z) = \partial_z$,
@@ -277,5 +278,19 @@ as constructing an object over the infinite-dimensional space $M$
 in terms of finite-dimensional data -- a pair of elements of $\sl(2,\CC)$ embedded in $\XX_\CC(M)$.
 That is the `taming' of the snake's infinite aspect by means of the shift semi-symmetry and associated (co)recursion 
 (cf. the picture of Ouroboros eating its tail on the title page).
+The strategy for proving Theorem~\ref{thm:main} is now easy to guess: we seek relations analogous
+to \eqref{eq:rec-rel-first} satisfied by iterated Lie brackets of $\zeta^\pm$, and use these to
+determine $\ker\xi \subset \FL(\CC^2)$.
 
+\subsection{}
+Section \ref{sec:deriving} constructs the reduced configuration space $M$ along
+with the map $\RR^2 \to \XX(M)$, and derives an identity relating the latter with
+the tail map. Section \ref{sec:abstracting} passes to the complexification and
+then to a further abstract setting, defined by algebraic relations between
+$\sigma$, $z$, etc. Theorem~\ref{thm:main} is reduced to its algebraic analogue, Theorem~\ref{thm:algebraic}.
+The latter is proved in Section \ref{sec:proving}. Finally, Section \ref{sec:final} fills in
+some details regarding the symbols of finite snakes, and discusses several other aspects of
+our result.
+
+\subsection*{Acknowledgements}
 \endinput
